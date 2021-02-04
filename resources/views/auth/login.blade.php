@@ -2,7 +2,7 @@
     <x-slot name="title">
         Select Role
     </x-slot>    
-    <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">        
+    <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-50">        
         <h3 class="text-3xl text-center">Select Role</h3>
         <a href="{{ route('login.admin') }}" class="w-full sm:max-w-md mt-3 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg transform hover:scale-110 transition ease-in-out hover:bg-purple-400 hover:text-white">
             <h1>Admin</h1>

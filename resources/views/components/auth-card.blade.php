@@ -1,6 +1,6 @@
-<div class="min-h-screen flex flex-row sm:justify-around items-center pt-6 sm:pt-0 bg-gray-100">
+<div class="min-h-screen flex flex-row sm:justify-around items-center pt-6 sm:pt-0 bg-gray-50">
     <div class="w-0 md:w-1/2">
-        {{ $image ?? 'lol' }}
+        {{ $image }}
     </div>
 
     <div class="w-full sm:max-w-md">
