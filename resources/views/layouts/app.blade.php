@@ -32,5 +32,13 @@
                 {{ $slot }}
             </main>
         </div>
+
+        <!-- Vue.js -->
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6"></script>
+        <!-- Lastly add this package -->
+        <script src="https://cdn.jsdelivr.net/npm/vue-toast-notification"></script>
+        <link href="https://cdn.jsdelivr.net/npm/vue-toast-notification/dist/theme-sugar.css" rel="stylesheet">
+        <!-- Init the plugin -->
+            {{ $script ?? ''}} 
     </body>
 </html>

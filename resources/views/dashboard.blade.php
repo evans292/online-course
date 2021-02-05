@@ -14,4 +14,43 @@
             </div>
         </div>
     </div>
+
+    <x-slot name="script">
+        @if (session('student'))
+        <script>
+            Vue.use(VueToast);
+            Vue.$toast.success('Hello Student!', {
+             duration: 5000,
+             dismissible: true,
+            })
+        </script>
+        @endif
+        @if (session('teacher'))
+        <script>
+            Vue.use(VueToast);
+            Vue.$toast.success('Hello Teacher!', {
+             duration: 5000,
+             dismissible: true,
+            })
+        </script>
+        @endif
+        @if (session('headmaster'))
+        <script>
+            Vue.use(VueToast);
+            Vue.$toast.success('Hello Headmaster!', {
+             duration: 5000,
+             dismissible: true,
+            })
+        </script>
+        @endif
+        @if (session('admin'))
+        <script>
+            Vue.use(VueToast);
+            Vue.$toast.success('Hello Admin!', {
+             duration: 5000,
+             dismissible: true,
+            })
+        </script>
+        @endif
+    </x-slot>
 </x-app-layout>

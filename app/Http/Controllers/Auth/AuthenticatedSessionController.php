@@ -46,8 +46,15 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
-
-        return redirect(RouteServiceProvider::HOME);
+        if ($request->role === 'student') {
+            return redirect(RouteServiceProvider::HOME)->with('student', $request->role);
+        } else if ($request->role === 'teacher') {
+            return redirect(RouteServiceProvider::HOME)->with('teacher', $request->role);
+        } else if ($request->role === 'headmaster') {
+            return redirect(RouteServiceProvider::HOME)->with('headmaster', $request->role);
+        } else if ($request->role === 'admin'){
+            return redirect(RouteServiceProvider::HOME)->with('admin', $request->role);
+        }
     }
 
     /**
