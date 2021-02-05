@@ -15,6 +15,26 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    @can('manage-users')
+                    <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.index')">
+                        {{ __('User') }}
+                    </x-nav-link>
+                    @endcan
+                    @can('view-lessons')
+                    <x-nav-link :href="route('student.lessons.index')" :active="request()->routeIs('student.lessons.index')">
+                        {{ __('Lessons') }}
+                    </x-nav-link>
+                    @endcan
+                    @can('manage-courses')
+                    <x-nav-link :href="route('teacher.courses.index')" :active="request()->routeIs('teacher.courses.index')">
+                        {{ __('Courses') }}
+                    </x-nav-link>
+                    @endcan
+                    @can('view-data')
+                    <x-nav-link :href="route('headmaster.data.index')" :active="request()->routeIs('headmaster.data.index')">
+                        {{ __('Data') }}
+                    </x-nav-link>
+                    @endcan
                 </div>
             </div>
 
