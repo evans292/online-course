@@ -20,8 +20,9 @@
         <script>
             Vue.use(VueToast);
             Vue.$toast.success('Hello Student!', {
-             duration: 5000,
+             duration: 1500,
              dismissible: true,
+             position: 'top'
             })
         </script>
         @endif
@@ -29,8 +30,9 @@
         <script>
             Vue.use(VueToast);
             Vue.$toast.success('Hello Teacher!', {
-             duration: 5000,
+             duration: 1500,
              dismissible: true,
+             position: 'top'
             })
         </script>
         @endif
@@ -38,8 +40,9 @@
         <script>
             Vue.use(VueToast);
             Vue.$toast.success('Hello Headmaster!', {
-             duration: 5000,
+             duration: 1500,
              dismissible: true,
+             position: 'top'
             })
         </script>
         @endif
@@ -47,8 +50,9 @@
         <script>
             Vue.use(VueToast);
             Vue.$toast.success('Hello Admin!', {
-             duration: 5000,
+             duration: 1500,
              dismissible: true,
+             position: 'top'
             })
         </script>
         @endif
