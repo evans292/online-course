@@ -10,7 +10,7 @@
 
     <div>
         <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
-            Accessible only for administrators.
+            Accessible only for admin.
         </div>
     </div>
 </x-app-layout>
