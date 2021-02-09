@@ -41,6 +41,7 @@ class UserSeeder extends Seeder
 
         Student::create([
             'nis' => '2912002',
+            'schoolclass_id' => null,
             'user_id' => $student->id,
             'name' => $student->name
         ]);
