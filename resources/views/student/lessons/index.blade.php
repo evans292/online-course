@@ -8,13 +8,18 @@
         </h2>
     </x-slot>
 
-    <div>
-        <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
-            <ul class="list-disc">
-                @foreach ($courses as $course)
-                    <li class="">{{ $course->name }}</li>
-                @endforeach
-            </ul>
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 bg-white border-b border-gray-200">
+                    <h1 class="p-2 mb-2 text-xl font-semibold">{{ $class->name }}</h1>
+                    <ul class="list-reset flex flex-col">
+                        @foreach ($class->courses as $course)
+                            <li class="rounded-t relative -mb-px block border p-4 border-grey">{{ $course->name }}</li>
+                        @endforeach
+                      </ul>
+                </div>
+            </div>
         </div>
     </div>
 </x-app-layout>

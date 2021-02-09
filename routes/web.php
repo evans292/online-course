@@ -32,7 +32,7 @@ Route::group(['middleware' => 'auth'], function() {
         Route::resource('lessons', LessonController::class);
     });
    Route::group(['middleware' => 'role:teacher', 'prefix' => 'teacher', 'as' => 'teacher.'], function() {
-       Route::resource('courses', CourseController::class);
+       Route::resource('manage-courses', CourseController::class);
    });
     Route::group(['middleware' => 'role:admin', 'prefix' => 'admin', 'as' => 'admin.'], function() {
         Route::resource('users', UserController::class);

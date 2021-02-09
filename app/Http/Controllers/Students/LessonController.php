@@ -21,10 +21,13 @@ class LessonController extends Controller
         if (Gate::denies('view-lessons')) {
             abort(403);
         }
-        $getClassId = Auth::user()->students[0]->schoolclass_id;
-        $courses = Schoolclass::find($getClassId)->courses;
 
-        return view('student.lessons.index', compact('courses'));
+        $getClassId = Auth::user()->students[0]->schoolclass_id;
+        if (Schoolclass::find($getClassId) !== null) {
+            $class = Schoolclass::find($getClassId);
+            return view('student.lessons.index', compact('class'));
+        }
+        return abort(404);
     }
 
     /**

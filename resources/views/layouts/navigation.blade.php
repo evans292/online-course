@@ -27,7 +27,7 @@
                     @endcan
                     @can('manage-courses')
                     <x-nav-link :href="route('teacher.courses.index')" :active="request()->routeIs('teacher.courses.index')">
-                        {{ __('Courses') }}
+                        {{ __('Manage Courses') }}
                     </x-nav-link>
                     @endcan
                     @can('view-data')
