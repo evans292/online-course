@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Students;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Schoolclass;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class LessonController extends Controller
@@ -19,7 +21,10 @@ class LessonController extends Controller
         if (Gate::denies('view-lessons')) {
             abort(403);
         }
-        return view('student.lessons.index');
+        $getClassId = Auth::user()->students[0]->schoolclass_id;
+        $courses = Schoolclass::find($getClassId)->courses;
+
+        return view('student.lessons.index', compact('courses'));
     }
 
     /**

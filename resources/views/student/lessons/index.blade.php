@@ -10,7 +10,11 @@
 
     <div>
         <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
-            Accessible only for students.
+            <ul class="list-disc">
+                @foreach ($courses as $course)
+                    <li class="">{{ $course->name }}</li>
+                @endforeach
+            </ul>
         </div>
     </div>
 </x-app-layout>
