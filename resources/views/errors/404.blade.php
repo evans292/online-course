@@ -2,4 +2,4 @@
 
 @section('title', __('Not Found'))
 @section('code', '404')
-@section('message', __('fill your class in profile before accessing courses'))
+@section('message', __('Not Found'))

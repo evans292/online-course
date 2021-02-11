@@ -6,7 +6,7 @@
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-10 w-auto fill-current text-gray-600" />
+                        <x-application-logo class="block h-10 w-auto fill-current text-green-600" />
                     </a>
                 </div>
 
@@ -54,6 +54,9 @@
                     </x-slot>
 
                     <x-slot name="content">
+                        <x-dropdown-link href="#">
+                            {{ __('Profile') }}
+                        </x-dropdown-link>
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
@@ -86,6 +89,26 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            @can('manage-users')
+            <x-responsive-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.index')">
+                {{ __('User') }}
+            </x-responsive-nav-link>
+            @endcan
+            @can('view-lessons')
+            <x-responsive-nav-link :href="route('student.lessons.index')" :active="request()->routeIs('student.lessons.index')">
+                {{ __('Lessons') }}
+            </x-responsive-nav-link>
+            @endcan
+            @can('manage-courses')
+            <x-responsive-nav-link :href="route('teacher.courses.index')" :active="request()->routeIs('teacher.courses.index')">
+                {{ __('Manage Courses') }}
+            </x-responsive-nav-link>
+            @endcan
+            @can('view-data')
+            <x-responsive-nav-link :href="route('headmaster.data.index')" :active="request()->routeIs('headmaster.data.index')">
+                {{ __('Data') }}
+            </x-responsive-nav-link>
+            @endcan
         </div>
 
         <!-- Responsive Settings Options -->
@@ -104,6 +127,9 @@
             </div>
 
             <div class="mt-3 space-y-1">
+                <x-responsive-nav-link href="#">
+                    {{ __('Profile') }}
+                </x-responsive-nav-link>
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf

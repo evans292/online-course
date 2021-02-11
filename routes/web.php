@@ -29,6 +29,7 @@ require __DIR__.'/auth.php';
 
 Route::group(['middleware' => 'auth'], function() {
     Route::group(['middleware' => 'role:student', 'prefix' => 'student', 'as' => 'student.'], function() {
+        Route::get('lessons/{id}', [LessonController::class, 'showSubject'])->name('myReports');
         Route::resource('lessons', LessonController::class);
     });
    Route::group(['middleware' => 'role:teacher', 'prefix' => 'teacher', 'as' => 'teacher.'], function() {
