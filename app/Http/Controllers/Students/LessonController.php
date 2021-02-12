@@ -27,39 +27,6 @@ class LessonController extends Controller
         $class = Schoolclass::find($getClassId);
         return view('student.lessons.index', compact('class'));
     }
-
-    public function showSubject($id)
-    {
-        $subjectmatters = Course::find($id)->subjectmatters;
-        $courseid = 0;
-        foreach ($subjectmatters as $subjectmatter) {
-            $courseid = $subjectmatter->course_id;
-
-        }
-        // echo("ini subject matter course $lol1");
-        if ($courseid === 0) {
-            $count = 0;
-            $course = Course::find($id)->name;
-            return view('student.lessons.subject', compact('subjectmatters', 'count', 'course'));
-        }
-        $count = $subjectmatters->count();
-
-        $getClassId = Auth::user()->students[0]->schoolclass_id;
-        $class = Schoolclass::find($getClassId)->courses;
-
-        for ($i=0; $i < $class->count(); $i++) { 
-            # code...
-            // echo($class[$i]->pivot);
-            if ($courseid === $class[$i]->pivot->course_id) {
-                $course = Course::find($id)->name;
-                return view('student.lessons.subject', compact('subjectmatters', 'count', 'course'));
-            }
-        }
-        
-        
-        abort(403);
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -90,6 +57,34 @@ class LessonController extends Controller
     public function show($id)
     {
         //
+        $subjectmatters = Course::find($id)->subjectmatters;
+        $courseid = 0;
+        foreach ($subjectmatters as $subjectmatter) {
+            $courseid = $subjectmatter->course_id;
+
+        }
+        // echo("ini subject matter course $lol1");
+        if ($courseid === 0) {
+            $count = 0;
+            $course = Course::find($id)->name;
+            return view('student.lessons.subject', compact('subjectmatters', 'count', 'course'));
+        }
+        $count = $subjectmatters->count();
+
+        $getClassId = Auth::user()->students[0]->schoolclass_id;
+        $class = Schoolclass::find($getClassId)->courses;
+
+        for ($i=0; $i < $class->count(); $i++) { 
+            # code...
+            // echo($class[$i]->pivot);
+            if ($courseid === $class[$i]->pivot->course_id) {
+                $course = Course::find($id)->name;
+                return view('student.lessons.course', compact('subjectmatters', 'count', 'course'));
+            }
+        }
+        
+        
+        abort(403);
     }
 
     /**

@@ -5,6 +5,7 @@ use App\Http\Controllers\Students\LessonController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Teachers\CourseController;
 use App\Http\Controllers\Headmaster\DataController;
+use App\Http\Controllers\Students\SubjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,11 +30,11 @@ require __DIR__.'/auth.php';
 
 Route::group(['middleware' => 'auth'], function() {
     Route::group(['middleware' => 'role:student', 'prefix' => 'student', 'as' => 'student.'], function() {
-        Route::get('lessons/{id}', [LessonController::class, 'showSubject'])->name('myReports');
         Route::resource('lessons', LessonController::class);
+        Route::resource('lessons.subjectmatters', SubjectController::class);
     });
    Route::group(['middleware' => 'role:teacher', 'prefix' => 'teacher', 'as' => 'teacher.'], function() {
-       Route::resource('manage-courses', CourseController::class);
+       Route::resource('courses', CourseController::class);
    });
     Route::group(['middleware' => 'role:admin', 'prefix' => 'admin', 'as' => 'admin.'], function() {
         Route::resource('users', UserController::class);
