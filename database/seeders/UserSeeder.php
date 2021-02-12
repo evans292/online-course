@@ -46,6 +46,34 @@ class UserSeeder extends Seeder
             'name' => $student->name
         ]);
 
+        $student2 = User::create([
+            'name' => 'Student 2',
+            'role_id' => 2,
+            'email' => 'student2@example.com',
+            'password' => Hash::make('otakugamer'),
+        ]);
+
+        Student::create([
+            'nis' => '030602',
+            'schoolclass_id' => null,
+            'user_id' => $student2->id,
+            'name' => $student2->name
+        ]);
+
+        $student3 = User::create([
+            'name' => 'Student 3',
+            'role_id' => 2,
+            'email' => 'student3@example.com',
+            'password' => Hash::make('otakugamer'),
+        ]);
+
+        Student::create([
+            'nis' => '6969669',
+            'schoolclass_id' => null,
+            'user_id' => $student3->id,
+            'name' => $student3->name
+        ]);
+
         $teacher = User::create([
             'name' => 'Teacher',
             'role_id' => 3,

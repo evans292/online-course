@@ -17,9 +17,13 @@
                         @else
                         <ul class="list-reset flex flex-col">
                             <h1 class="p-2 mb-2 text-xl font-semibold">{{ $class->name }}</h1>
+                            @if ($class->count() === 0)
+                                <h5 class="text-gray-400 p-2">courses empty!</h5>
+                            @else
                             @foreach ($class->courses as $course)
                                 <li class="rounded-t relative -mb-px block border p-4 border-grey"><a href="/student/lessons/{{ $course->id }}" class="hover:text-green-400">{{ $course->name }}</a></li>
                             @endforeach
+                            @endif
                         </ul>
                     @endif
                 </div>

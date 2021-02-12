@@ -6,6 +6,7 @@ use App\Models\Course;
 use Illuminate\Http\Request;
 use App\Models\Subjectmatter;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class SubjectController extends Controller
 {
@@ -84,5 +85,14 @@ class SubjectController extends Controller
     public function destroy(Subjectmatter $subjectmatter)
     {
         //
+    }
+
+    public function download(Course $lesson, Subjectmatter  $subjectmatter)
+    {
+        try {
+            return Storage::disk('local')->download($subjectmatter->path);
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
     }
 }

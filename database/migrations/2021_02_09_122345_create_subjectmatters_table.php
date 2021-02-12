@@ -17,6 +17,7 @@ class CreateSubjectmattersTable extends Migration
             $table->id();
             $table->foreignId('course_id')->nullable()->constrained();
             $table->string('title');
+            $table->text('details');
             $table->string('path');
             $table->timestamps();
         });

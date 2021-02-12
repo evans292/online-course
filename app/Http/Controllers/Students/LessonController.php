@@ -84,7 +84,7 @@ class LessonController extends Controller
         }
         
         
-        abort(403);
+        abort(403, 'Nakal ya, bukan mapel kamu XD');
     }
 
     /**
