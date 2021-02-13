@@ -46,4 +46,19 @@ class User extends Authenticatable
     {
         return $this->hasMany(Student::class);
     }
+
+    public function teachers() 
+    {
+        return $this->hasMany(Teacher::class);
+    }
+
+    public function headmasters() 
+    {
+        return $this->hasMany(Headmaster::class);
+    }
+
+    public function admins() 
+    {
+        return $this->hasMany(Admin::class);
+    }
 }

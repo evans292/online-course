@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Teachers\CourseController;
 use App\Http\Controllers\Headmaster\DataController;
 use App\Http\Controllers\Students\SubjectController;
+use App\Http\Controllers\User\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,17 +30,22 @@ Route::get('/dashboard', function () {
 require __DIR__.'/auth.php';
 
 Route::group(['middleware' => 'auth'], function() {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile');
+    Route::patch('/profile/{userid}/{profileid}', [ProfileController::class, 'update'])->name('profile.update');
     Route::group(['middleware' => 'role:student', 'prefix' => 'student', 'as' => 'student.'], function() {
         Route::resource('lessons', LessonController::class);
-        Route::get('lessons/{lesson}/subjectmatters/{subjectmatter}/download', [SubjectController::class, 'download']);
+        Route::get('lessons/{lesson}/subjectmatters/{subjectmatter}/download', [SubjectController::class, 'download'])->name('subject.download');
         Route::resource('lessons.subjectmatters', SubjectController::class);
     });
+
    Route::group(['middleware' => 'role:teacher', 'prefix' => 'teacher', 'as' => 'teacher.'], function() {
        Route::resource('courses', CourseController::class);
    });
+
     Route::group(['middleware' => 'role:admin', 'prefix' => 'admin', 'as' => 'admin.'], function() {
         Route::resource('users', UserController::class);
     });
+
     Route::group(['middleware' => 'role:headmaster', 'prefix' => 'headmaster', 'as' => 'headmaster.'], function() {
         Route::resource('data', DataController::class);
     });

@@ -16,4 +16,9 @@ class Headmaster extends Model
     'gender', 
     'address', 
     'phone'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

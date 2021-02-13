@@ -12,7 +12,13 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-
+        <style>
+            input::-webkit-outer-spin-button,
+            input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+            }
+        </style>
         <!-- Scripts -->
         <script src="{{asset('js/app.js')}}" defer></script>
     </head>

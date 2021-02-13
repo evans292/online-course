@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Students;
 
 use App\Models\Course;
+use App\Models\Schoolclass;
 use Illuminate\Http\Request;
 use App\Models\Subjectmatter;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class SubjectController extends Controller
@@ -50,7 +52,16 @@ class SubjectController extends Controller
     public function show(Course $lesson, Subjectmatter $subjectmatter)
     {
         //
-        return view('student.lessons.subject.show_subject', compact('subjectmatter'));
+        $getClassId = Auth::user()->students[0]->schoolclass_id;
+        $class = Schoolclass::find($getClassId)->courses;
+        for ($i=0; $i < $class->count(); $i++) { 
+            # code...
+            // echo($class[$i]->pivot);
+            if ($lesson->id === $class[$i]->pivot->course_id) {
+                return view('student.lessons.subject.show_subject', compact('subjectmatter'));
+            }
+        }
+        abort(403, 'Dibilangin bukan mapel kamu T_T');
     }
 
     /**
@@ -89,10 +100,19 @@ class SubjectController extends Controller
 
     public function download(Course $lesson, Subjectmatter  $subjectmatter)
     {
-        try {
-            return Storage::disk('local')->download($subjectmatter->path);
-        } catch (\Exception $e) {
-            return $e->getMessage();
+        $getClassId = Auth::user()->students[0]->schoolclass_id;
+        $class = Schoolclass::find($getClassId)->courses;
+        for ($i=0; $i < $class->count(); $i++) { 
+            # code...
+            // echo($class[$i]->pivot);
+            if ($lesson->id === $class[$i]->pivot->course_id) {
+            try {
+                    return Storage::disk('local')->download($subjectmatter->path);
+                } catch (\Exception $e) {
+                    return $e->getMessage();
+                }
+            }
         }
+        abort(403, 'Bukan mapel kamu woi -_-');
     }
 }
