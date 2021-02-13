@@ -30,7 +30,6 @@ class UpdateProfileRequest extends FormRequest
             'gender' => 'required',
             'address' => 'required',
             'phone' => 'required|max:12',
-            'schoolclass_id' => 'required'
         ];
     }
 }

@@ -12,17 +12,16 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <form method="POST" action="{{ route('profile.update', ['userid' => $data->user_id, 'profileid' => $data->id]) }}" novalidate>
+                    <form method="post" action="{{ route('profile.update', ['userid' => $data->user_id, 'profileid' => $data->id]) }}" novalidate>
                         @csrf
                         @method('patch')
-
                         @if (Auth::user()->role_id === 2)
                         <div class="mb-4">
                             <x-label for="nis" :value="__('NIS')" />
                             <x-input id="nis" class="block mt-1 w-full bg-gray-100" type="number" name="nis" value="{{ $data->nis }}" required disabled/>
                             <x-validation-message name="nis"/>
                         </div>
-                        @elseif (Auth::user()->role_id === 3 || 4)
+                        @elseif (Auth::user()->role_id === 3 || Auth::user()->role_id === 4)
                         <div class="mb-4">
                             <x-label for="nip" :value="__('NIP')" />
                             <x-input id="nip" class="block mt-1 w-full bg-gray-100" type="number" name="nip" value="{{ $data->nip }}" required disabled/>
