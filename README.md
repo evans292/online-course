@@ -11,9 +11,9 @@
 
 This online course app is my school project, using Laravel + Alpine Js + Tailwind Css. Our team members : 
 
-- Tubagus Gusti Fauzy
 - Euis Khoirunnisa
 - Fadhilla Oktaviani
+- Tubagus Gusti Fauzy
 
 ## About Laravel
 
