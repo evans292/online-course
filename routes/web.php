@@ -30,8 +30,11 @@ Route::get('/dashboard', function () {
 require __DIR__.'/auth.php';
 
 Route::group(['middleware' => 'auth'], function() {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile');
-    Route::patch('/profile/{userid}/{profileid}', [ProfileController::class, 'update'])->name('profile.update');
+    Route::group(['prefix' => 'profile'], function () {
+        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile');
+        Route::patch('/profile/{userid}/{profileid}', [ProfileController::class, 'update'])->name('profile.update');
+    });
+    
     Route::group(['middleware' => 'role:student', 'prefix' => 'student', 'as' => 'student.'], function() {
         Route::resource('lessons', LessonController::class);
         Route::get('lessons/{lesson}/subjectmatters/{subjectmatter}/download', [SubjectController::class, 'download'])->name('subject.download');

@@ -40,7 +40,7 @@ class UserSeeder extends Seeder
         ]);
 
         Student::create([
-            'nis' => '2912002',
+            'nis' => '12345',
             'schoolclass_id' => null,
             'user_id' => $student->id,
             'name' => $student->name
@@ -54,7 +54,7 @@ class UserSeeder extends Seeder
         ]);
 
         Student::create([
-            'nis' => '030602',
+            'nis' => '34521',
             'schoolclass_id' => null,
             'user_id' => $student2->id,
             'name' => $student2->name
@@ -68,7 +68,7 @@ class UserSeeder extends Seeder
         ]);
 
         Student::create([
-            'nis' => '6969669',
+            'nis' => '54321',
             'schoolclass_id' => null,
             'user_id' => $student3->id,
             'name' => $student3->name
@@ -82,7 +82,7 @@ class UserSeeder extends Seeder
         ]);
 
         Teacher::create([
-            'nip' => '2912002',
+            'nip' => '291202',
             'user_id' => $teacher->id,
             'name' => $teacher->name
         ]);
@@ -95,7 +95,7 @@ class UserSeeder extends Seeder
         ]);
 
         Headmaster::create([
-            'nip' => '2912002',
+            'nip' => '030602',
             'user_id' => $headmaster->id,
             'name' => $headmaster->name
         ]);

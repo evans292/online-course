@@ -30,6 +30,7 @@ class UpdateProfileRequest extends FormRequest
             'gender' => 'required',
             'address' => 'required',
             'phone' => 'required|max:12',
+            'pic' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ];
     }
 }

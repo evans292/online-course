@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Models\{User, Admin, Student, Teacher, Headmaster, Schoolclass};
+use DateTime;
+use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UpdateProfileRequest;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\UpdateProfileRequest;
+use App\Models\{User, Admin, Student, Teacher, Headmaster, Schoolclass};
 
 class ProfileController extends Controller
 {
@@ -30,7 +33,17 @@ class ProfileController extends Controller
 
     public function update(UpdateProfileRequest $request, $userid, $profileid)
     {
-        // dd($request);
+        $name_slug = Str::slug(request('name'));
+        $datetime = new DateTime();
+
+        $picture = $request->file('pic');
+        $pictureUrl = Auth::user()->profilepic;
+        if ($picture !== null) {
+            if (Auth::user()->profilepic !== null) {
+                Storage::disk('local')->delete('public/' . Auth::user()->profilepic);
+            }
+            $pictureUrl = $picture->storeAs("images/profilepic", "{$name_slug}-{$datetime->format('Y-m-d-s')}.{$picture->extension()}");
+        }
         $user = User::find($userid);
         if ($user->role_id === 1) {
             Admin::where('id', $profileid)->update([
@@ -42,6 +55,7 @@ class ProfileController extends Controller
             ]);
 
             $user->name = $request->name;
+            $user->profilepic = $pictureUrl;
             $user->save();
         } else if ($user->role_id === 2) {
             Student::where('id', $profileid)->update([
@@ -54,6 +68,7 @@ class ProfileController extends Controller
             ]);
 
             $user->name = $request->name;
+            $user->profilepic = $pictureUrl;
             $user->save();
         } else if ($user->role_id === 3) {
             Teacher::where('id', $profileid)->update([
@@ -65,6 +80,7 @@ class ProfileController extends Controller
             ]);
 
             $user->name = $request->name;
+            $user->profilepic = $pictureUrl;
             $user->save();
         } else {
             Headmaster::where('id', $profileid)->update([
@@ -76,6 +92,7 @@ class ProfileController extends Controller
             ]);
 
             $user->name = $request->name;
+            $user->profilepic = $pictureUrl;
             $user->save();
         }
         
