@@ -24,6 +24,9 @@
                     @endif
                 </div>
             </div>
+          {{ $subjectmatters->links() }}
         </div>
     </div>
+
+
 </x-app-layout>

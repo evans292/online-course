@@ -57,7 +57,7 @@ class LessonController extends Controller
     public function show($id)
     {
         //
-        $subjectmatters = Course::find($id)->subjectmatters;
+        $subjectmatters = Course::find($id)->subjectmatters()->paginate(5);
         $courseid = 0;
         foreach ($subjectmatters as $subjectmatter) {
             $courseid = $subjectmatter->course_id;
