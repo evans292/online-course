@@ -68,7 +68,11 @@
                               <td class="px-4 py-4">{{ $data->teacher->name }}</td>
                               <td class="px-4 py-4">{{ $data->created_at->diffForHumans() }}</td>
                               <td class="px-4 py-4">
-                                <a href="#"><i class="fas fa-trash-alt text-red-400 mr-1"></i></a>
+                                <form id="{{ $data->id }}" action="{{ route('teacher.courses.destroy', ['course' => $data->id]) }}" method="POST">
+                                  @csrf
+                                  @method('delete')
+                                </form>
+                                <a href="#" onclick="deleteConfirm('{{ $data->title }}', '{{ $data->id }}')"><i class="fas fa-trash-alt text-red-400 mr-1"></i></a>
                                 <a href="#"><i class="fas fa-pencil-alt text-yellow-400"></i></a>
                               </td>
                             </tr>
@@ -98,4 +102,15 @@
         </div>
     </div>
 
+    <x-slot name="script">
+      @if (session('success'))
+      <script>
+          Vue.use(VueToast);
+          Vue.$toast.success('Subject deleted!', {
+           duration: 1500,
+           dismissible: true,
+          })
+      </script>
+      @endif
+  </x-slot>
 </x-app-layout>

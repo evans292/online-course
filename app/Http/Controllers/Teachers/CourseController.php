@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\SubjectMatterRequest;
 use App\Models\{Teacher, Schoolclass, Subjectmatter};
 
@@ -125,5 +126,9 @@ class CourseController extends Controller
     public function destroy($id)
     {
         //
+        $subject = Subjectmatter::find($id);
+        $subject->delete();
+        Storage::disk('local')->delete($subject->path);
+        return redirect()->back()->with('success', 'lol');
     }
 }
