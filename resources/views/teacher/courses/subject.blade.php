@@ -31,7 +31,7 @@
                           <circle cx="7.04991" cy="1.80115" r="1.38611" fill="#222222"/>
                           </g>
                           </svg> --}}
-                        <a href="{{ route('teacher.courses.create') }}" class="inline-flex items-center px-4 py-2 bg-indigo-400 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">Add subject</a>
+                        <a href="{{ route('teacher.courses.create') }}" class="inline-flex items-center px-4 py-2 bg-indigo-400 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"><i class="fas fa-plus mr-1"></i>Add subject</a>
                         </div>
                     <div class="w-full flex justify-end px-2 mt-2">
                           <div class="w-full sm:w-64 inline-block relative ">
@@ -55,6 +55,7 @@
                               <th class="px-4 py-2 " style="background-color:#f8f8f8">Youtube Link</th>
                               <th class="px-4 py-2 " style="background-color:#f8f8f8">Author</th>
                               <th class="px-4 py-2 " style="background-color:#f8f8f8">Created</th>
+                              <th class="px-4 py-2 " style="background-color:#f8f8f8">Action</th>
                             </tr>
                           </thead>
                           <tbody class="text-sm font-normal text-gray-700">
@@ -66,6 +67,10 @@
                               <td class="px-4 py-4">{{ $data->link }}</td>
                               <td class="px-4 py-4">{{ $data->teacher->name }}</td>
                               <td class="px-4 py-4">{{ $data->created_at->diffForHumans() }}</td>
+                              <td class="px-4 py-4">
+                                <a href="#"><i class="fas fa-trash-alt text-red-400 mr-1"></i></a>
+                                <a href="#"><i class="fas fa-pencil-alt text-yellow-400"></i></a>
+                              </td>
                             </tr>
                             @endforeach
                           </tbody>

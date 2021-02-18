@@ -27,9 +27,7 @@ class UpdateProfileRequest extends FormRequest
             //
             'name' => 'required',
             'birthdate' => 'required|date',
-            'gender' => 'required',
-            'address' => 'required',
-            'phone' => 'required|max:12',
+            'phone' => 'max:12',
             'pic' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ];
     }

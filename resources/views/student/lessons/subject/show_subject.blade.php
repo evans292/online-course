@@ -18,8 +18,8 @@
                     <div class="flex justify-between mb-2">
                         <h3 class="font-semibold text-lg text-gray-800 leading-tight p-2">Subject Detail</h3>
                         <div>
-                            <a href="{{ route('student.subject.download', ['lesson' => $subjectmatter->course_id, 'subjectmatter' => $subjectmatter->id]) }}" class="inline-flex items-center px-4 py-2 bg-blue-400 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">Download attachment</a>
-                            <a href="{{ $subjectmatter->link }}" target="_blank" class="inline-flex items-center px-4 py-2 bg-red-400 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">Watch video</a>
+                            <a href="{{ route('student.subject.download', ['lesson' => $subjectmatter->course_id, 'subjectmatter' => $subjectmatter->id]) }}" class="inline-flex items-center px-4 py-2 bg-blue-400 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"><i class="fas fa-download mr-1"></i>Download attachment</a>
+                            <a href="{{ $subjectmatter->link }}" target="_blank" class="inline-flex items-center px-4 py-2 bg-red-400 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"><i class="fab fa-youtube mr-1"></i>Watch video</a>
                         </div>
                     </div>
                     <hr>

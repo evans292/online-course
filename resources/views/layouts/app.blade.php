@@ -12,6 +12,7 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        <script src="https://kit.fontawesome.com/39ddfceea2.js" crossorigin="anonymous"></script>
         {{ $style ?? ''}} 
         <style>
             input::-webkit-outer-spin-button,

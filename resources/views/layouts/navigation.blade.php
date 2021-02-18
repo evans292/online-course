@@ -60,7 +60,7 @@
 
                     <x-slot name="content">
                         <x-dropdown-link href="{{ route('profile') }}">
-                            {{ __('Profile') }}
+                            <i class="fas fa-user mr-2"></i>{{ __('Profile') }}
                         </x-dropdown-link>
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
@@ -69,7 +69,7 @@
                             <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                {{ __('Logout') }}
+                                <i class="fas fa-sign-out-alt mr-2"></i>{{ __('Logout') }}
                             </x-dropdown-link>
                         </form>
                     </x-slot>
