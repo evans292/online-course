@@ -67,7 +67,7 @@ class LessonController extends Controller
         if ($courseid === 0) {
             $count = 0;
             $course = Course::find($id)->name;
-            return view('student.lessons.subject', compact('subjectmatters', 'count', 'course'));
+            return view('student.lessons.subject-list', compact('subjectmatters', 'count', 'course'));
         }
         $count = $subjectmatters->count();
 
@@ -79,7 +79,7 @@ class LessonController extends Controller
             // echo($class[$i]->pivot);
             if ($courseid === $class[$i]->pivot->course_id) {
                 $course = Course::find($id)->name;
-                return view('student.lessons.course', compact('subjectmatters', 'count', 'course'));
+                return view('student.lessons.subject-list', compact('subjectmatters', 'count', 'course'));
             }
         }
         

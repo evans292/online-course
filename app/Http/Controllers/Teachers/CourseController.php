@@ -38,7 +38,7 @@ class CourseController extends Controller
     public function create()
     {
         //
-        return view('teacher.courses.create');
+        return view('teacher.courses.create-subject');
     }
 
     /**
@@ -78,17 +78,22 @@ class CourseController extends Controller
         //
         $teachercourse =  Teacher::find(Auth::user()->teachers[0]->id)->courses;
         $courses = Schoolclass::find($id)->courses;
-        return view('teacher.courses.course', compact('courses'));
+        return view('teacher.courses.course-list', compact('courses'));
     }
 
     public function showSubject($id)
     {
         $datas = Subjectmatter::where('course_id', $id)->paginate(10);
-        for ($i=0; $i < $datas[0]->course->teachers->count(); $i++) { 
+        if ($datas->count() === 0) {
             # code...
-            if ($datas[0]->course->teachers[$i]->id === Auth::user()->teachers[0]->id) {
+            return view('teacher.courses.subject-table', compact('datas'));
+        } else {
+            for ($i=0; $i < $datas[0]->course->teachers->count(); $i++) { 
                 # code...
-                return view('teacher.courses.subject', compact('datas'));
+                if ($datas[0]->course->teachers[$i]->id === Auth::user()->teachers[0]->id) {
+                    # code...
+                    return view('teacher.courses.subject-table', compact('datas'));
+                }
             }
         }
         abort(403);

@@ -3804,7 +3804,7 @@ __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/alpine.js");
 window.deleteConfirm = function (title, formId) {
   sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
     icon: 'warning',
-    text: "Do you want to delete this subject : ".concat(title, "?"),
+    text: "Do you want to delete this subject (".concat(title, ") ?"),
     showCancelButton: true,
     confirmButtonText: 'Delete',
     confirmButtonColor: '#e3342f'

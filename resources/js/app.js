@@ -7,7 +7,7 @@ window.deleteConfirm = function(title, formId)
 {
     Swal.fire({
         icon: 'warning',
-        text: `Do you want to delete this subject : ${title}?`,
+        text: `Do you want to delete this subject (${title}) ?`,
         showCancelButton: true,
         confirmButtonText: 'Delete',
         confirmButtonColor: '#e3342f',

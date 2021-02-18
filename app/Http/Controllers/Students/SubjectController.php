@@ -58,7 +58,7 @@ class SubjectController extends Controller
             # code...
             // echo($class[$i]->pivot);
             if ($lesson->id === $class[$i]->pivot->course_id) {
-                return view('student.lessons.subject.show_subject', compact('subjectmatter'));
+                return view('student.lessons.subject.show-subject', compact('subjectmatter'));
             }
         }
         abort(403, 'Dibilangin bukan mapel kamu T_T');

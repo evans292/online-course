@@ -19,7 +19,14 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+          
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+              @if ($datas->count() === 0)
+              <div class="flex justify-between">
+                <h5 class="text-gray-400 p-2">subject empty, try to create one!</h5>
+                <a href="{{ route('teacher.courses.create') }}" class="inline-flex items-center px-4 py-2 bg-indigo-400 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"><i class="fas fa-plus mr-1"></i>Add subject</a>
+              </div>
+              @else
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="bg-white pb-4 px-4 rounded-md w-full">
                         <div class="flex justify-between w-full pt-6 ">
@@ -96,6 +103,7 @@
                   </svg>
                         </div> --}}
                       </div>
+                  @endif
                 </div>
             </div>
         {{ $datas->links() }}
