@@ -12,6 +12,7 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        {{ $style ?? ''}} 
         <style>
             input::-webkit-outer-spin-button,
             input::-webkit-inner-spin-button {

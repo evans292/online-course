@@ -77,11 +77,13 @@
                                     <option value="{{ $key }}" {{ ($data->gender === $key) ? 'selected' : '' }}>{{ $gender }}</option>
                                 @endforeach
                             </select>
+                            <x-validation-message name="gender"/>
                         </div>
 
                         <div class="mb-4">
                             <x-label for="address" value="{{ __('Address') }}" />
                             <x-input id="address" class="block mt-1 w-full" type="text" name="address" value="{{ $data->address }}" required />
+                            <x-validation-message name="address"/>
                         </div>
 
                         <div class="mb-4">

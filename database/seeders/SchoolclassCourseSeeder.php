@@ -57,30 +57,38 @@ class SchoolclassCourseSeeder extends Seeder
 
         Subjectmatter::create([
             'course_id' => $course1->id,
+            'teacher_id' => 1,
             'title' => 'Corel Draw',
             'details' => 'Ini adalah pelajaran tentang corel draw untuk kelas xi',
-            'path' => 'public/pdf/' . Str::slug('Corel Draw') . '.pdf'
+            'path' => 'public/attachment/' . Str::slug('Corel Draw') . '.pdf',
+            'link' => 'https://www.youtube.com/watch?v=b8oQqADRbTE',
         ]);
 
         Subjectmatter::create([
             'course_id' => $course1->id,
+            'teacher_id' => 1,
             'title' => 'Adobe Photoshop',
             'details' => 'Ini adalah pelajaran tentang adobe photoshop untuk kelas xi',
-            'path' => 'public/pdf/' . Str::slug('Adobe Photoshop'). '.pdf'
+            'path' => 'public/attachment/' . Str::slug('Adobe Photoshop'). '.pdf',
+            'link' => 'https://www.youtube.com/watch?v=A9pWXs_2QD4E',
         ]);
 
         Subjectmatter::create([
             'course_id' => $course2->id,
+            'teacher_id' => 2,
             'title' => 'Algoritma dasar',
             'details' => 'Ini adalah pelajaran tentang algoritma dasar untuk kelas xi',
-            'path' => 'public/pdf/' . Str::slug('Algoritma dasar'). '.pdf'
+            'path' => 'public/attachment/' . Str::slug('Algoritma dasar'). '.pdf',
+            'link' => 'https://www.youtube.com/watch?v=5JuNp0o4YEE'
         ]);
 
         Subjectmatter::create([
             'course_id' => $course3->id,
+            'teacher_id' => 2,
             'title' => 'Analisa dan perhitungan listrik',
             'details' => 'Ini adalah pelajaran tentang kelistrikan untuk kelas xi',
-            'path' => 'public/pdf/' . Str::slug('Analisa dan perhitungan listrik'). '.pdf'
+            'path' => 'public/attachment/' . Str::slug('Analisa dan perhitungan listrik'). '.pdf',
+            'link' => 'https://www.youtube.com/watch?v=s9A2EfcoBQg'
         ]);
 
     }

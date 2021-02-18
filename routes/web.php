@@ -42,7 +42,8 @@ Route::group(['middleware' => 'auth'], function() {
     });
 
    Route::group(['middleware' => 'role:teacher', 'prefix' => 'teacher', 'as' => 'teacher.'], function() {
-       Route::resource('courses', CourseController::class);
+        Route::resource('courses', CourseController::class);
+        Route::get('courses/{courses}/subjectmatters', [CourseController::class, 'showSubject'])->name('subjectmatters');
    });
 
     Route::group(['middleware' => 'role:admin', 'prefix' => 'admin', 'as' => 'admin.'], function() {

@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers\Teachers;
 
-use Illuminate\Http\Request;
+use DateTime;
+use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use App\Http\Requests\SubjectMatterRequest;
+use App\Models\{Teacher, Schoolclass, Subjectmatter};
 
 class CourseController extends Controller
 {
@@ -19,7 +23,10 @@ class CourseController extends Controller
         if (Gate::denies('manage-courses')) {
             abort(403);
         }
-        return view('teacher.courses.index');
+
+        $classes = Teacher::find(Auth::user()->teachers[0]->id)->schoolclasses;
+        // dd($classes[2]->pivot->schoolclass_id);
+        return view('teacher.index', compact('classes'));
     }
 
     /**
@@ -30,6 +37,7 @@ class CourseController extends Controller
     public function create()
     {
         //
+        return view('teacher.courses.create');
     }
 
     /**
@@ -38,9 +46,24 @@ class CourseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SubjectMatterRequest $request)
     {
         //
+        $title_slug = Str::slug(request('title'));
+        $datetime = new DateTime();
+
+        $attachment = $request->file('path');
+        $attach = $attachment->storeAs("attachment", "{$title_slug}-{$datetime->format('Y-m-d-s')}.{$attachment->extension()}");
+
+        $subject = Subjectmatter::create([
+            'course_id' => $request->course,
+            'teacher_id' => Auth::user()->teachers[0]->id,
+            'title' => $request->title,
+            'details' => $request->details,
+            'link' => $request->link,
+            'path' => 'public/' . $attach
+        ]);
+        return redirect(route('teacher.courses.create'))->with('success', 'lol');
     }
 
     /**
@@ -52,6 +75,22 @@ class CourseController extends Controller
     public function show($id)
     {
         //
+        $teachercourse =  Teacher::find(Auth::user()->teachers[0]->id)->courses;
+        $courses = Schoolclass::find($id)->courses;
+        return view('teacher.courses.course', compact('courses'));
+    }
+
+    public function showSubject($id)
+    {
+        $datas = Subjectmatter::where('course_id', $id)->paginate(10);
+        for ($i=0; $i < $datas[0]->course->teachers->count(); $i++) { 
+            # code...
+            if ($datas[0]->course->teachers[$i]->id === Auth::user()->teachers[0]->id) {
+                # code...
+                return view('teacher.courses.subject', compact('datas'));
+            }
+        }
+        abort(403);
     }
 
     /**
@@ -72,7 +111,7 @@ class CourseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(SubjectMatterRequest $request, $id)
     {
         //
     }

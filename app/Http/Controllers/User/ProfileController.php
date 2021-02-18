@@ -39,8 +39,8 @@ class ProfileController extends Controller
         $picture = $request->file('pic');
         $pictureUrl = Auth::user()->profilepic;
         if ($picture !== null) {
-            if (Auth::user()->profilepic !== null) {
-                Storage::disk('local')->delete('public/' . Auth::user()->profilepic);
+            if ($pictureUrl !== null) {
+                Storage::disk('local')->delete('public/' . $pictureUrl);
             }
             $pictureUrl = $picture->storeAs("images/profilepic", "{$name_slug}-{$datetime->format('Y-m-d-s')}.{$picture->extension()}");
         }
@@ -58,14 +58,24 @@ class ProfileController extends Controller
             $user->profilepic = $pictureUrl;
             $user->save();
         } else if ($user->role_id === 2) {
-            Student::where('id', $profileid)->update([
-                'schoolclass_id' => $request->class,        
-                'name' => $request->name,
-                'birthdate' => $request->birthdate,
-                'gender' => $request->gender,
-                'address' => $request->address,
-                'phone' => $request->phone
-            ]);
+            if (Auth::user()->students[0]->schoolclass_id === null) {
+                Student::where('id', $profileid)->update([
+                    'schoolclass_id' => $request->class,        
+                    'name' => $request->name,
+                    'birthdate' => $request->birthdate,
+                    'gender' => $request->gender,
+                    'address' => $request->address,
+                    'phone' => $request->phone
+                ]);
+            } else {
+                Student::where('id', $profileid)->update([      
+                    'name' => $request->name,
+                    'birthdate' => $request->birthdate,
+                    'gender' => $request->gender,
+                    'address' => $request->address,
+                    'phone' => $request->phone
+                ]);
+            }
 
             $user->name = $request->name;
             $user->profilepic = $pictureUrl;

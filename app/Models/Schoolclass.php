@@ -23,4 +23,9 @@ class Schoolclass extends Model
     {
         return $this->belongsToMany(Course::class);
     }
+
+    public function teachers()
+    {
+        return $this->belongsToMany(Teacher::class);
+    }
 }
