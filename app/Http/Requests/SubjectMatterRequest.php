@@ -29,7 +29,7 @@ class SubjectMatterRequest extends FormRequest
             'details' => 'required',
             'link' => 'required',
             'course' => 'required',
-            'path' => 'required|file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,jpeg,png,jpg,mp3,aac'
+            'path' => 'file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,jpeg,png,jpg,mp3,aac'
         ];
     }
 }

@@ -6,8 +6,8 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ $subjectmatter->title }} 
         </h2>
-        <p class="text-gray-300 mt-2">
-            by {{ $subjectmatter->teacher->name }} - <span class="text-xs text-gray-200">{{ $subjectmatter->created_at->diffForHumans() }}</span>
+        <p class="text-gray-400 mt-2">
+            by {{ $subjectmatter->teacher->name }} - <span class="text-xs text-gray-300">{{ $subjectmatter->created_at->diffForHumans() }}</span>
         </p>
     </x-slot>
 
@@ -23,7 +23,7 @@
                         </div>
                     </div>
                     <hr>
-                    <p class="p-1 text-gray-400">{!! $subjectmatter->details !!}. <span>Silahkan download materinya</span></p>
+                    <p class="p-1 text-gray-400">{!! $subjectmatter->details !!}</p>
                 </div>
             </div>
         </div>

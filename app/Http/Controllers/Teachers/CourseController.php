@@ -38,6 +38,9 @@ class CourseController extends Controller
     public function create()
     {
         //
+        if (Gate::denies('manage-courses')) {
+            abort(403);
+        }
         return view('teacher.courses.create-subject');
     }
 
@@ -50,6 +53,9 @@ class CourseController extends Controller
     public function store(SubjectMatterRequest $request)
     {
         //
+        if (Gate::denies('manage-courses')) {
+            abort(403);
+        }
         $title_slug = Str::slug(request('title'));
         $datetime = new DateTime();
 
@@ -76,6 +82,9 @@ class CourseController extends Controller
     public function show($id)
     {
         //
+        if (Gate::denies('manage-courses')) {
+            abort(403);
+        }
         $teachercourse =  Teacher::find(Auth::user()->teachers[0]->id)->courses;
         $courses = Schoolclass::find($id)->courses;
         return view('teacher.courses.course-list', compact('courses'));
@@ -83,6 +92,9 @@ class CourseController extends Controller
 
     public function showSubject($id)
     {
+        if (Gate::denies('manage-courses')) {
+            abort(403);
+        }
         $datas = Subjectmatter::where('course_id', $id)->paginate(10);
         if ($datas->count() === 0) {
             # code...
@@ -108,6 +120,11 @@ class CourseController extends Controller
     public function edit($id)
     {
         //
+        if (Gate::denies('manage-courses')) {
+            abort(403);
+        }
+        $subject = Subjectmatter::find($id);
+        return view('teacher.courses.edit-subject', compact('subject'));
     }
 
     /**
@@ -120,6 +137,34 @@ class CourseController extends Controller
     public function update(SubjectMatterRequest $request, $id)
     {
         //
+        if (Gate::denies('manage-courses')) {
+            abort(403);
+        }
+        $title_slug = Str::slug(request('title'));
+        $datetime = new DateTime();
+
+        $subject = Subjectmatter::find($id);
+
+        $attachment = $request->file('path');
+        $attach = null;
+        if ($attachment !== null) {
+            Storage::disk('local')->delete($subject->path);
+            $attach = $attachment->storeAs("attachment", "{$title_slug}-{$datetime->format('Y-m-d-s')}.{$attachment->extension()}");
+            $attach = 'public/' . $attach;
+        } else {
+            $attach = $subject->path;
+        }
+
+        $subject->update([
+            'course_id' => $request->course,
+            'teacher_id' => Auth::user()->teachers[0]->id,
+            'title' => $request->title,
+            'details' => $request->details,
+            'link' => $request->link,
+            'path' => $attach
+        ]);
+
+        return redirect()->back()->with('success', 'lol');
     }
 
     /**
@@ -131,6 +176,9 @@ class CourseController extends Controller
     public function destroy($id)
     {
         //
+        if (Gate::denies('manage-courses')) {
+            abort(403);
+        }
         $subject = Subjectmatter::find($id);
         $subject->delete();
         Storage::disk('local')->delete($subject->path);

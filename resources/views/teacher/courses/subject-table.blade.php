@@ -69,7 +69,7 @@
                             @foreach ($datas as $data)
                             <tr class="hover:bg-gray-100 border-b border-gray-200 py-10">
                               <td class="px-4 py-4">{{ $data->title }}</td>
-                              <td class="px-4 py-4">{{ $data->details }}</td>
+                              <td class="px-4 py-4">{!! $data->details !!}</td>
                               <td class="px-4 py-4">{{ $data->path }}</td>
                               <td class="px-4 py-4">{{ $data->link }}</td>
                               <td class="px-4 py-4">{{ $data->teacher->name }}</td>
@@ -80,7 +80,7 @@
                                   @method('delete')
                                 </form>
                                 <a href="#" onclick="deleteConfirm('{{ $data->title }}', '{{ $data->id }}')"><i class="fas fa-trash-alt text-red-400 mr-1"></i></a>
-                                <a href="#"><i class="fas fa-pencil-alt text-yellow-400"></i></a>
+                                <a href="{{ route('teacher.courses.edit', ['course' => $data->id]) }}"><i class="fas fa-pencil-alt text-yellow-400"></i></a>
                               </td>
                             </tr>
                             @endforeach
