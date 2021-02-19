@@ -56,7 +56,8 @@
                         <table class="table-auto border-collapse w-full">
                           <thead>
                             <tr class="rounded-lg text-sm font-medium text-gray-700 text-left" style="font-size: 0.9674rem">
-                              <th class="px-4 py-2 bg-gray-200 " style="background-color:#f8f8f8">Title</th>
+                              <th class="px-4 py-2 bg-gray-200 " style="background-color:#f8f8f8">#</th>
+                              <th class="px-4 py-2 " style="background-color:#f8f8f8">Title</th>
                               <th class="px-4 py-2 " style="background-color:#f8f8f8">Details</th>
                               <th class="px-4 py-2 " style="background-color:#f8f8f8">Path</th>
                               <th class="px-4 py-2 " style="background-color:#f8f8f8">Youtube Link</th>
@@ -68,6 +69,7 @@
                           <tbody class="text-sm font-normal text-gray-700">
                             @foreach ($datas as $data)
                             <tr class="hover:bg-gray-100 border-b border-gray-200 py-10">
+                              <td class="px-4 py-4">{{ $loop->iteration }}</td>
                               <td class="px-4 py-4">{{ $data->title }}</td>
                               <td class="px-4 py-4">{!! $data->details !!}</td>
                               <td class="px-4 py-4">{{ $data->path }}</td>

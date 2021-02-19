@@ -112,6 +112,13 @@
                   {{ __('Users') }}
                 </x-side-link>
               </li>
+
+              <li class="items-center">
+                <x-side-link :href="route('admin.students')" :active="request()->routeIs('admin.students')">
+                  <i class="fas fa-user-graduate mr-3 text-sm {{ (request()->routeIs('admin.students')) ? 'text-green-500' : 'text-gray-800'}}" ></i>
+                  {{ __('Students') }}
+                </x-side-link>
+              </li>
             </ul>
 
           </div>

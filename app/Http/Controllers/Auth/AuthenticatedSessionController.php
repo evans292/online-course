@@ -53,7 +53,7 @@ class AuthenticatedSessionController extends Controller
         } else if ($request->role === 'headmaster') {
             return redirect(RouteServiceProvider::HOME)->with('headmaster', $request->role);
         } else if ($request->role === 'admin'){
-            return redirect(RouteServiceProvider::HOME)->with('admin', $request->role);
+            return redirect(route('admin.dashboard.index'))->with('admin', $request->role);
         }
     }
 

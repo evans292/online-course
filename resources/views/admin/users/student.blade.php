@@ -1,6 +1,6 @@
 <x-admin-layout>
     <x-slot name="title">
-      {{ __('User List') }}
+      {{ __('Student List') }}
     </x-slot>  
     
     <x-slot name="style">
@@ -25,7 +25,7 @@
             <div class="p-6 bg-white border-b border-gray-200">
                 <div class="bg-white pb-4 px-4 rounded-md w-full">
                     <div class="flex justify-between w-full pt-6 ">
-                      <h1 class="p-1 text-xl font-semibold">Users Table</h1>
+                      <h1 class="p-1 text-xl font-semibold">Students Table</h1>
                       {{-- <svg width="14" height="4" viewBox="0 0 14 4" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <g opacity="0.4">
                       <circle cx="2.19796" cy="1.80139" r="1.38611" fill="#222222"/>
@@ -33,7 +33,7 @@
                       <circle cx="7.04991" cy="1.80115" r="1.38611" fill="#222222"/>
                       </g>
                       </svg> --}}
-                    {{-- <a href="#" class="inline-flex items-center px-4 py-2 bg-indigo-400 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"><i class="fas fa-plus mr-1"></i>Add user</a> --}}
+                    <a href="#" class="inline-flex items-center px-4 py-2 bg-indigo-400 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"><i class="fas fa-plus mr-1"></i>Add student</a>
                     </div>
                 <div class="w-full flex justify-end px-2 mt-2">
                       <div class="w-full sm:w-64 inline-block relative ">
@@ -52,29 +52,37 @@
                       <thead>
                         <tr class="rounded-lg text-sm font-medium text-gray-700 text-left" style="font-size: 0.9674rem">
                           <th class="px-4 py-2 bg-gray-200 " style="background-color:#f8f8f8">#</th>
-                          <th class="px-4 py-2 " style="background-color:#f8f8f8">Role</th>
+                          <th class="px-4 py-2 " style="background-color:#f8f8f8">NIS</th>
+                          <th class="px-4 py-2 " style="background-color:#f8f8f8">Class</th>
                           <th class="px-4 py-2 " style="background-color:#f8f8f8">Name</th>
-                          <th class="px-4 py-2 " style="background-color:#f8f8f8">Email</th>
-                          <th class="px-4 py-2 " style="background-color:#f8f8f8">Account Created</th>
-                          {{-- <th class="px-4 py-2 " style="background-color:#f8f8f8">Action</th> --}}
+                          <th class="px-4 py-2 " style="background-color:#f8f8f8">Birthdate</th>
+                          <th class="px-4 py-2 " style="background-color:#f8f8f8">Gender</th>
+                          <th class="px-4 py-2 " style="background-color:#f8f8f8">Address</th>
+                          <th class="px-4 py-2 " style="background-color:#f8f8f8">Phone</th>
+                          <th class="px-4 py-2 " style="background-color:#f8f8f8">Student Registered</th>
+                          <th class="px-4 py-2 " style="background-color:#f8f8f8">Action</th>
                         </tr>
                       </thead>
                       <tbody class="text-sm font-normal text-gray-700">
                         @foreach ($datas as $data)
                         <tr class="hover:bg-gray-100 border-b border-gray-200 py-10">
                           <td class="px-4 py-4">{{ $loop->iteration }}</td>
-                          <td class="px-4 py-4">{{ $data->role->name }}</td>
-                          <td class="px-4 py-4">{!! $data->name !!}</td>
-                          <td class="px-4 py-4">{{ $data->email }}</td>
+                          <td class="px-4 py-4">{{ $data->nis }}</td>
+                          <td class="px-4 py-4">{!! ($data->schoolclass['name'] !== null) ? $data->schoolclass['name'] : '<span class="text-gray-400">NULL</span>'!!}</td>
+                          <td class="px-4 py-4">{{ $data->name }}</td>
+                          <td class="px-4 py-4">{!! ($data->birthdate !== null) ? $data->birthdate : '<span class="text-gray-400">NULL</span>'!!}</td>
+                          <td class="px-4 py-4">{!! ($data->gender !== null) ? $data->gender : '<span class="text-gray-400">NULL</span>'!!}</td>
+                          <td class="px-4 py-4">{!! ($data->address !== null) ? $data->address : '<span class="text-gray-400">NULL</span>'!!}</td>
+                          <td class="px-4 py-4">{!! ($data->phone !== null) ? $data->phone : '<span class="text-gray-400">NULL</span>'!!}</td>
                           <td class="px-4 py-4">{{ $data->created_at }}</td>
-                          {{-- <td class="px-4 py-4">
+                          <td class="px-4 py-4">
                             <form id="{{ $data->id }}" action="#" method="POST">
                               @csrf
                               @method('delete')
                             </form>
                             <a href="#" onclick="deleteConfirm('{{ $data->title }}', '{{ $data->id }}')"><i class="fas fa-trash-alt text-red-400 mr-1"></i></a>
                             <a href="#"><i class="fas fa-pencil-alt text-yellow-400"></i></a>
-                          </td> --}}
+                          </td>
                         </tr>
                         @endforeach
                       </tbody>

@@ -7,6 +7,7 @@
     <meta name="theme-color" content="#000000" />
     <script src="https://kit.fontawesome.com/39ddfceea2.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}" />
+    {{ $style ?? ''}} 
     <title>{{ $title ?? config('app.name', 'Laravel') }}</title>
   </head>
   <body class="text-gray-800 antialiased">

@@ -62,4 +62,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Admin::class);
     }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
 }
