@@ -2,11 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Students\LessonController;
-use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Teachers\CourseController;
 use App\Http\Controllers\Headmaster\DataController;
 use App\Http\Controllers\Students\SubjectController;
 use App\Http\Controllers\User\ProfileController;
+use App\Models\Admin;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,7 +48,8 @@ Route::group(['middleware' => 'auth'], function() {
    });
 
     Route::group(['middleware' => 'role:admin', 'prefix' => 'admin', 'as' => 'admin.'], function() {
-        Route::resource('users', UserController::class);
+        Route::get('users', [AdminController::class, 'showUsers'])->name('users');
+        Route::resource('dashboard', AdminController::class);
     });
 
     Route::group(['middleware' => 'role:headmaster', 'prefix' => 'headmaster', 'as' => 'headmaster.'], function() {

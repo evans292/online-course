@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
 
-class UserController extends Controller
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,6 +19,15 @@ class UserController extends Controller
         if (Gate::denies('manage-users')) {
             abort(403);
         }
+        return view('admin.index');
+    }
+
+    public function showUsers()
+    {
+        if (Gate::denies('manage-users')) {
+            abort(403);
+        }
+
         return view('admin.users.index');
     }
 
