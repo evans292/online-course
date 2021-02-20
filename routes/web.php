@@ -1,15 +1,11 @@
 <?php
 
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\DepartmentController;
-use App\Http\Controllers\Admin\SchoolclassController;
-use App\Http\Controllers\Admin\StudentController;
-use App\Http\Controllers\Admin\TeacherController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Teachers\CourseController;
+
+use App\Http\Controllers\Admin\{CourseController, DashboardController, DepartmentController, SchoolclassController, StudentController, TeacherController, UserController};
 use App\Http\Controllers\Headmaster\DataController;
 use App\Http\Controllers\Students\StudyController;
+use App\Http\Controllers\Teachers\SubjectController;
 use App\Http\Controllers\User\ProfileController;
 
 /*
@@ -47,8 +43,8 @@ Route::group(['middleware' => 'auth'], function() {
     });
 
    Route::group(['middleware' => 'role:teacher', 'prefix' => 'teacher', 'as' => 'teacher.'], function() {
-        Route::resource('courses', CourseController::class);
-        Route::get('courses/{courses}/subjectmatters', [CourseController::class, 'showSubject'])->name('subjectmatters');
+        Route::resource('courses', SubjectController::class);
+        Route::get('courses/{courses}/subjectmatters', [SubjectController::class, 'showSubject'])->name('subjectmatters');
    });
 
     Route::group(['middleware' => 'role:admin', 'prefix' => 'admin', 'as' => 'admin.'], function() {
@@ -57,6 +53,7 @@ Route::group(['middleware' => 'auth'], function() {
         Route::resource('teachers', TeacherController::class);
         Route::resource('departments', DepartmentController::class);
         Route::resource('schoolclasses', SchoolclassController::class);
+        Route::resource('courses', CourseController::class);
         Route::resource('users', UserController::class);
     });
 

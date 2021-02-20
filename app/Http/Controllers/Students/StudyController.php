@@ -28,6 +28,10 @@ class StudyController extends Controller
     public function showSubject($id)
     {
         //
+        if (Gate::denies('view-lessons')) {
+            abort(403);
+        }
+
         $subjectmatters = Course::find($id)->subjectmatters()->paginate(5);
         $courseid = 0;
         foreach ($subjectmatters as $subjectmatter) {
@@ -61,6 +65,10 @@ class StudyController extends Controller
     public function showSubjectDetails(Course $course, Subjectmatter $subject)
     {
         //
+        if (Gate::denies('view-lessons')) {
+            abort(403);
+        }
+
         $getClassId = Auth::user()->students[0]->schoolclass_id;
         $class = Schoolclass::find($getClassId)->courses;
         for ($i=0; $i < $class->count(); $i++) { 
@@ -75,6 +83,10 @@ class StudyController extends Controller
 
     public function download(Course $course, Subjectmatter $subject)
     {
+        if (Gate::denies('view-lessons')) {
+            abort(403);
+        }
+
         $getClassId = Auth::user()->students[0]->schoolclass_id;
         $class = Schoolclass::find($getClassId)->courses;
         for ($i=0; $i < $class->count(); $i++) { 

@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Department;
+use App\Models\Course;
 use Illuminate\Support\Facades\Gate;
 
-class DepartmentController extends Controller
+class CourseController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,8 +21,8 @@ class DepartmentController extends Controller
             abort(403);
         }
         
-        $datas = Department::orderBy('name')->paginate(10);
-        return view('admin.departments.index', compact('datas'));
+        $datas = Course::orderBy('name')->paginate(10);
+        return view('admin.courses.index', compact('datas'));
     }
 
     /**

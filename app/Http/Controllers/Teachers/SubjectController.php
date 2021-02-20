@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\SubjectMatterRequest;
 use App\Models\{Teacher, Schoolclass, Subjectmatter};
 
-class CourseController extends Controller
+class SubjectController extends Controller
 {
     /**
      * Display a listing of the resource.

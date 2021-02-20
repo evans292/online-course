@@ -152,6 +152,13 @@
                   {{ __('Class') }}
                 </x-side-link>
               </li>
+
+              <li class="items-center">
+                <x-side-link :href="route('admin.teachers.index')" :active="request()->routeIs('admin.teachers.index')">
+                  <i class="fas fa-chalkboard-teacher mr-2 text-sm {{ (request()->routeIs('admin.teachers.index')) ? 'text-green-500' : 'text-gray-800'}}" ></i>
+                  {{ __('Cl - Te Mapping') }}
+                </x-side-link>
+              </li>
             </ul>
 
 
@@ -167,12 +174,18 @@
 
             <ul class="md:flex-col md:min-w-full flex flex-col list-none">
               <li class="items-center">
-                <x-side-link :href="route('admin.departments.index')" :active="request()->routeIs('admin.departments.index')">
-                  <i class="fas fa-building mr-3 text-sm {{ (request()->routeIs('admin.departments.index')) ? 'text-green-500' : 'text-gray-800'}}" ></i>
-                  {{ __('Department') }}
+                <x-side-link :href="route('admin.courses.index')" :active="request()->routeIs('admin.courses.index')">
+                  <i class="fas fa-book mr-3 text-sm {{ (request()->routeIs('admin.courses.index')) ? 'text-green-500' : 'text-gray-800'}}" ></i>
+                  {{ __('Course') }}
                 </x-side-link>
               </li>
 
+              <li class="items-center">
+                <x-side-link :href="route('admin.departments.index')" :active="request()->routeIs('admin.departments.index')">
+                  <i class="fas fa-book-reader mr-3 text-sm {{ (request()->routeIs('admin.departments.index')) ? 'text-green-500' : 'text-gray-800'}}" ></i>
+                  {{ __('Co - Te Mapping') }}
+                </x-side-link>
+              </li>
             </ul>
           </div>
         </div>

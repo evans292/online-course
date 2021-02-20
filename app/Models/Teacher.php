@@ -23,6 +23,11 @@ class Teacher extends Model
         return $this->hasOne(Schoolclass::class);
     }
 
+    public function department()
+    {
+        return $this->hasOne(Department::class);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
