@@ -52,8 +52,14 @@ Route::group(['middleware' => 'auth'], function() {
         Route::resource('students', StudentController::class);
         Route::resource('teachers', TeacherController::class);
         Route::resource('departments', DepartmentController::class);
+
+        Route::get('classroom-teacher', [SchoolclassController::class, 'showClassroomTeacher'])->name('classroom-teacher');
         Route::resource('schoolclasses', SchoolclassController::class);
+
+        Route::get('classroom-course', [CourseController::class, 'showClassroomCourse'])->name('classroom-course');
+        Route::get('course-teacher', [CourseController::class, 'showCourseTeacher'])->name('course-teacher');
         Route::resource('courses', CourseController::class);
+
         Route::resource('users', UserController::class);
     });
 

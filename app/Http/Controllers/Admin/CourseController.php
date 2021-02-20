@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Course;
+use App\Models\Schoolclass;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Course;
 use Illuminate\Support\Facades\Gate;
 
 class CourseController extends Controller
@@ -25,6 +26,26 @@ class CourseController extends Controller
         return view('admin.courses.index', compact('datas'));
     }
 
+    public function showClassroomCourse()
+    {
+        if (Gate::denies('manage-users')) {
+            abort(403);
+        }
+
+        $datas = Schoolclass::orderBy('name')->paginate(10);
+        return view('admin.courses.map-class', compact('datas'));
+    }
+
+    public function showCourseTeacher()
+    {
+        if (Gate::denies('manage-users')) {
+            abort(403);
+        }
+
+        $datas = Course::orderBy('name')->paginate(10);
+        return view('admin.courses.map-teacher', compact('datas'));
+    }
+    
     /**
      * Show the form for creating a new resource.
      *

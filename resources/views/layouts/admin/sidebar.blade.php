@@ -154,8 +154,8 @@
               </li>
 
               <li class="items-center">
-                <x-side-link :href="route('admin.teachers.index')" :active="request()->routeIs('admin.teachers.index')">
-                  <i class="fas fa-chalkboard-teacher mr-2 text-sm {{ (request()->routeIs('admin.teachers.index')) ? 'text-green-500' : 'text-gray-800'}}" ></i>
+                <x-side-link :href="route('admin.classroom-teacher')" :active="request()->routeIs('admin.classroom-teacher')">
+                  <i class="fas fa-chalkboard-teacher mr-2 text-sm {{ (request()->routeIs('admin.classroom-teacher')) ? 'text-green-500' : 'text-gray-800'}}" ></i>
                   {{ __('Cl - Te Mapping') }}
                 </x-side-link>
               </li>
@@ -181,8 +181,15 @@
               </li>
 
               <li class="items-center">
-                <x-side-link :href="route('admin.departments.index')" :active="request()->routeIs('admin.departments.index')">
-                  <i class="fas fa-book-reader mr-3 text-sm {{ (request()->routeIs('admin.departments.index')) ? 'text-green-500' : 'text-gray-800'}}" ></i>
+                <x-side-link :href="route('admin.classroom-course')" :active="request()->routeIs('admin.classroom-course')">
+                  <i class="fas fa-bookmark mr-3 text-sm {{ (request()->routeIs('admin.classroom-course')) ? 'text-green-500' : 'text-gray-800'}}" ></i>
+                  {{ __('Co - CL Mapping') }}
+                </x-side-link>
+              </li>
+
+              <li class="items-center">
+                <x-side-link :href="route('admin.course-teacher')" :active="request()->routeIs('admin.course-teacher')">
+                  <i class="fas fa-book-reader mr-3 text-sm {{ (request()->routeIs('admin.course-teacher')) ? 'text-green-500' : 'text-gray-800'}}" ></i>
                   {{ __('Co - Te Mapping') }}
                 </x-side-link>
               </li>

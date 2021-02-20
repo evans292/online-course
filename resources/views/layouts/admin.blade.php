@@ -20,7 +20,7 @@
         @include('layouts.admin.topbar')
         
         <!-- Content -->
-        <div class="relative bg-green-600 md:pt-32 pb-32 pt-12">
+        <div class="relative bg-gradient-to-r from-green-400 to-blue-500  md:pt-32 pb-32 pt-12">
           {{ $slot }}
         </div>
       </div>
