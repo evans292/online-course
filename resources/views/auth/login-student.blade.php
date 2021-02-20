@@ -22,7 +22,6 @@
 
         <form method="POST" action="{{ route('login') }}" novalidate>
             @csrf
-            <input type="hidden" name="role" value="student">
             <!-- Email Address -->
             <div>
                 <x-label for="email" :value="__('Email')" />

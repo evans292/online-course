@@ -107,8 +107,8 @@ class UserSeeder extends Seeder
             'password' => Hash::make('otakugamer'),
         ]);
 
-        Headmaster::create([
-            'nip' => '030602',
+        Teacher::create([
+            'nip' => '123456',
             'user_id' => $headmaster->id,
             'name' => $headmaster->name
         ]);

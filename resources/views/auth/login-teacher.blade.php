@@ -41,15 +41,6 @@
                                 required autocomplete="current-password" />
                 <x-validation-message name="password"/>
             </div>
-
-            <div class="mt-4">
-                <x-label for="role" value="{{ __('Login as:') }}" />
-                <select name="role" id="role" class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
-                    <option value="teacher">Teacher</option>
-                    <option value="headmaster">Headmaster</option>
-                </select>
-            </div>
-
             <!-- Remember Me -->
             <div class="block mt-4">
                 <label for="remember_me" class="inline-flex items-center">

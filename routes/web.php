@@ -1,13 +1,16 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\DepartmentController;
+use App\Http\Controllers\Admin\SchoolclassController;
+use App\Http\Controllers\Admin\StudentController;
+use App\Http\Controllers\Admin\TeacherController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Students\LessonController;
-use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Teachers\CourseController;
 use App\Http\Controllers\Headmaster\DataController;
-use App\Http\Controllers\Students\SubjectController;
+use App\Http\Controllers\Students\StudyController;
 use App\Http\Controllers\User\ProfileController;
-use App\Models\Admin;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,9 +40,10 @@ Route::group(['middleware' => 'auth'], function() {
     });
     
     Route::group(['middleware' => 'role:student', 'prefix' => 'student', 'as' => 'student.'], function() {
-        Route::resource('lessons', LessonController::class);
-        Route::get('lessons/{lesson}/subjectmatters/{subjectmatter}/download', [SubjectController::class, 'download'])->name('subject.download');
-        Route::resource('lessons.subjectmatters', SubjectController::class);
+        Route::get('courses', [StudyController::class, 'index'])->name('courses');
+        Route::get('courses/{course}/subject', [StudyController::class, 'showSubject'])->name('courses.subject');
+        Route::get('courses/{course}/subject/{subject}', [StudyController::class, 'showSubjectDetails'])->name('courses.subject.details');
+        Route::get('courses/{course}/subject/{subject}/download', [StudyController::class, 'download'])->name('courses.subject.download');
     });
 
    Route::group(['middleware' => 'role:teacher', 'prefix' => 'teacher', 'as' => 'teacher.'], function() {
@@ -48,9 +52,12 @@ Route::group(['middleware' => 'auth'], function() {
    });
 
     Route::group(['middleware' => 'role:admin', 'prefix' => 'admin', 'as' => 'admin.'], function() {
-        Route::get('users', [AdminController::class, 'showUsers'])->name('users');
-        Route::get('students', [AdminController::class, 'showStudents'])->name('students');
-        Route::resource('dashboard', AdminController::class);
+        Route::get('dashboard', DashboardController::class)->name('dashboard');
+        Route::resource('students', StudentController::class);
+        Route::resource('teachers', TeacherController::class);
+        Route::resource('departments', DepartmentController::class);
+        Route::resource('schoolclasses', SchoolclassController::class);
+        Route::resource('users', UserController::class);
     });
 
     Route::group(['middleware' => 'role:headmaster', 'prefix' => 'headmaster', 'as' => 'headmaster.'], function() {

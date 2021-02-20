@@ -1,15 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Students;
+namespace App\Http\Controllers\Admin;
 
+use App\Models\Student;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Course;
-use App\Models\Schoolclass;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
-class LessonController extends Controller
+class StudentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,14 +17,14 @@ class LessonController extends Controller
     public function index()
     {
         //
-        if (Gate::denies('view-lessons')) {
+        if (Gate::denies('manage-users')) {
             abort(403);
         }
-
-        $getClassId = Auth::user()->students[0]->schoolclass_id;
-        $class = Schoolclass::find($getClassId);
-        return view('student.lessons.index', compact('class'));
+        
+        $datas = Student::orderBy('name')->paginate(10);
+        return view('admin.users.student.index', compact('datas'));
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -57,34 +55,6 @@ class LessonController extends Controller
     public function show($id)
     {
         //
-        $subjectmatters = Course::find($id)->subjectmatters()->paginate(5);
-        $courseid = 0;
-        foreach ($subjectmatters as $subjectmatter) {
-            $courseid = $subjectmatter->course_id;
-
-        }
-        // echo("ini subject matter course $lol1");
-        if ($courseid === 0) {
-            $count = 0;
-            $course = Course::find($id)->name;
-            return view('student.lessons.subject-list', compact('subjectmatters', 'count', 'course'));
-        }
-        $count = $subjectmatters->count();
-
-        $getClassId = Auth::user()->students[0]->schoolclass_id;
-        $class = Schoolclass::find($getClassId)->courses;
-
-        for ($i=0; $i < $class->count(); $i++) { 
-            # code...
-            // echo($class[$i]->pivot);
-            if ($courseid === $class[$i]->pivot->course_id) {
-                $course = Course::find($id)->name;
-                return view('student.lessons.subject-list', compact('subjectmatters', 'count', 'course'));
-            }
-        }
-        
-        
-        abort(403, 'Nakal ya, bukan mapel kamu XD');
     }
 
     /**

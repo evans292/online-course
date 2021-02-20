@@ -87,8 +87,8 @@
 
             <ul class="md:flex-col md:min-w-full flex flex-col list-none">
               <li class="items-center">
-                <x-side-link :href="route('admin.dashboard.index')" :active="request()->routeIs('admin.dashboard.index')">
-                  <i class="fas fa-tv mr-2 text-sm {{ (request()->routeIs('admin.dashboard.index')) ? 'text-green-500' : 'text-gray-800'}}" ></i>
+                <x-side-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
+                  <i class="fas fa-tv mr-2 text-sm {{ (request()->routeIs('admin.dashboard')) ? 'text-green-500' : 'text-gray-800'}}" ></i>
                   {{ __('Dashboard') }}
                 </x-side-link>
               </li>
@@ -107,20 +107,73 @@
 
             <ul class="md:flex-col md:min-w-full flex flex-col list-none">
               <li class="items-center">
-                <x-side-link :href="route('admin.users')" :active="request()->routeIs('admin.users')">
-                  <i class="fas fa-users mr-2 text-sm {{ (request()->routeIs('admin.users')) ? 'text-green-500' : 'text-gray-800'}}" ></i>
-                  {{ __('Users') }}
+                <x-side-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.index')">
+                  <i class="fas fa-users mr-2 text-sm {{ (request()->routeIs('admin.users.index')) ? 'text-green-500' : 'text-gray-800'}}" ></i>
+                  {{ __('User') }}
                 </x-side-link>
               </li>
 
               <li class="items-center">
-                <x-side-link :href="route('admin.students')" :active="request()->routeIs('admin.students')">
-                  <i class="fas fa-user-graduate mr-3 text-sm {{ (request()->routeIs('admin.students')) ? 'text-green-500' : 'text-gray-800'}}" ></i>
-                  {{ __('Students') }}
+                <x-side-link :href="route('admin.students.index')" :active="request()->routeIs('admin.students.index')">
+                  <i class="fas fa-user-graduate mr-3 text-sm {{ (request()->routeIs('admin.students.index')) ? 'text-green-500' : 'text-gray-800'}}" ></i>
+                  {{ __('Student') }}
+                </x-side-link>
+              </li>
+
+              <li class="items-center">
+                <x-side-link :href="route('admin.teachers.index')" :active="request()->routeIs('admin.teachers.index')">
+                  <i class="fas fa-chalkboard-teacher mr-2 text-sm {{ (request()->routeIs('admin.teachers.index')) ? 'text-green-500' : 'text-gray-800'}}" ></i>
+                  {{ __('Teacher') }}
                 </x-side-link>
               </li>
             </ul>
 
+            <!-- Divider -->
+            <hr class="my-4 md:min-w-full" />
+            <!-- Heading -->
+            <h6
+              class="md:min-w-full text-gray-600 text-xs uppercase font-bold block pt-1 pb-4 no-underline"
+            >
+              Manage Classroom
+            </h6>
+            <!-- Navigation -->
+
+            <ul class="md:flex-col md:min-w-full flex flex-col list-none">
+              <li class="items-center">
+                <x-side-link :href="route('admin.departments.index')" :active="request()->routeIs('admin.departments.index')">
+                  <i class="fas fa-building mr-3 text-sm {{ (request()->routeIs('admin.departments.index')) ? 'text-green-500' : 'text-gray-800'}}" ></i>
+                  {{ __('Department') }}
+                </x-side-link>
+              </li>
+
+              <li class="items-center">
+                <x-side-link :href="route('admin.schoolclasses.index')" :active="request()->routeIs('admin.schoolclasses.index')">
+                  <i class="fas fa-chalkboard mr-2 text-sm {{ (request()->routeIs('admin.schoolclasses.index')) ? 'text-green-500' : 'text-gray-800'}}" ></i>
+                  {{ __('Class') }}
+                </x-side-link>
+              </li>
+            </ul>
+
+
+            <!-- Divider -->
+            <hr class="my-4 md:min-w-full" />
+            <!-- Heading -->
+            <h6
+              class="md:min-w-full text-gray-600 text-xs uppercase font-bold block pt-1 pb-4 no-underline"
+            >
+              Manage Course
+            </h6>
+            <!-- Navigation -->
+
+            <ul class="md:flex-col md:min-w-full flex flex-col list-none">
+              <li class="items-center">
+                <x-side-link :href="route('admin.departments.index')" :active="request()->routeIs('admin.departments.index')">
+                  <i class="fas fa-building mr-3 text-sm {{ (request()->routeIs('admin.departments.index')) ? 'text-green-500' : 'text-gray-800'}}" ></i>
+                  {{ __('Department') }}
+                </x-side-link>
+              </li>
+
+            </ul>
           </div>
         </div>
       </nav>

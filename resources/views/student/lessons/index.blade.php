@@ -1,10 +1,10 @@
 <x-app-layout>
     <x-slot name="title">
-        Lessons
+        Courses
     </x-slot>  
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Lessons List') }}
+            {{ __('Courses List') }}
         </h2>
     </x-slot>
 
@@ -21,7 +21,7 @@
                                 <h5 class="text-gray-400 p-2">courses empty!</h5>
                             @else
                             @foreach ($class->courses as $course)
-                                <li class="rounded-t relative -mb-px block border p-4 border-grey"><a href="/student/lessons/{{ $course->id }}" class="hover:text-green-400">{{ $course->name }}</a></li>
+                                <li class="rounded-t relative -mb-px block border p-4 border-grey"><a href="{{ route('student.courses.subject', [ 'course' => $course->id]) }}" class="hover:text-green-400">{{ $course->name }}</a></li>
                             @endforeach
                             @endif
                         </ul>

@@ -15,14 +15,9 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    {{-- @can('manage-users')
-                    <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.index')">
-                        {{ __('User') }}
-                    </x-nav-link>
-                    @endcan --}}
                     @can('view-lessons')
-                    <x-nav-link :href="route('student.lessons.index')" :active="request()->routeIs('student.lessons.index')">
-                        {{ __('Lessons') }}
+                    <x-nav-link :href="route('student.courses')" :active="request()->routeIs('student.courses')">
+                        {{ __('Courses') }}
                     </x-nav-link>
                     @endcan
                     @can('manage-courses')
@@ -60,7 +55,7 @@
 
                     <x-slot name="content">
                         @can('manage-users')
-                        <x-dropdown-link href="{{ route('admin.dashboard.index') }}">
+                        <x-dropdown-link href="{{ route('admin.dashboard') }}">
                             <i class="fas fa-tachometer-alt mr-2"></i>{{ __('Admin Dashboard') }}
                         </x-dropdown-link>
                         @endcan
@@ -99,14 +94,9 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            {{-- @can('manage-users')
-            <x-responsive-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.index')">
-                {{ __('User') }}
-            </x-responsive-nav-link>
-            @endcan --}}
             @can('view-lessons')
-            <x-responsive-nav-link :href="route('student.lessons.index')" :active="request()->routeIs('student.lessons.index')">
-                {{ __('Lessons') }}
+            <x-responsive-nav-link :href="route('student.courses')" :active="request()->routeIs('student.courses')">
+                {{ __('Courses') }}
             </x-responsive-nav-link>
             @endcan
             @can('manage-courses')
@@ -138,7 +128,7 @@
 
             <div class="mt-3 space-y-1">
                 @can('manage-users')
-                <x-responsive-nav-link href="{{ route('admin.dashboard.index') }}">
+                <x-responsive-nav-link href="{{ route('admin.dashboard') }}">
                     {{ __('Admin Dashboard') }}
                 </x-responsive-nav-link>
                 @endcan

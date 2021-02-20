@@ -19,7 +19,7 @@
                     <ul class="list-reset flex flex-col">
                         @foreach ($subjectmatters as $subjectmatter)
                             <li class="rounded-t relative -mb-px block border p-4 border-grey flex justify-between">
-                                <a href="{{ route('student.lessons.subjectmatters.show', ['lesson' => $subjectmatter->course_id, 'subjectmatter' => $subjectmatter->id]) }}" class="hover:text-green-400">{{ $subjectmatter->title }}</a>
+                                <a href="{{ route('student.courses.subject.details', ['course' => $subjectmatter->course_id, 'subject' => $subjectmatter->id]) }}" class="hover:text-green-400">{{ $subjectmatter->title }}</a>
                                 <p class="text-gray-300">by {{ $subjectmatter->teacher->name }}</p>
                             </li>
                         @endforeach

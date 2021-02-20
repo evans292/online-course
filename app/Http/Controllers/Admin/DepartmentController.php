@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Student;
-use App\Models\User;
-use Illuminate\Support\Facades\Gate;
+use Illuminate\Http\Request;
 
-class AdminController extends Controller
+class DepartmentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,30 +15,6 @@ class AdminController extends Controller
     public function index()
     {
         //
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
-        return view('admin.index');
-    }
-
-    public function showUsers()
-    {
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
-
-        $datas = User::orderBy('role_id')->paginate(10);
-        return view('admin.users.index', compact('datas'));
-    }
-
-    public function showStudents()
-    {
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
-        
-        $datas = Student::orderBy('name')->paginate(10);
-        return view('admin.users.student', compact('datas'));
     }
 
     /**

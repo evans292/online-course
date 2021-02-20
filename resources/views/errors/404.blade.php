@@ -1,5 +1,5 @@
 @extends('errors::illustrated-layout')
 
-@section('title', __('Not Found'))
+@section('title', __('Forbidden'))
 @section('code', '404')
-@section('message', __('Ngapain sehh T_T'))
+@section('message', __($exception->getMessage() ?: 'Not Found'))
