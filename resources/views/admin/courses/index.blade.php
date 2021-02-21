@@ -110,7 +110,7 @@
       @if (session('success'))
       <script>
           Vue.use(VueToast);
-          Vue.$toast.success('Subject deleted!', {
+          Vue.$toast.success('Course deleted!', {
            duration: 1500,
            dismissible: true,
           })

@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Department;
 use App\Models\Schoolclass;
+use App\Models\Teacher;
 use Illuminate\Support\Facades\Gate;
 
 class SchoolclassController extends Controller
@@ -43,6 +45,12 @@ class SchoolclassController extends Controller
     public function create()
     {
         //
+        if (Gate::denies('manage-users')) {
+            abort(403);
+        }
+        $teachers = Teacher::get();
+        $departments = Department::get();
+        return view('admin.schoolclasses.create', compact('teachers', 'departments'));
     }
 
     /**
@@ -54,6 +62,23 @@ class SchoolclassController extends Controller
     public function store(Request $request)
     {
         //
+        if (Gate::denies('manage-users')) {
+            abort(403);
+        }
+
+        $this->validate($request, [
+            'name' => 'required',
+            'information' => 'required'
+        ]);
+
+        Schoolclass::create([
+            'teacher_id' => $request->chief,
+            'department_id' => $request->department,
+            'name' => $request->name,
+            'information' => $request->information
+        ]);
+
+        return redirect(route('admin.schoolclasses.create'))->with('success', 'lol');
     }
 
     /**
@@ -76,6 +101,14 @@ class SchoolclassController extends Controller
     public function edit($id)
     {
         //
+        if (Gate::denies('manage-users')) {
+            abort(403);
+        }
+
+        $class = Schoolclass::findOrFail($id);
+        $teachers = Teacher::get();
+        $departments = Department::get();
+        return view('admin.schoolclasses.edit', compact('class', 'teachers', 'departments'));
     }
 
     /**
@@ -88,6 +121,24 @@ class SchoolclassController extends Controller
     public function update(Request $request, $id)
     {
         //
+        if (Gate::denies('manage-users')) {
+            abort(403);
+        }
+
+        $this->validate($request, [
+            'name' => 'required',
+            'information' => 'required'
+        ]);
+
+        $class = Schoolclass::findOrFail($id);
+        $class->update([
+            'teacher_id' => $request->chief,
+            'department_id' => $request->department,
+            'name' => $request->name,
+            'information' => $request->information
+        ]);    
+        
+        return redirect()->back()->with('success', 'lol');
     }
 
     /**
@@ -99,5 +150,12 @@ class SchoolclassController extends Controller
     public function destroy($id)
     {
         //
+        if (Gate::denies('manage-users')) {
+            abort(403);
+        }
+        $class = Schoolclass::findOrFail($id);
+        $class->delete();
+
+        return redirect()->back()->with('success', 'lol');
     }
 }
