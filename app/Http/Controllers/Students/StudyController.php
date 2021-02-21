@@ -21,7 +21,7 @@ class StudyController extends Controller
         }
 
         $getClassId = Auth::user()->students[0]->schoolclass_id;
-        $class = Schoolclass::find($getClassId);
+        $class = Schoolclass::findOrFail($getClassId);
         return view('student.lessons.index', compact('class'));
     }
 
@@ -32,7 +32,7 @@ class StudyController extends Controller
             abort(403);
         }
 
-        $subjectmatters = Course::find($id)->subjectmatters()->paginate(5);
+        $subjectmatters = Course::findOrFail($id)->subjectmatters()->paginate(5);
         $courseid = 0;
         foreach ($subjectmatters as $subjectmatter) {
             $courseid = $subjectmatter->course_id;
@@ -41,19 +41,19 @@ class StudyController extends Controller
         // echo("ini subject matter course $lol1");
         if ($courseid === 0) {
             $count = 0;
-            $course = Course::find($id)->name;
+            $course = Course::findOrFail($id)->name;
             return view('student.lessons.subject-list', compact('subjectmatters', 'count', 'course'));
         }
         $count = $subjectmatters->count();
 
         $getClassId = Auth::user()->students[0]->schoolclass_id;
-        $class = Schoolclass::find($getClassId)->courses;
+        $class = Schoolclass::findOrFail($getClassId)->courses;
 
         for ($i=0; $i < $class->count(); $i++) { 
             # code...
             // echo($class[$i]->pivot);
             if ($courseid === $class[$i]->pivot->course_id) {
-                $course = Course::find($id)->name;
+                $course = Course::findOrFail($id)->name;
                 return view('student.lessons.subject-list', compact('subjectmatters', 'count', 'course'));
             }
         }
@@ -70,7 +70,7 @@ class StudyController extends Controller
         }
 
         $getClassId = Auth::user()->students[0]->schoolclass_id;
-        $class = Schoolclass::find($getClassId)->courses;
+        $class = Schoolclass::findOrFail($getClassId)->courses;
         for ($i=0; $i < $class->count(); $i++) { 
             # code...
             // echo($class[$i]->pivot);
@@ -88,7 +88,7 @@ class StudyController extends Controller
         }
 
         $getClassId = Auth::user()->students[0]->schoolclass_id;
-        $class = Schoolclass::find($getClassId)->courses;
+        $class = Schoolclass::findOrFail($getClassId)->courses;
         for ($i=0; $i < $class->count(); $i++) { 
             # code...
             // echo($class[$i]->pivot);

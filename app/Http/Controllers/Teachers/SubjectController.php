@@ -25,7 +25,7 @@ class SubjectController extends Controller
             abort(403);
         }
 
-        $classes = Teacher::find(Auth::user()->teachers[0]->id)->schoolclasses;
+        $classes = Teacher::findOrFail(Auth::user()->teachers[0]->id)->schoolclasses;
         // dd($classes[2]->pivot->schoolclass_id);
         return view('teacher.index', compact('classes'));
     }
@@ -85,8 +85,8 @@ class SubjectController extends Controller
         if (Gate::denies('manage-courses')) {
             abort(403);
         }
-        $teachercourse =  Teacher::find(Auth::user()->teachers[0]->id)->courses;
-        $courses = Schoolclass::find($id)->courses;
+        $teachercourse =  Teacher::findOrFail(Auth::user()->teachers[0]->id)->courses;
+        $courses = Schoolclass::findOrFail($id)->courses;
         return view('teacher.courses.course-list', compact('courses'));
     }
 
@@ -123,7 +123,7 @@ class SubjectController extends Controller
         if (Gate::denies('manage-courses')) {
             abort(403);
         }
-        $subject = Subjectmatter::find($id);
+        $subject = Subjectmatter::findOrFail($id);
         return view('teacher.courses.edit-subject', compact('subject'));
     }
 
@@ -143,7 +143,7 @@ class SubjectController extends Controller
         $title_slug = Str::slug(request('title'));
         $datetime = new DateTime();
 
-        $subject = Subjectmatter::find($id);
+        $subject = Subjectmatter::findOrFail($id);
 
         $attachment = $request->file('path');
         $attach = null;
@@ -179,7 +179,7 @@ class SubjectController extends Controller
         if (Gate::denies('manage-courses')) {
             abort(403);
         }
-        $subject = Subjectmatter::find($id);
+        $subject = Subjectmatter::findOrFail($id);
         $subject->delete();
         Storage::disk('local')->delete($subject->path);
         return redirect()->back()->with('success', 'lol');

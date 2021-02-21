@@ -5,9 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="theme-color" content="#000000" />
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+
     <script src="https://kit.fontawesome.com/39ddfceea2.js" crossorigin="anonymous"></script>
+
     <link rel="stylesheet" href="{{ asset('css/app.css') }}" />
+
     {{ $style ?? ''}} 
+    <style>
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+      }
+  </style>
+  <script src="{{asset('js/app.js')}}" defer></script>
+
     <title>{{ $title ?? config('app.name', 'Laravel') }}</title>
   </head>
   <body class="text-gray-800 antialiased">
@@ -26,10 +40,13 @@
       </div>
 
     </div>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
-      charset="utf-8"
-    ></script>
+     <!-- Vue.js -->
+     <script src="https://cdn.jsdelivr.net/npm/vue@2.6"></script>
+     <!-- Lastly add this package -->
+     <script src="https://cdn.jsdelivr.net/npm/vue-toast-notification"></script>
+     <link href="https://cdn.jsdelivr.net/npm/vue-toast-notification/dist/theme-sugar.css" rel="stylesheet">
+     <!-- Init the plugin -->
+      {{ $script ?? ''}} 
     <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
     <script type="text/javascript">
       /* Sidebar - Side navigation menu on mobile/responsive mode */

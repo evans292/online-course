@@ -54,6 +54,11 @@ class CourseController extends Controller
     public function create()
     {
         //
+        if (Gate::denies('manage-users')) {
+            abort(403);
+        }
+        
+        return view('admin.courses.create');
     }
 
     /**
@@ -65,6 +70,21 @@ class CourseController extends Controller
     public function store(Request $request)
     {
         //
+        if (Gate::denies('manage-users')) {
+            abort(403);
+        }
+
+        $this->validate($request, [
+            'name' => 'required',
+            'information' => 'required'
+        ]);
+
+        Course::create([
+            'name' => $request->name,
+            'information' => $request->information
+        ]);
+
+        return redirect(route('admin.courses.create'))->with('success', 'lol');
     }
 
     /**
@@ -87,6 +107,12 @@ class CourseController extends Controller
     public function edit($id)
     {
         //
+        if (Gate::denies('manage-users')) {
+            abort(403);
+        }
+
+        $course = Course::findOrFail($id);
+        return view('admin.courses.edit', compact('course'));
     }
 
     /**
@@ -99,6 +125,21 @@ class CourseController extends Controller
     public function update(Request $request, $id)
     {
         //
+        if (Gate::denies('manage-users')) {
+            abort(403);
+        }
+
+        $this->validate($request, [
+            'name' => 'required',
+            'information' => 'required'
+        ]);
+        $course = Course::findOrFail($id);
+        $course->update([
+            'name' => $request->name,
+            'information' => $request->information
+        ]);
+
+        return redirect()->back()->with('success', 'lol');
     }
 
     /**
@@ -110,5 +151,11 @@ class CourseController extends Controller
     public function destroy($id)
     {
         //
+        if (Gate::denies('manage-users')) {
+            abort(403);
+        }
+        $course = Course::findOrFail($id);
+        $course->delete();
+        return redirect()->back()->with('success', 'lol');
     }
 }

@@ -12,4 +12,16 @@
         </div>
     </div>
   </div>
+
+  <x-slot name="script">
+    @if (session('admin'))
+    <script>
+        Vue.use(VueToast);
+        Vue.$toast.success('Hello Admin!', {
+         duration: 1500,
+         dismissible: true,
+        })
+    </script>
+    @endif
+</x-slot>
 </x-admin-layout>

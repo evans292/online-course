@@ -18,13 +18,13 @@ class ProfileController extends Controller
     {
         $data = null;
         if (Auth::user()->role_id === 1) {
-            $data = Admin::find(Auth::user()->admins[0]->id);
+            $data = Admin::findOrFail(Auth::user()->admins[0]->id);
         } else if (Auth::user()->role_id === 2) {
-            $data = Student::find(Auth::user()->students[0]->id);
+            $data = Student::findOrFail(Auth::user()->students[0]->id);
         } else if (Auth::user()->role_id === 3) {
-            $data = Teacher::find(Auth::user()->teachers[0]->id);
+            $data = Teacher::findOrFail(Auth::user()->teachers[0]->id);
         } else {
-            $data = Headmaster::find(Auth::user()->headmasters[0]->id);
+            $data = Headmaster::findOrFail(Auth::user()->headmasters[0]->id);
         }
         $genders = ['L' => 'Male', 'P' => 'Female'];
         $classes = Schoolclass::get();
@@ -44,7 +44,7 @@ class ProfileController extends Controller
             }
             $pictureUrl = $picture->storeAs("images/profilepic", "{$name_slug}-{$datetime->format('Y-m-d-s')}.{$picture->extension()}");
         }
-        $user = User::find($userid);
+        $user = User::findOrFail($userid);
         if ($user->role_id === 1) {
             Admin::where('id', $profileid)->update([
                 'name' => $request->name,
