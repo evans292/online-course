@@ -29,7 +29,8 @@
 
                         <div class="mb-4">
                             <x-label for="link" :value="__('Youtube Link')" />
-                            <x-input id="link" class="block mt-1 w-full" type="text" name="link" value="" required />
+                            {{-- <x-input id="link" class="block mt-1 w-full" type="text" name="link" value="" required /> --}}
+                            <textarea name="link" id="link" cols="30" rows="10" class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"></textarea>
                             <x-validation-message name="link"/>
                         </div>
 
@@ -68,6 +69,15 @@
                 .create( document.querySelector( '#details' ), {
                     removePlugins: [ 'Link' ],
                     toolbar: [ 'heading','bold', 'italic', 'blockQuote' ]
+                } )
+                .catch( error => {
+                    console.error( error );
+                } );
+
+                ClassicEditor
+                .create( document.querySelector( '#link' ), {
+                    removePlugins: [ 'Link' ],
+                    toolbar: ['']
                 } )
                 .catch( error => {
                     console.error( error );

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Department extends Model
 {
     use HasFactory;
+    protected $fillable = ['teacher_id', 'name', 'information'];
 
     public function students()
     {

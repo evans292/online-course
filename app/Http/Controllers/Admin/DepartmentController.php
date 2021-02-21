@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Teacher;
+use App\Models\Department;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Department;
 use Illuminate\Support\Facades\Gate;
 
 class DepartmentController extends Controller
@@ -33,6 +34,12 @@ class DepartmentController extends Controller
     public function create()
     {
         //
+        if (Gate::denies('manage-users')) {
+            abort(403);
+        }
+
+        $teachers = Teacher::get();
+        return view('admin.departments.create', compact('teachers'));
     }
 
     /**
@@ -44,6 +51,22 @@ class DepartmentController extends Controller
     public function store(Request $request)
     {
         //
+        if (Gate::denies('manage-users')) {
+            abort(403);
+        }
+
+        $this->validate($request, [
+            'name' => 'required',
+            'information' => 'required'
+        ]);
+
+        Department::create([
+            'teacher_id' => $request->chief,
+            'name' => $request->name,
+            'information' => $request->information
+        ]);
+
+        return redirect(route('admin.departments.create'))->with('success', 'lol');
     }
 
     /**
@@ -66,6 +89,13 @@ class DepartmentController extends Controller
     public function edit($id)
     {
         //
+        if (Gate::denies('manage-users')) {
+            abort(403);
+        }
+
+        $department = Department::findOrFail($id);
+        $teachers = Teacher::get();
+        return view('admin.departments.edit', compact('teachers', 'department'));
     }
 
     /**
@@ -78,6 +108,23 @@ class DepartmentController extends Controller
     public function update(Request $request, $id)
     {
         //
+        if (Gate::denies('manage-users')) {
+            abort(403);
+        }
+
+        $this->validate($request, [
+            'name' => 'required',
+            'information' => 'required'
+        ]);
+        $department = Department::findOrFail($id);
+
+        $department->update([
+            'teacher_id' => $request->chief,
+            'name' => $request->name,
+            'information' => $request->information
+        ]);
+
+        return redirect()->back()->with('success', 'lol');
     }
 
     /**
@@ -89,5 +136,12 @@ class DepartmentController extends Controller
     public function destroy($id)
     {
         //
+        if (Gate::denies('manage-users')) {
+            abort(403);
+        }
+        $department = Department::findOrFail($id);
+        $department->delete();
+
+        return redirect()->back()->with('success', 'lol');
     }
 }
