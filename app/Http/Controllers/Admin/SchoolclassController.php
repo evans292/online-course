@@ -34,7 +34,7 @@ class SchoolclassController extends Controller
         }
 
         $datas = Schoolclass::orderBy('name')->paginate(10);
-        return view('admin.schoolclasses.map-course', compact('datas'));
+        return view('admin.schoolclasses.map-teacher', compact('datas'));
     }
 
     /**
