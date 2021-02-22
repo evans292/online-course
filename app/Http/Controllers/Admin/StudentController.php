@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+use DateTime;
 use App\Models\Student;
+use App\Models\Schoolclass;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 
 class StudentController extends Controller
 {
@@ -66,6 +71,13 @@ class StudentController extends Controller
     public function edit($id)
     {
         //
+        if (Gate::denies('manage-users')) {
+            abort(403);
+        }
+        $student = Student::findOrFail($id);
+        $genders = ['L' => 'Male', 'P' => 'Female'];
+        $classes = Schoolclass::get();
+        return view('admin.users.student.edit', compact('student', 'genders', 'classes'));
     }
 
     /**
@@ -78,6 +90,37 @@ class StudentController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $student = Student::findOrFail($id);
+        $user = User::findOrFail($student->user_id);
+
+        $name_slug = Str::slug(request('name'));
+        $datetime = new DateTime();
+
+        $picture = $request->file('pic');
+        $pictureUrl = $student->user->profilepic;
+
+        if ($picture !== null) {
+            if ($pictureUrl !== null) {
+                Storage::disk('local')->delete('public/' . $pictureUrl);
+            }
+            $pictureUrl = $picture->storeAs("images/profilepic", "{$name_slug}-{$datetime->format('Y-m-d-s')}.{$picture->extension()}");
+        }
+
+        $student->update([
+            'nis' => $request->nis,
+            'schoolclass_id' => $request->class,        
+            'name' => $request->name,
+            'birthdate' => $request->birthdate,
+            'gender' => $request->gender,
+            'address' => $request->address,
+            'phone' => $request->phone
+        ]);
+
+        $user->name = $request->name;
+        $user->profilepic = $pictureUrl;
+        $user->save();
+
+        return redirect()->back()->with('success', 'lol');
     }
 
     /**
@@ -89,5 +132,15 @@ class StudentController extends Controller
     public function destroy($id)
     {
         //
+        if (Gate::denies('manage-users')) {
+            abort(403);
+        }
+        $student = Student::findOrFail($id);
+        $user = User::findOrFail($student->user_id);
+
+        $student->delete();
+        $user->delete();
+
+        return redirect()->back()->with('success', 'lol');
     }
 }
