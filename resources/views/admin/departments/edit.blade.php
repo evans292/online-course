@@ -12,7 +12,7 @@
                         @method('patch')
                         <div class="mb-4">
                             <x-label for="chief" value="{{ __('Chief') }}" />
-                            <select name="chief" id="chief" class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
+                            <select name="chief" id="chief" class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm select2">
                                 <option value="" class="text-gray-400" selected>-- select chief --</option>
                                 @foreach ($teachers as $teacher)
                                     <option value="{{ $teacher->id }}" {{ ($teacher->id === $department->teacher_id) ? 'selected' : '' }}>{{ $teacher->name }}</option>

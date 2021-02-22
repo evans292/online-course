@@ -29,14 +29,14 @@
 
                         <div class="mb-4">
                             <x-label for="link" :value="__('Youtube Link')" />
-                            {{-- <x-input id="link" class="block mt-1 w-full" type="text" name="link" value="" required /> --}}
-                            <textarea name="link" id="link" cols="30" rows="10" class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"></textarea>
+                            <x-input id="link" class="block mt-1 w-full" type="text" name="link" value="" required />
+                            {{-- <textarea name="link" id="link" cols="30" rows="10" class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"></textarea> --}}
                             <x-validation-message name="link"/>
                         </div>
 
                         <div class="mb-4">
                             <x-label for="course" value="{{ __('Course') }}" />
-                            <select name="course" id="course" class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
+                            <select name="course" id="course" class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm select2">
                                 <option value="" class="text-gray-400" selected>-- select course --</option>
                                 @foreach (Auth::user()->teachers[0]->courses as $course)
                                     <option value="{{ $course->id }}">{{ $course->name }}</option>
@@ -69,15 +69,6 @@
                 .create( document.querySelector( '#details' ), {
                     removePlugins: [ 'Link' ],
                     toolbar: [ 'heading','bold', 'italic', 'blockQuote' ]
-                } )
-                .catch( error => {
-                    console.error( error );
-                } );
-
-                ClassicEditor
-                .create( document.querySelector( '#link' ), {
-                    removePlugins: [ 'Link' ],
-                    toolbar: ['']
                 } )
                 .catch( error => {
                     console.error( error );

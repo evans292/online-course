@@ -27,16 +27,6 @@ class SchoolclassController extends Controller
         return view('admin.schoolclasses.index', compact('datas'));
     }
 
-    public function showClassroomTeacher()
-    {
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
-
-        $datas = Schoolclass::orderBy('name')->paginate(10);
-        return view('admin.schoolclasses.map-teacher', compact('datas'));
-    }
-
     /**
      * Show the form for creating a new resource.
      *

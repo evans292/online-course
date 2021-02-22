@@ -2,11 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Admin\{CourseController, DashboardController, DepartmentController, SchoolclassController, StudentController, TeacherController, UserController};
+use App\Http\Controllers\Admin\{CourseController, DashboardController, DepartmentController, MappingController, SchoolclassController, StudentController, TeacherController, UserController};
 use App\Http\Controllers\Headmaster\DataController;
 use App\Http\Controllers\Students\StudyController;
 use App\Http\Controllers\Teachers\SubjectController;
 use App\Http\Controllers\User\ProfileController;
+use App\Models\Schoolclass;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,18 +50,24 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::group(['middleware' => 'role:admin', 'prefix' => 'admin', 'as' => 'admin.'], function() {
         Route::get('dashboard', DashboardController::class)->name('dashboard');
+        Route::resource('users', UserController::class);
         Route::resource('students', StudentController::class);
         Route::resource('teachers', TeacherController::class);
         Route::resource('departments', DepartmentController::class);
-
-        Route::get('classroom-teacher', [SchoolclassController::class, 'showClassroomTeacher'])->name('classroom-teacher');
         Route::resource('schoolclasses', SchoolclassController::class);
-
-        Route::get('classroom-course', [CourseController::class, 'showClassroomCourse'])->name('classroom-course');
-        Route::get('course-teacher', [CourseController::class, 'showCourseTeacher'])->name('course-teacher');
         Route::resource('courses', CourseController::class);
 
-        Route::resource('users', UserController::class);
+        Route::get('classroom-teacher', [MappingController::class, 'showClassroomTeacher'])->name('classroom-teacher');
+        Route::get('classroom-teacher/{class}/edit', [MappingController::class, 'editClassroomTeacher'])->name('classroom-teacher.edit');
+        Route::patch('classroom-teacher/{class}', [MappingController::class, 'updateClassroomTeacher'])->name('classroom-teacher.update');
+
+        Route::get('classroom-course', [MappingController::class, 'showClassroomCourse'])->name('classroom-course');
+        Route::get('classroom-course/{class}/edit', [MappingController::class, 'editClassroomCourse'])->name('classroom-course.edit');
+        Route::patch('classroom-course/{class}', [MappingController::class, 'updateClassroomCourse'])->name('classroom-course.update');
+
+        Route::get('course-teacher', [MappingController::class, 'showCourseTeacher'])->name('course-teacher');
+        Route::get('course-teacher/{course}/edit', [MappingController::class, 'editCourseTeacher'])->name('course-teacher.edit');
+        Route::patch('course-teacher/{course}', [MappingController::class, 'updateCourseTeacher'])->name('course-teacher.update');
     });
 
     Route::group(['middleware' => 'role:headmaster', 'prefix' => 'headmaster', 'as' => 'headmaster.'], function() {

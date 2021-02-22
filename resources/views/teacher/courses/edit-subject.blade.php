@@ -38,7 +38,7 @@
 
                         <div class="mb-4">
                             <x-label for="course" value="{{ __('Course') }}" />
-                            <select name="course" id="course" class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
+                            <select name="course" id="course" class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm select2">
                                 {{-- <option value="" class="text-gray-400" selected>-- select course --</option> --}}
                                 @foreach (Auth::user()->teachers[0]->courses as $course)
                                     <option value="{{ $course->id }}" {{ ($subject->course_id === $course->id) ? 'selected' : '' }}>{{ $course->name }}</option>

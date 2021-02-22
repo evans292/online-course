@@ -7,6 +7,7 @@
     <meta name="theme-color" content="#000000" />
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
     <script src="https://kit.fontawesome.com/39ddfceea2.js" crossorigin="anonymous"></script>
 
@@ -40,7 +41,10 @@
       </div>
 
     </div>
-     <!-- Vue.js -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> 
+    
+    <!-- Vue.js -->
      <script src="https://cdn.jsdelivr.net/npm/vue@2.6"></script>
      <!-- Lastly add this package -->
      <script src="https://cdn.jsdelivr.net/npm/vue-toast-notification"></script>
@@ -69,6 +73,12 @@
         document.getElementById(dropdownID).classList.toggle("hidden");
         document.getElementById(dropdownID).classList.toggle("block");
       }
+
+      $(document).ready(function() {
+        $('.select2').select2({
+          placeholder: 'Select an option'
+        });
+      });
     </script>
   </body>
 </html>
