@@ -33,7 +33,7 @@
                       <circle cx="7.04991" cy="1.80115" r="1.38611" fill="#222222"/>
                       </g>
                       </svg> --}}
-                    <a href="#" class="inline-flex items-center px-4 py-2 bg-indigo-400 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"><i class="fas fa-plus mr-1"></i>Add teacher</a>
+                    {{-- <a href="#" class="inline-flex items-center px-4 py-2 bg-indigo-400 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"><i class="fas fa-plus mr-1"></i>Add teacher</a> --}}
                     </div>
                 <div class="w-full flex justify-end px-2 mt-2">
                       <div class="w-full sm:w-64 inline-block relative ">
@@ -74,12 +74,12 @@
                           <td class="px-4 py-4">{!! ($data->phone !== null) ? $data->phone : '<span class="text-gray-400">NULL</span>'!!}</td>
                           <td class="px-4 py-4">{{ $data->created_at }}</td>
                           <td class="px-4 py-4">
-                            <form id="{{ $data->id }}" action="#" method="POST">
+                            <form id="{{ $data->id }}" action="{{ route('admin.teachers.destroy', ['teacher' => $data->id]) }}" method="POST">
                               @csrf
                               @method('delete')
                             </form>
-                            <a href="#" onclick="deleteConfirm('{{ $data->title }}', '{{ $data->id }}')"><i class="fas fa-trash-alt text-red-400 mr-1"></i></a>
-                            <a href="#"><i class="fas fa-pencil-alt text-yellow-400"></i></a>
+                            <a href="#" onclick="deleteConfirm('{{ $data->name }}', '{{ $data->id }}')"><i class="fas fa-trash-alt text-red-400 mr-1"></i></a>
+                            <a href="{{ route('admin.teachers.edit', ['teacher' => $data->id]) }}"><i class="fas fa-pencil-alt text-yellow-400"></i></a>
                           </td>
                         </tr>
                         @endforeach
@@ -109,4 +109,15 @@
     </div>
     </div>
 
+    <x-slot name="script">
+      @if (session('success'))
+      <script>
+          Vue.use(VueToast);
+          Vue.$toast.success('Teacher deleted!', {
+           duration: 1500,
+           dismissible: true,
+          })
+      </script>
+      @endif
+  </x-slot>
   </x-admin-layout>

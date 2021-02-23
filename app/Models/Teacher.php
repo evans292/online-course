@@ -42,4 +42,9 @@ class Teacher extends Model
     {
         return $this->belongsToMany(Course::class);
     }
+
+    public function subjectmatters()
+    {
+        return $this->hasMany(Subjectmatter::class);
+    }
 }

@@ -65,7 +65,11 @@
                         @foreach ($datas as $data)
                         <tr class="hover:bg-gray-100 border-b border-gray-200 py-10">
                           <td class="px-4 py-4">{{ $loop->iteration }}</td>
+                          @if ($data->teacher === null)
+                          <td class="px-4 py-4"><span class="text-gray-400">NULL</span></td>
+                          @else
                           <td class="px-4 py-4">{!! ($data->teacher['name'] !== null) ? $data->teacher['name'] : '<span class="text-gray-400">NULL</span>'!!}</td>
+                          @endif
                           <td class="px-4 py-4">{{ $data->name }}</td>
                           <td class="px-4 py-4">{!! $data->information !!}</td>
                           <td class="px-4 py-4">{!! ($data->students->count() !== null) ? $data->students->count() : '<span class="text-gray-400">NULL</span>'!!}</td>
