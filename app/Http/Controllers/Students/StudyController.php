@@ -24,7 +24,7 @@ class StudyController extends Controller
         $getClassId = Auth::user()->students[0]->schoolclass_id;
 
         // lalu cari kelas berdasarkan id kelas siswa
-        $class = Schoolclass::findOrFail($getClassId);
+        $class = Schoolclass::find($getClassId);
         return view('student.lessons.index', compact('class'));
     }
 

@@ -85,8 +85,8 @@ class SubjectController extends Controller
         if (Gate::denies('manage-courses')) {
             abort(403);
         }
-        $teachercourse =  Teacher::findOrFail(Auth::user()->teachers[0]->id)->courses;
-        $courses = Schoolclass::findOrFail($id)->courses;
+        $courses =  Teacher::findOrFail(Auth::user()->teachers[0]->id)->courses;
+        // $courses = Schoolclass::findOrFail($id)->courses;
         return view('teacher.courses.course-list', compact('courses'));
     }
 

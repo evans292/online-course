@@ -25,6 +25,11 @@
                         {{ __('Manage Courses') }}
                     </x-nav-link>
                     @endcan
+                    @can('manage-courses')
+                    <x-nav-link :href="route('teacher.courses.index')" :active="request()->routeIs('teacher.courses.index')">
+                        {{ __('Manage Tasks') }}
+                    </x-nav-link>
+                    @endcan
                     @can('view-data')
                     <x-nav-link :href="route('headmaster.data.index')" :active="request()->routeIs('headmaster.data.index')">
                         {{ __('Data') }}
@@ -102,6 +107,11 @@
             @can('manage-courses')
             <x-responsive-nav-link :href="route('teacher.courses.index')" :active="request()->routeIs('teacher.courses.index')">
                 {{ __('Manage Courses') }}
+            </x-responsive-nav-link>
+            @endcan
+            @can('manage-courses')
+            <x-responsive-nav-link :href="route('teacher.courses.index')" :active="request()->routeIs('teacher.courses.index')">
+                {{ __('Manage Tasks') }}
             </x-responsive-nav-link>
             @endcan
             @can('view-data')
