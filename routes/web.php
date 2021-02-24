@@ -5,9 +5,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\{CourseController, DashboardController, DepartmentController, MappingController, SchoolclassController, StudentController, TeacherController, UserController};
 use App\Http\Controllers\Headmaster\DataController;
 use App\Http\Controllers\Students\StudyController;
+use App\Http\Controllers\Teachers\TaskController;
 use App\Http\Controllers\Teachers\SubjectController;
+use App\Http\Controllers\Teachers\AssignmentController;
 use App\Http\Controllers\User\ProfileController;
-use App\Models\Schoolclass;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +45,8 @@ Route::group(['middleware' => 'auth'], function() {
     });
 
    Route::group(['middleware' => 'role:teacher', 'prefix' => 'teacher', 'as' => 'teacher.'], function() {
+        Route::get('tasks', TaskController::class)->name('tasks');
+        Route::resource('assignment', AssignmentController::class);
         Route::resource('courses', SubjectController::class);
         Route::get('courses/{courses}/subjectmatters', [SubjectController::class, 'showSubject'])->name('subjectmatters');
    });

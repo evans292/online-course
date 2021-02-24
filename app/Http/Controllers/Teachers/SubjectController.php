@@ -25,9 +25,9 @@ class SubjectController extends Controller
             abort(403);
         }
 
-        $classes = Teacher::findOrFail(Auth::user()->teachers[0]->id)->schoolclasses;
+        $classes = Teacher::find(Auth::user()->teachers[0]->id)->schoolclasses;
         // dd($classes[2]->pivot->schoolclass_id);
-        return view('teacher.index', compact('classes'));
+        return view('teacher.courses.index', compact('classes'));
     }
 
     /**
@@ -85,9 +85,10 @@ class SubjectController extends Controller
         if (Gate::denies('manage-courses')) {
             abort(403);
         }
-        $courses =  Teacher::findOrFail(Auth::user()->teachers[0]->id)->courses;
-        // $courses = Schoolclass::findOrFail($id)->courses;
-        return view('teacher.courses.course-list', compact('courses'));
+        // $courses =  Teacher::find(Auth::user()->teachers[0]->id)->courses;
+        $class = Schoolclass::find($id);
+        $courses = Schoolclass::findOrFail($id)->courses;
+        return view('teacher.courses.course-list', compact('courses', 'class'));
     }
 
     public function showSubject($id)
