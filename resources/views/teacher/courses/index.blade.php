@@ -29,7 +29,7 @@
                                 <!-- Article -->
                                 <article class="overflow-hidden rounded-lg shadow-lg">
 
-                                    <a href="#">
+                                    <a href="{{ route('teacher.courses.show', ['course' => $class->pivot->schoolclass_id]) }}">
                                         <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random">
                                     </a>
 

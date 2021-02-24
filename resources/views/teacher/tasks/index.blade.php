@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-teacher-layout>
     <x-slot name="title">
         {{ __('Classwork') }}
     </x-slot>  
@@ -43,4 +43,4 @@
         </div>
     </div>
 
-</x-app-layout>
+</x-teacher-layout>
