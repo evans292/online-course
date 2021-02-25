@@ -61,7 +61,7 @@ class SchoolclassCourseSeeder extends Seeder
             'title' => 'Corel Draw',
             'details' => 'Ini adalah pelajaran tentang corel draw untuk kelas xi',
             'path' => 'public/attachment/' . Str::slug('Corel Draw') . '.pdf',
-            'link' => 'https://www.youtube.com/watch?v=b8oQqADRbTE',
+            'link' => 'https://www.youtube.com/embed/b8oQqADRbTE',
         ]);
 
         Subjectmatter::create([
@@ -70,7 +70,7 @@ class SchoolclassCourseSeeder extends Seeder
             'title' => 'Adobe Photoshop',
             'details' => 'Ini adalah pelajaran tentang adobe photoshop untuk kelas xi',
             'path' => 'public/attachment/' . Str::slug('Adobe Photoshop'). '.pdf',
-            'link' => 'https://www.youtube.com/watch?v=A9pWXs_2QD4E',
+            'link' => 'https://www.youtube.com/embed/A9pWXs_2QD4E',
         ]);
 
         Subjectmatter::create([
@@ -79,7 +79,7 @@ class SchoolclassCourseSeeder extends Seeder
             'title' => 'Algoritma dasar',
             'details' => 'Ini adalah pelajaran tentang algoritma dasar untuk kelas xi',
             'path' => 'public/attachment/' . Str::slug('Algoritma dasar'). '.pdf',
-            'link' => 'https://www.youtube.com/watch?v=5JuNp0o4YEE'
+            'link' => 'https://www.youtube.com/embed/5JuNp0o4YEE'
         ]);
 
         Subjectmatter::create([
@@ -88,7 +88,7 @@ class SchoolclassCourseSeeder extends Seeder
             'title' => 'Analisa dan perhitungan listrik',
             'details' => 'Ini adalah pelajaran tentang kelistrikan untuk kelas xi',
             'path' => 'public/attachment/' . Str::slug('Analisa dan perhitungan listrik'). '.pdf',
-            'link' => 'https://www.youtube.com/watch?v=s9A2EfcoBQg'
+            'link' => 'https://www.youtube.com/embed/s9A2EfcoBQg'
         ]);
 
     }

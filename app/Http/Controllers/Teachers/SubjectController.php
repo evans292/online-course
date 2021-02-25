@@ -67,7 +67,7 @@ class SubjectController extends Controller
             'teacher_id' => Auth::user()->teachers[0]->id,
             'title' => $request->title,
             'details' => $request->details,
-            'link' => $request->link,
+            'link' => 'https://www.youtube.com/embed/' . substr($request->link,32),
             'path' => 'public/' . $attach
         ]);
         return redirect(route('teacher.courses.create'))->with('success', 'lol');

@@ -71,7 +71,7 @@
                             <tr class="hover:bg-gray-100 border-b border-gray-200 py-10">
                               <td class="px-4 py-4">{{ $loop->iteration }}</td>
                               <td class="px-4 py-4">{{ $data->title }}</td>
-                              <td class="px-4 py-4">{!! $data->details !!}</td>
+                              <td class="px-4 py-4">{!! Str::limit($data->details, 50)  !!}</td>
                               <td class="px-4 py-4">{{ $data->path }}</td>
                               <td class="px-4 py-4">{{ $data->link }}</td>
                               <td class="px-4 py-4">{{ $data->teacher->name }}</td>
