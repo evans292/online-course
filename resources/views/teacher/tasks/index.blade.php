@@ -7,6 +7,7 @@
             {{ __('Classwork') }}
         </h2>
     </x-slot>
+
     <div class="py-12">
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             <!-- Settings Dropdown -->
@@ -42,22 +43,41 @@
             </div>
             @else
             @foreach ($datas as $data)
-            <div class="hover:bg-white overflow-hidden hover:shadow-lg sm:rounded-lg">
-                <div class="p-4 hover:bg-white border-b border-gray-200 cursor-pointer">
-                    <div class="flex justify-between">
-                        <div>
-                            <i class="fas fa-clipboard-list text-white text-2xl my-2 mr-3 bg-green-400 p-2 rounded-lg"></i>
-                            <a href="#">{{ $data->title }}</a>
+            <div x-data="{ expanded: false }">
+            <div class="hover:bg-white overflow-hidden hover:shadow-lg sm:rounded-lg mb-2" x-bind:class="expanded ? 'shadow-lg' : ''">
+                    <div class="p-4 hover:bg-white border-b border-gray-200 cursor-pointer relative overflow-hidden transition-all max-h-20 ease-in duration-200" x-ref="container" x-bind:class="expanded ? 'bg-white' : ''"  x-bind:style="expanded ? 'max-height: ' + $refs.container.scrollHeight + 'px' : ''" @click="expanded = !expanded">
+                        <div class="flex justify-between">
+                            <div>
+                                <i class="fas fa-clipboard-list text-white text-2xl my-2 mr-3 bg-green-400 p-2 rounded-lg"></i>
+                                <a href="#">{{ $data->title }}</a>
+                            </div>
+                            <div class="flex self-center mt-3">
+                                <span class="self-center text-xs text-gray-400 mr-2">Posted {{ $data->created_at->format('g:i A') }}</span>
+                                <img src="{{ asset('image/dots.svg') }}" alt="Kiwi standing on oval" class="h-6 w-6 mt-1">
+                            </div>
+                        </div>   
+                        <hr class="my-2">     
+                        <p class="text-xs text-gray-400">Due {{ $data->due->format('M d') }}</p> 
+                        <p class="mt-5 text-sm">{{ Str::limit($data->instructions, 300) }}</p>
+                        <div class="flex justify-end">
+                            <div class="mx-5 border-l-2 pl-3">
+                                <p class="text-4xl">0</p>
+                                <p class="text-gray-400 text-sm"> Turned in</p>
+                            </div>
+                            <div class="border-l-2 pl-3">
+                            <p class="text-4xl">{{ $data->schoolclass->students->count() }}</p>
+                               <p class="text-gray-400 text-sm">Assigned</p>
+                            </div>
                         </div>
-                        <div class="flex self-center mt-3">
-                            <span class="self-center text-xs text-gray-400 mr-2">Posted {{ $data->created_at->format('g:i A') }}</span>
-                            <img src="{{ asset('image/dots.svg') }}" alt="Kiwi standing on oval" class="h-6 w-6 mt-1">
-                        </div>
+                        <hr class="my-2">     
+                        <a href="{{ route('teacher.assignment.show', ['assignment' => $data->id]) }}" class="text-green-600 font-semibold p-2 text-sm hover:bg-blue-50">View assignment</a>
                     </div>
                 </div>
             </div> 
             @endforeach
             @endif
+
+            {{ $datas->links() }}
         </div>
     </div>
 

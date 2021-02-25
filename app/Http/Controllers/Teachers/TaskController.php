@@ -23,7 +23,7 @@ class TaskController extends Controller
             abort(403);
         }
 
-        $datas = Assignment::where('schoolclass_id', $id)->latest()->paginate(10);
+        $datas = Assignment::where('schoolclass_id', $id)->latest()->paginate(5);
 
         return view('teacher.tasks.index', compact('datas'));
     }
