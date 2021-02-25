@@ -50,7 +50,7 @@
                                                 @if ($class->teacher->user->profilepic === null)
                                                 <img src="{{ asset('image/download.png') }}" class="block rounded-full w-8 h-8"> 
                                                 @else
-                                                <img src="{{ asset('storage/' . $class->teacher->user->profilepic) }}" class="block rounded-full">
+                                                <img src="{{ asset('storage/' . $class->teacher->user->profilepic) }}" class="block rounded-full w-8 h-8">
                                                 @endif
                                             {{-- <img alt="Placeholder" class="block rounded-full" src="https://picsum.photos/32/32/?random"> --}}
                                             <p class="ml-2 text-sm">

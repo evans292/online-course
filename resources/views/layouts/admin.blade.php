@@ -31,7 +31,7 @@
       
         @include('layouts.admin.sidebar')
 
-      <div class="relative md:ml-64 bg-gray-100">
+      <div class="relative md:ml-64 bg-gray-50">
         @include('layouts.admin.topbar')
         
         <!-- Content -->

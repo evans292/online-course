@@ -7,15 +7,14 @@
             {{ __('Classwork') }}
         </h2>
     </x-slot>
-
     <div class="py-12">
-        <div class="max-w-5xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             <!-- Settings Dropdown -->
             <div class="sm:flex sm:items-center sm:ml-6 mb-2">
                 <x-dropdown align="left" width="48">
                     <x-slot name="trigger">
-                        <button class="inline-flex items-center px-4 py-2 bg-indigo-400 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
-                            <i class="fas fa-plus mr-1"></i>Add
+                        <button class="inline-flex items-center px-4 py-2 bg-green-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
+                            <i class="fas fa-plus mr-1"></i>Create
                         </button>
                     </x-slot>
 
@@ -30,6 +29,7 @@
                 </x-dropdown>
             </div>
 
+            @if ($datas->count() === 0)
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <h1 class="text-xl text-green-700 font-bold">Assign work to your class here</h1>
@@ -40,6 +40,24 @@
                     </div>
                 </div>
             </div>
+            @else
+            @foreach ($datas as $data)
+            <div class="hover:bg-white overflow-hidden hover:shadow-lg sm:rounded-lg">
+                <div class="p-4 hover:bg-white border-b border-gray-200 cursor-pointer">
+                    <div class="flex justify-between">
+                        <div>
+                            <i class="fas fa-clipboard-list text-white text-2xl my-2 mr-3 bg-green-400 p-2 rounded-lg"></i>
+                            <a href="#">{{ $data->title }}</a>
+                        </div>
+                        <div class="flex self-center mt-3">
+                            <span class="self-center text-xs text-gray-400 mr-2">Posted {{ $data->created_at->format('g:i A') }}</span>
+                            <img src="{{ asset('image/dots.svg') }}" alt="Kiwi standing on oval" class="h-6 w-6 mt-1">
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            @endforeach
+            @endif
         </div>
     </div>
 

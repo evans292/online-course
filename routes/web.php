@@ -45,7 +45,7 @@ Route::group(['middleware' => 'auth'], function() {
     });
 
    Route::group(['middleware' => 'role:teacher', 'prefix' => 'teacher', 'as' => 'teacher.'], function() {
-        Route::get('tasks', TaskController::class)->name('tasks');
+        Route::get('tasks/{class}', TaskController::class)->name('tasks');
         Route::resource('assignment', AssignmentController::class);
         Route::resource('courses', SubjectController::class);
         Route::get('courses/{courses}/subjectmatters', [SubjectController::class, 'showSubject'])->name('subjectmatters');

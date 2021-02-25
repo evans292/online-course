@@ -35,7 +35,7 @@ class AssignmentController extends Controller
             abort(403);
         }
 
-        return view('teacher.assignment.create');
+        return view('teacher.tasks.assignment.create');
     }
 
     /**
@@ -47,6 +47,7 @@ class AssignmentController extends Controller
     public function store(Request $request)
     {
         //
+        
     }
 
     /**

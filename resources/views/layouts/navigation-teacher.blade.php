@@ -18,8 +18,11 @@
                     {{-- <x-nav-link :href="route('teacher.courses.show', ['course' => Request::segment(3)])" :active="request()->routeIs('teacher.courses.show', ['course' => Request::segment(3)])">
                         {{ __('Stream') }}
                     </x-nav-link> --}}
-                    <x-nav-link :href="route('teacher.tasks')" :active="request()->routeIs('teacher.tasks')">
+                    <x-nav-link :href="route('teacher.tasks', ['class' => Request::segment(3)])" :active="request()->routeIs('teacher.tasks')">
                         {{ __('Classwork') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        {{ __('People') }}
                     </x-nav-link>
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Grades') }}
@@ -99,7 +102,7 @@
             </x-responsive-nav-link>
             @endcan
             @can('manage-courses')
-            <x-responsive-nav-link :href="route('teacher.tasks')" :active="request()->routeIs('teacher.tasks')">
+            <x-responsive-nav-link :href="route('teacher.tasks', ['class' => Request::segment(3)])" :active="request()->routeIs('teacher.tasks')">
                 {{ __('Manage Classwork') }}
             </x-responsive-nav-link>
             @endcan

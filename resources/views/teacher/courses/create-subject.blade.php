@@ -46,7 +46,7 @@
                         </div>
 
                         <div class="mb-4">
-                            <x-label for="path" :value="__('Subject Attachment (audio, document, image)')" />
+                            <x-label for="path" :value="__('Subject attachment (audio, document, image)')" />
                             <input type="file" name="path" id="path" class="bg-gray-100 block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-sm shadow-sm">
                             <x-validation-message name="path"/>
                         </div>
