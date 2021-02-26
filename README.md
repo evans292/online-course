@@ -7,6 +7,18 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## How to install this web app
+
+1. git clone https://github.com/evans292/online-course.git
+2. run composer install
+3. run npm install or yarn install
+4. configure .env file
+5. run php artisan key:generate
+6. run php artisan migrate
+7. run php artisan db:seed
+8. run npm run dev or yarn dev
+9. php artisan serve
+
 ## About this Online Course App
 
 This online course app is my school project, using Laravel + Alpine Js + Tailwind Css. Our team members : 
