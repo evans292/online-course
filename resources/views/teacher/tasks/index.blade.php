@@ -45,20 +45,46 @@
             @foreach ($datas as $data)
             <div x-data="{ expanded: false }">
             <div class="hover:bg-white overflow-hidden hover:shadow-lg sm:rounded-lg mb-2" x-bind:class="expanded ? 'shadow-lg' : ''">
-                    <div class="p-4 hover:bg-white border-b border-gray-200 cursor-pointer relative overflow-hidden transition-all max-h-20 ease-in duration-200" x-ref="container" x-bind:class="expanded ? 'bg-white' : ''"  x-bind:style="expanded ? 'max-height: ' + $refs.container.scrollHeight + 'px' : ''" @click="expanded = !expanded">
+                    <div class="p-4 hover:bg-white cursor-pointer relative overflow-hidden transition-all max-h-32 ease-in duration-200" x-ref="container" x-bind:class="expanded ? 'bg-white' : ''"  x-bind:style="expanded ? 'max-height: ' + $refs.container.scrollHeight + 'px' : ''" x-on:click.self="expanded = !expanded">
                         <div class="flex justify-between">
                             <div>
                                 <i class="fas fa-clipboard-list text-white text-2xl my-2 mr-3 bg-green-400 p-2 rounded-lg"></i>
                                 <a href="#">{{ $data->title }}</a>
                             </div>
                             <div class="flex self-center mt-3">
-                                <span class="self-center text-xs text-gray-400 mr-2">Posted {{ $data->created_at->format('g:i A') }}</span>
-                                <img src="{{ asset('image/dots.svg') }}" alt="Kiwi standing on oval" class="h-6 w-6 mt-1">
+                                <span class="self-center text-xs text-gray-400 mr-2">Posted {{ $data->created_at->format('M d') }}</span>
+                                <x-dropdown align="top" width="48" >
+                                    <x-slot name="trigger">
+                                        <button class="mt-1 hover:bg-gray-50 p-1 rounded-full">
+                                            <img src="{{ asset('image/dots.svg') }}" alt="Kiwi standing on oval" class="h-6 w-6">
+                                        </button>
+                                    </x-slot>
+                
+                                    <x-slot name="content">
+                                        <x-dropdown-link href="{{ route('teacher.assignment.create') }}">
+                                            <i class="far fa-clipboard mr-2"></i>{{ __('Assignment') }}
+                                        </x-dropdown-link>
+                                        <x-dropdown-link href="#">
+                                            <i class="far fa-clipboard mr-2"></i>{{ __('Quiz Assignment') }}
+                                        </x-dropdown-link>
+                                    </x-slot>
+                                </x-dropdown>
                             </div>
                         </div>   
                         <hr class="my-2">     
-                        <p class="text-xs text-gray-400">Due {{ $data->due->format('M d') }}</p> 
-                        <p class="mt-5 text-sm">{{ Str::limit($data->instructions, 300) }}</p>
+                        <p class="text-xs text-gray-400">
+                            Due 
+                            @if (Carbon\Carbon::now()->format('Y-m-d') === $data->due->format('Y-m-d'))
+                                Today
+                            @elseif (Carbon\Carbon::now(-1)->format('Y-m-d') === $data->due->format('Y-m-d'))  
+                                Yesterday
+                            @elseif (Carbon\Carbon::now()->addDay()->format('Y-m-d') === $data->due->format('Y-m-d'))  
+                                Tomorrow
+                            @else
+                                {{ $data->due->diffForHumans() }}
+                            @endif
+                        </p> 
+                        <p class="mt-5 text-sm text-justify">{{ Str::limit($data->instructions, 300) }}</p>
                         <div class="flex justify-end">
                             <div class="mx-5 border-l-2 pl-3">
                                 <p class="text-4xl">0</p>
