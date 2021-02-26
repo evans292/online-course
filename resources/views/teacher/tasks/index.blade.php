@@ -21,10 +21,10 @@
 
                     <x-slot name="content">
                         <x-dropdown-link href="{{ route('teacher.assignment.create') }}">
-                            <i class="far fa-clipboard mr-2"></i>{{ __('Assignment') }}
+                            <i class="fas fa-clipboard-list mr-2"></i>{{ __('Assignment') }}
                         </x-dropdown-link>
                         <x-dropdown-link href="#">
-                            <i class="far fa-clipboard mr-2"></i>{{ __('Quiz Assignment') }}
+                            <i class="fas fa-clipboard-list mr-2"></i>{{ __('Quiz Assignment') }}
                         </x-dropdown-link>
                     </x-slot>
                 </x-dropdown>
@@ -46,7 +46,7 @@
             <div x-data="{ expanded: false }">
             <div class="hover:bg-white overflow-hidden hover:shadow-lg sm:rounded-lg mb-2" x-bind:class="expanded ? 'shadow-lg' : ''">
                     <div class="p-4 hover:bg-white cursor-pointer relative overflow-hidden transition-all max-h-32 ease-in duration-200" x-ref="container" x-bind:class="expanded ? 'bg-white' : ''"  x-bind:style="expanded ? 'max-height: ' + $refs.container.scrollHeight + 'px' : ''" x-on:click.self="expanded = !expanded">
-                        <div class="flex justify-between">
+                        <div class="flex justify-between" x-on:click.self="expanded = !expanded">
                             <div>
                                 <i class="fas fa-clipboard-list text-white text-2xl my-2 mr-3 bg-green-400 p-2 rounded-lg"></i>
                                 <a href="#">{{ $data->title }}</a>
@@ -55,17 +55,17 @@
                                 <span class="self-center text-xs text-gray-400 mr-2">Posted {{ $data->created_at->format('M d') }}</span>
                                 <x-dropdown align="top" width="48" >
                                     <x-slot name="trigger">
-                                        <button class="mt-1 hover:bg-gray-50 p-1 rounded-full">
+                                        <button class="mt-1 hover:bg-gray-50 p-1 rounded-full focus:outline-none">
                                             <img src="{{ asset('image/dots.svg') }}" alt="Kiwi standing on oval" class="h-6 w-6">
                                         </button>
                                     </x-slot>
                 
                                     <x-slot name="content">
-                                        <x-dropdown-link href="{{ route('teacher.assignment.create') }}">
-                                            <i class="far fa-clipboard mr-2"></i>{{ __('Assignment') }}
+                                        <x-dropdown-link href="{{ route('teacher.assignment.edit', ['assignment' => $data->id]) }}">
+                                            <i class="fas fa-pencil-alt mr-2"></i>{{ __('Edit') }}
                                         </x-dropdown-link>
                                         <x-dropdown-link href="#">
-                                            <i class="far fa-clipboard mr-2"></i>{{ __('Quiz Assignment') }}
+                                            <i class="fas fa-trash-alt mr-2"></i>{{ __('Delete') }}
                                         </x-dropdown-link>
                                     </x-slot>
                                 </x-dropdown>
