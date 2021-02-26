@@ -9,6 +9,17 @@ class Assignment extends Model
 {
     use HasFactory;
     protected $dates = ['due'];
+    protected $fillable = [
+        'schoolclass_id',
+        'subjectmatter_id',
+        'teacher_id',
+        'title',
+        'instructions',
+        'attachment',
+        'point',
+        'due',
+        'status',
+    ];
 
     public function subjectmatter()
     {

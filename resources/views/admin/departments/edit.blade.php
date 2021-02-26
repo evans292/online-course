@@ -30,9 +30,7 @@
                         <div class="mb-4">
                             <x-label for="information" :value="__('Information')" />
                             {{-- <x-input id="details" class="block mt-1 w-full" type="text" name="details" value="" required /> --}}
-                            <textarea name="information" id="information" cols="30" rows="10" class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
-                                {{ $department->information }}
-                            </textarea>
+                            <textarea name="information" id="information" cols="30" rows="10" class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">{{ $department->information }}</textarea>
                             <x-validation-message name="information"/>
                         </div>
 

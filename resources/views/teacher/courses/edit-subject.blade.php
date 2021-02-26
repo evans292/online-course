@@ -24,9 +24,7 @@
                         <div class="mb-4">
                             <x-label for="details" :value="__('Details')" />
                             {{-- <x-input id="details" class="block mt-1 w-full" type="text" name="details" value="" required /> --}}
-                            <textarea name="details" id="details" cols="30" rows="10" class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
-                            {{ $subject->details }}
-                            </textarea>
+                            <textarea name="details" id="details" cols="30" rows="10" class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">{{ $subject->details }}</textarea>
                             <x-validation-message name="details"/>
                         </div>
 

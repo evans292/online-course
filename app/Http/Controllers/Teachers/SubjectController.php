@@ -79,16 +79,16 @@ class SubjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($idKelas)
     {
         //
         if (Gate::denies('manage-courses')) {
             abort(403);
         }
         // $courses =  Teacher::find(Auth::user()->teachers[0]->id)->courses;
-        $class = Schoolclass::find($id);
-        $courses = Schoolclass::findOrFail($id)->courses;
-        return view('teacher.courses.course-list', compact('courses', 'class'));
+        $class = Schoolclass::find($idKelas);
+        $courses = Schoolclass::findOrFail($idKelas)->courses;
+        return view('teacher.courses.course-list', compact('courses', 'class', 'idKelas'));
     }
 
     public function showSubject($id)

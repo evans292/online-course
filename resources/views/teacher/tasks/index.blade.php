@@ -20,7 +20,7 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link href="{{ route('teacher.assignment.create') }}">
+                        <x-dropdown-link href="{{ route('teacher.assignment.create', ['class' => Request::segment(3)]) }}">
                             <i class="fas fa-clipboard-list mr-2"></i>{{ __('Assignment') }}
                         </x-dropdown-link>
                         <x-dropdown-link href="#">
@@ -49,7 +49,7 @@
                         <div class="flex justify-between" x-on:click.self="expanded = !expanded">
                             <div>
                                 <i class="fas fa-clipboard-list text-white text-2xl my-2 mr-3 bg-green-400 p-2 rounded-lg"></i>
-                                <a href="#">{{ $data->title }}</a>
+                                <a>{{ $data->title }}</a>
                             </div>
                             <div class="flex self-center mt-3">
                                 <span class="self-center text-xs text-gray-400 mr-2">Posted {{ $data->created_at->format('M d') }}</span>
@@ -61,12 +61,17 @@
                                     </x-slot>
                 
                                     <x-slot name="content">
-                                        <x-dropdown-link href="{{ route('teacher.assignment.edit', ['assignment' => $data->id]) }}">
+                                        <x-dropdown-link href="{{ route('teacher.assignment.edit', ['class' => Request::segment(3), 'assignment' => $data->id]) }}">
                                             <i class="fas fa-pencil-alt mr-2"></i>{{ __('Edit') }}
                                         </x-dropdown-link>
-                                        <x-dropdown-link href="#">
-                                            <i class="fas fa-trash-alt mr-2"></i>{{ __('Delete') }}
-                                        </x-dropdown-link>
+
+                                        <form id="{{ $data->id }}" action="{{ route('teacher.assignment.destroy', ['assignment' => $data->id]) }}" method="POST">
+                                            @csrf
+                                            @method('delete')
+                                            <x-dropdown-link href="#" onclick="deleteConfirm('{{ $data->title }}', '{{ $data->id }}')">                                          
+                                              <i class="fas fa-trash-alt mr-2"></i>{{ __('Delete') }}
+                                            </x-dropdown-link>
+                                        </form>
                                     </x-slot>
                                 </x-dropdown>
                             </div>
@@ -107,4 +112,15 @@
         </div>
     </div>
 
+    <x-slot name="script">
+        @if (session('success'))
+        <script>
+            Vue.use(VueToast);
+            Vue.$toast.success('Assignment deleted!', {
+             duration: 1500,
+             dismissible: true,
+            })
+        </script>
+        @endif
+    </x-slot>
 </x-teacher-layout>

@@ -46,7 +46,11 @@ Route::group(['middleware' => 'auth'], function() {
 
    Route::group(['middleware' => 'role:teacher', 'prefix' => 'teacher', 'as' => 'teacher.'], function() {
         Route::get('tasks/{class}', TaskController::class)->name('tasks');
-        Route::resource('assignment', AssignmentController::class);
+        Route::resource('assignment', AssignmentController::class)->except([
+            'create', 'edit'
+        ]);
+        Route::get('assignment/{class}/create', [AssignmentController::class, 'create'])->name('assignment.create');
+        Route::get('assignment/{class}/{assignment}/edit', [AssignmentController::class, 'edit'])->name('assignment.edit');
         Route::resource('courses', SubjectController::class);
         Route::get('courses/{courses}/subjectmatters', [SubjectController::class, 'showSubject'])->name('subjectmatters');
    });

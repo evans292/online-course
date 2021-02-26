@@ -9,9 +9,9 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
-    <script src="https://kit.fontawesome.com/39ddfceea2.js" crossorigin="anonymous"></script>
-
+    {{-- <script src="https://kit.fontawesome.com/39ddfceea2.js" crossorigin="anonymous"></script> --}}
     <link rel="stylesheet" href="{{ asset('css/app.css') }}" />
+    <link rel="stylesheet" href="{{ asset('font-awesome/app.css') }}" />
 
     {{ $style ?? ''}} 
     <style>

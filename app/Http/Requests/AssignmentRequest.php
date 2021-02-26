@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SubjectMatterRequest extends FormRequest
+class AssignmentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,11 +25,11 @@ class SubjectMatterRequest extends FormRequest
     {
         return [
             //
+            'subject' => 'required',
             'title' => 'required',
-            'details' => 'required',
-            'link' => 'required',
-            'course' => 'required',
-            'path' => 'required|file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,jpeg,png,jpg,mp3,aac'
+            'path' => 'file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,jpeg,png,jpg,mp3,aac',
+            'due' => 'date',
+            'status' => 'required'
         ];
     }
 }

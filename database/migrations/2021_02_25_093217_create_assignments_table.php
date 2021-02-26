@@ -21,9 +21,9 @@ class CreateAssignmentsTable extends Migration
             $table->string('title');
             $table->text('instructions')->nullable();
             $table->string('attachment')->nullable();
-            $table->integer('point');
+            $table->integer('point')->nullable();
             $table->date('due');
-            $table->enum('status', ['open', 'close']);
+            $table->enum('status', ['Open', 'Close']);
             $table->timestamps();
         });
     }

@@ -18,9 +18,7 @@
                         <div class="mb-4">
                             <x-label for="information" :value="__('Information')" />
                             {{-- <x-input id="details" class="block mt-1 w-full" type="text" name="details" value="" required /> --}}
-                            <textarea name="information" id="information" cols="30" rows="10" class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
-                                {{ old('information') }}
-                            </textarea>
+                            <textarea name="information" id="information" cols="30" rows="10" class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">{{ old('information') }}</textarea>
                             <x-validation-message name="information"/>
                         </div>
 
@@ -36,17 +34,6 @@
     </div>
 
     <x-slot name="script">
-        <script src="https://cdn.ckeditor.com/ckeditor5/25.0.0/classic/ckeditor.js"></script>
-        <script>
-            ClassicEditor
-                .create( document.querySelector( '#information' ), {
-                    removePlugins: [ 'Link' ],
-                    toolbar: [ 'heading','bold', 'italic', 'blockQuote' ]
-                } )
-                .catch( error => {
-                    console.error( error );
-                } );
-        </script>
         @if (session('success'))
         <script>
             Vue.use(VueToast);

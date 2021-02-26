@@ -82,7 +82,7 @@
 
                         <div class="mb-4">
                             <x-label for="address" value="{{ __('Address') }}" />
-                            <x-input id="address" class="block mt-1 w-full" type="text" name="address" value="{{ $data->address }}" required />
+                            <textarea name="address" id="address" cols="30" rows="10" class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">{{ $data->address }}</textarea>
                             <x-validation-message name="address"/>
                         </div>
 

@@ -25,8 +25,7 @@ class TaskController extends Controller
         }
 
         $datas = Assignment::where('schoolclass_id', $id)->latest()->paginate(5);
-        // dd(Carbon::now()->addDay()->format('Y-m-d'));
-        // dd(Carbon::now()->format('Y-m-d') === $datas[0]->due->format('Y-m-d'));
+        
         return view('teacher.tasks.index', compact('datas'));
     }
 }
