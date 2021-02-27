@@ -101,7 +101,7 @@
                             </div>
                         </div>
                         <hr class="my-2">     
-                        <a href="{{ route('teacher.assignment.show', ['assignment' => $data->id]) }}" class="text-green-600 font-semibold p-2 text-sm hover:bg-blue-50">View assignment</a>
+                        <a href="{{ route('teacher.assignment.show', ['class' => Request::segment(3), 'assignment' => $data->id]) }}" class="text-green-600 font-semibold p-2 text-sm hover:bg-blue-50">View assignment</a>
                     </div>
                 </div>
             </div> 

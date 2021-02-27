@@ -86,9 +86,16 @@ class AssignmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($idKelas, $id)
     {
         //
+        if (Gate::denies('manage-courses')) {
+            abort(403);
+        }
+
+        $ass = Assignment::findOrFail($id);
+
+        return view('teacher.tasks.assignment.show', compact('ass', 'idKelas'));
     }
 
     /**
