@@ -56,6 +56,11 @@
                                             <p class="ml-2 text-sm">
                                                 {{ $class->teacher->name }}
                                             </p>
+                                            @else
+                                                <img src="{{ asset('image/download.png') }}" class="block rounded-full w-8 h-8"> 
+                                                <p class="ml-2 text-sm">
+                                                    No class chief!
+                                                </p>
                                             @endif
                                         </div>
                                         <div class="text-grey-darker hover:text-red-dark" href="#">
