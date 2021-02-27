@@ -25,7 +25,6 @@ class TaskController extends Controller
         }
 
         $datas = Assignment::where('schoolclass_id', $id)->latest()->paginate(5);
-        
         return view('teacher.tasks.index', compact('datas'));
     }
 }

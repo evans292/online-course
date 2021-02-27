@@ -130,4 +130,19 @@ class StudyController extends Controller
 
         return view('student.assignment.show', compact('ass'));
     }
+
+    public function downloadAssignment($courseId, $subjectId, $assId)
+    {
+        //
+        if (Gate::denies('view-lessons')) {
+            abort(403);
+        }
+
+        $ass = Assignment::findOrFail($assId);
+        try {
+            return Storage::disk('local')->download($ass->attachment);
+        } catch (\Exception $e) {
+            abort(404, $e->getMessage());
+        }
+    }
 }

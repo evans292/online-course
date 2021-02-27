@@ -81,7 +81,7 @@
                             Due 
                             @if (Carbon\Carbon::now()->format('Y-m-d') === $data->due->format('Y-m-d'))
                                 Today
-                            @elseif (Carbon\Carbon::now(-1)->format('Y-m-d') === $data->due->format('Y-m-d'))  
+                            @elseif (Carbon\Carbon::now()->subDay()->format('Y-m-d') === $data->due->format('Y-m-d'))  
                                 Yesterday
                             @elseif (Carbon\Carbon::now()->addDay()->format('Y-m-d') === $data->due->format('Y-m-d'))  
                                 Tomorrow
