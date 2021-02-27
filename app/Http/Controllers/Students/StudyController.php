@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Students;
 
 use App\Models\Course;
+use App\Models\Assignment;
 use App\Models\Schoolclass;
+use Illuminate\Http\Request;
 use App\Models\Subjectmatter;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -104,5 +107,27 @@ class StudyController extends Controller
             }
         }
         abort(403, 'Bukan mapel kamu woi -_-');
+    }
+
+    public function showAssignment(Request $request)
+    {
+        if (Gate::denies('view-lessons')) {
+            abort(403);
+        }
+
+        $datas = Assignment::where('subjectmatter_id', $request->segment(5))->latest()->paginate(5);
+        return view('student.assignment.index', compact('datas'));
+    }
+
+    public function showAssignmentDetails($courseId, $subjectId, $id)
+    {
+        //
+        if (Gate::denies('view-lessons')) {
+            abort(403);
+        }
+
+        $ass = Assignment::findOrFail($id);
+
+        return view('student.assignment.show', compact('ass'));
     }
 }

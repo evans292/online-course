@@ -42,6 +42,9 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('courses/{course}/subject', [StudyController::class, 'showSubject'])->name('courses.subject');
         Route::get('courses/{course}/subject/{subject}', [StudyController::class, 'showSubjectDetails'])->name('courses.subject.details');
         Route::get('courses/{course}/subject/{subject}/download', [StudyController::class, 'download'])->name('courses.subject.download');
+        
+        Route::get('courses/{course}/subject/{subject}/assignment', [StudyController::class, 'showAssignment'])->name('courses.subject.assignment');
+        Route::get('courses/{course}/subject/{subject}/assignment/{assignment}', [StudyController::class, 'showAssignmentDetails'])->name('courses.subject.assignment.details');
     });
 
    Route::group(['middleware' => 'role:teacher', 'prefix' => 'teacher', 'as' => 'teacher.'], function() {

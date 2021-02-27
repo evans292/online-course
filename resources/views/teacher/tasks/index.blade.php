@@ -49,7 +49,7 @@
                         <div class="flex justify-between" x-on:click.self="expanded = !expanded">
                             <div>
                                 <i class="fas fa-clipboard-list text-white text-2xl my-2 mr-3 bg-green-400 p-2 rounded-lg"></i>
-                                <a>{{ $data->title }}</a>
+                                <a class="font-semibold">{{ $data->title }}</a>
                             </div>
                             <div class="flex self-center mt-3">
                                 <span class="self-center text-xs text-gray-400 mr-2">Posted {{ $data->created_at->format('M d') }}</span>

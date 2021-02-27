@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-student-layout>
     <x-slot name="title">
         {{ $subject->title }}
     </x-slot>  
@@ -39,4 +39,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+</x-student-layout>
