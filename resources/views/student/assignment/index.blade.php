@@ -81,7 +81,7 @@
                         </p> 
                         <p class="mt-5 text-sm text-justify">{{ Str::limit($data->instructions, 300) }}</p>
                         <hr class="my-3">     
-                        <a href="{{ route('student.courses.subject.assignment.details', ['course' => Request::segment(3), 'subject' => Request::segment(3), 'assignment' => $data->id]) }}" class="text-green-600 font-semibold p-1 text-sm hover:bg-blue-50">View assignment</a>
+                        <a href="{{ route('student.courses.subject.assignment.details', ['course' => Request::segment(3), 'subject' => Request::segment(5), 'assignment' => $data->id]) }}" class="text-green-600 font-semibold p-1 text-sm hover:bg-blue-50">View assignment</a>
                     </div>
                 </div>
             </div> 

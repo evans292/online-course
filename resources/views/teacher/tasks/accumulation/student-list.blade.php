@@ -10,7 +10,7 @@
                     @else
                     <img src="{{ asset('storage/' . $acc->student->user->profilepic) }}" class="rounded-full w-10 h-10 mr-2">
                     @endif
-                    <a href="{{ route('teacher.accumulation.show', ['class' => Request::segment(3), 'assignment' => Request::segment(4), 'student' => $acc->student->id]) }}" class="hover:text-green-400 text-sm ml-2">{{ $acc->student->name }}</a>
+                    <a href="{{ route('teacher.accumulation.show', ['class' => Request::segment(3), 'assignment' => Request::segment(4), 'student' => $acc->student->id, 'accumulation' => $acc->id]) }}" class="hover:text-green-400 text-sm ml-2">{{ $acc->student->name }}</a>
                 </li>
                 @endforeach
             </ul>

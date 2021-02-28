@@ -47,6 +47,7 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('courses/{course}/subject/{subject}/assignment', [StudyController::class, 'showAssignment'])->name('courses.subject.assignment');
         Route::get('courses/{course}/subject/{subject}/assignment/{assignment}', [StudyController::class, 'showAssignmentDetails'])->name('courses.subject.assignment.details');
         Route::post('courses/{course}/subject/{subject}/assignment/{assignment}', [StudyController::class, 'storeAccumulation'])->name('courses.subject.assignment.store');
+        Route::delete('courses/{course}/subject/{subject}/assignment/{assignment}/{attachment}', [StudyController::class, 'deleteAccumulation'])->name('courses.subject.assignment.destroy');
         Route::get('courses/{course}/subject/{subject}/assignment/{assignment}/download', [StudyController::class, 'downloadAssignment'])->name('courses.subject.assignment.download');
     });
 
@@ -60,7 +61,9 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('assignment/{class}/{assignment}', [AssignmentController::class, 'show'])->name('assignment.show');
 
         Route::get('assignment/{class}/{assignment}/student-work', [AccumulationController::class, 'index'])->name('accumulation.index');
-        Route::get('assignment/{class}/{assignment}/student-work/{student}', [AccumulationController::class, 'show'])->name('accumulation.show');
+        Route::get('assignment/{class}/{assignment}/student-work/{student}/{accumulation}', [AccumulationController::class, 'show'])->name('accumulation.show');
+        Route::patch('assignment/{class}/{assignment}/student-work/{student}/point', [AccumulationController::class, 'updatePoint'])->name('accumulation.update');
+        Route::get('assignment/{class}/{assignment}/student-work/{student}/{accumulation}/download', [AccumulationController::class, 'download'])->name('accumulation.download');
 
         Route::resource('courses', SubjectController::class);
         Route::get('courses/{courses}/subjectmatters', [SubjectController::class, 'showSubject'])->name('subjectmatters');

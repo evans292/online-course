@@ -179,4 +179,16 @@ class StudyController extends Controller
         ]);
         return redirect()->back()->with('success', 'lol');
     }
+
+    public function deleteAccumulation($courseId, $subjectId, $assignmentId, $attachmentId)
+    {
+        if (Gate::denies('view-lessons')) {
+            abort(403);
+        }
+        $acc = Accumulation::findOrFail($attachmentId);
+
+        $acc->delete();
+        Storage::disk('local')->delete($acc->attachment);
+        return redirect()->back()->with('destroy', 'lol');
+    }
 }
