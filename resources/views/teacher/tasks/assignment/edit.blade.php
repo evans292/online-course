@@ -67,16 +67,6 @@
                             <x-validation-message name="path"/>
                         </div>
 
-                        <div class="mb-4">
-                            <x-label for="status" value="{{ __('Status') }}" />
-                            <select name="status" id="status" class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm select2">
-                                @foreach ($status as $stat)
-                                <option value="{{ $stat }}" {{ ($stat === $ass->status) ? 'selected' : '' }}>{{ $stat }}</option>    
-                                @endforeach
-                            </select>
-                            <x-validation-message name="status"/>
-                        </div>
-
                         <div class="flex items-center justify-end mt-4">            
                             <x-button class="ml-3">
                                 {{ __('Update') }}

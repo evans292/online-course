@@ -75,7 +75,6 @@ class AssignmentController extends Controller
             'attachment' => 'public/' . $attach,
             'point' => $request->point,
             'due' => $request->due,
-            'status' => $request->status
         ]);
         return redirect()->back()->with('success', 'lol');
     }
@@ -154,7 +153,6 @@ class AssignmentController extends Controller
             'attachment' => $attach,
             'point' => $request->point,
             'due' => $request->due,
-            'status' => $request->status
         ]);
 
         return redirect()->back()->with('success', 'lol');

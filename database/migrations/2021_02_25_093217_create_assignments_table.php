@@ -23,7 +23,6 @@ class CreateAssignmentsTable extends Migration
             $table->string('attachment')->nullable();
             $table->integer('point')->nullable();
             $table->date('due');
-            $table->enum('status', ['Open', 'Close']);
             $table->timestamps();
         });
     }

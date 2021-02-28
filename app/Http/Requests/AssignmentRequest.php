@@ -29,7 +29,6 @@ class AssignmentRequest extends FormRequest
             'title' => 'required',
             'path' => 'file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,jpeg,png,jpg,mp3,aac',
             'due' => 'date',
-            'status' => 'required'
         ];
     }
 }
