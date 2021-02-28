@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers\Students;
 
+use DateTime;
 use App\Models\Course;
 use App\Models\Assignment;
 use App\Models\Schoolclass;
+use Illuminate\Support\Str;
+
+use App\Models\Accumulation;
 use Illuminate\Http\Request;
 use App\Models\Subjectmatter;
-
 use App\Http\Controllers\Controller;
-use App\Models\Accumulation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
@@ -147,5 +149,34 @@ class StudyController extends Controller
         } catch (\Exception $e) {
             abort(404, $e->getMessage());
         }
+    }
+
+    public function storeAccumulation(Request $request, $courseId, $subjectId, $assignmentId)
+    {
+        if (Gate::denies('view-lessons')) {
+            abort(403);
+        }
+        
+        $title_slug = Str::slug(Auth::user()->students[0]->name);
+        $datetime = new DateTime();
+
+        $attachment = $request->file('attachment');
+
+        $attach = null;
+        if ($attachment !== null) {
+            $attach = $attachment->storeAs("accumulation", "{$title_slug}-{$datetime->format('Y-m-d-s')}.{$attachment->extension()}");
+        }
+
+        $request->validate([
+            'attachment' => 'file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,jpeg,png,jpg,mp3,aac',
+        ]);
+
+        $accumulation = Accumulation::create([
+            'student_id' => Auth::user()->students[0]->id,
+            'assignment_id' => $assignmentId,
+            'subjectmatter_id' => $subjectId,
+            'attachment' => 'public/' . $attach,
+        ]);
+        return redirect()->back()->with('success', 'lol');
     }
 }

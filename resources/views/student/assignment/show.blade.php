@@ -32,8 +32,7 @@
 
                     <hr class="my-5 border">
 
-                    <div class="flex justify-between">
-                        <p class=""></p>
+                    <div class="text-right">
                         <a href="{{ route('student.courses.subject.assignment.download', ['course' => Request::segment(3), 'subject' => Request::segment(5), 'assignment' => Request::segment(7)]) }}" class="inline-flex items-center px-4 py-2 bg-green-400 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"><i class="fas fa-download mr-1"></i>Download attachment</a>
                     </div>
                 </div>
@@ -111,28 +110,46 @@
                     @endif
                     </div>
 
-                    <div class="flex w-full items-center justify-center bg-grey-lighter" x-data="{ fileName: 'Select a file' }">
-                        <label class="w-full flex items-center p-2 bg-white text-green-400 rounded-md shadow-lg tracking-wide uppercase border border-green-400 cursor-pointer hover:bg-green-400 hover:text-white">
-                            <svg class="w-4 h-4" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
-                            </svg>
-                            <span class="mt-1 ml-3 text-sm leading-normal normal-case" x-text="fileName"></span>
-                            <input type='file' x-ref="file" @change="fileName = $refs.file.files[0].name" class="hidden" />
-                        </label>
-                    </div>
-
-                    <x-button class="mt-3 w-full normal-case">
-                        <i class="fas fa-check text-white mr-2"></i>
-                        Mark as done
-                    </x-button>
-
+                    @if ($acc->count() === 0)
+                    <form action="{{ route('student.courses.subject.assignment.store', ['course' => Request::segment(3), 'subject' => Request::segment(5), 'assignment' => Request::segment(7)]) }}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <div class="flex w-full items-center justify-center bg-grey-lighter" x-data="{ fileName: 'Select a file' }">
+                            <label class="w-full flex items-center p-2 bg-white text-green-400 rounded-md shadow-lg tracking-wide uppercase border border-green-400 cursor-pointer hover:bg-green-400 hover:text-white">
+                                <svg class="w-4 h-4" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                    <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+                                </svg>
+                                <span class="mt-1 ml-3 text-sm leading-normal normal-case" x-text="fileName"></span>
+                                <input type='file' name="attachment" x-ref="file" @change="fileName = $refs.file.files[0].name" class="hidden" />
+                            </label>
+                        </div>
+                        <x-button class="mt-3 w-full normal-case">
+                            <i class="fas fa-check text-white mr-2"></i>
+                            Turn in
+                        </x-button>  
+                </form>
+                @elseif ($acc[0]->point === null)
+                <button type="submit" class="mt-3 w-full inline-flex items-center px-4 py-2 bg-red-400 border border-transparent rounded-md font-semibold text-xs text-white normal-case tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
+                    <i class="fas fa-times text-white mr-2"></i>
+                    Cancel
+                </button>
+                @elseif ($acc[0]->point !== null)
+                <p class="text-sm mt-2 font-semibold">{{ $acc[0]->point }} / <span class="font-normal text-gray-400">{{ $ass->point }}</span></p>
+                @endif  
                 </div>
             </div>
         </div>
         @endif
-        
-        
-
     </div>
 
+    <x-slot name="script">
+        @if (session('success'))
+        <script>
+            Vue.use(VueToast);
+            Vue.$toast.success('Accumulation turned in!', {
+             duration: 1500,
+             dismissible: true,
+            })
+        </script>
+        @endif
+    </x-slot>
 </x-app-layout>

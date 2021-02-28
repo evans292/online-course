@@ -46,6 +46,7 @@ Route::group(['middleware' => 'auth'], function() {
         
         Route::get('courses/{course}/subject/{subject}/assignment', [StudyController::class, 'showAssignment'])->name('courses.subject.assignment');
         Route::get('courses/{course}/subject/{subject}/assignment/{assignment}', [StudyController::class, 'showAssignmentDetails'])->name('courses.subject.assignment.details');
+        Route::post('courses/{course}/subject/{subject}/assignment/{assignment}', [StudyController::class, 'storeAccumulation'])->name('courses.subject.assignment.store');
         Route::get('courses/{course}/subject/{subject}/assignment/{assignment}/download', [StudyController::class, 'downloadAssignment'])->name('courses.subject.assignment.download');
     });
 

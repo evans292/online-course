@@ -8,6 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Accumulation extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'student_id',
+        'assignment_id',
+        'subjectmatter_id',
+        'attachment',
+        'point'
+    ];
 
     public function assignment()
     {
