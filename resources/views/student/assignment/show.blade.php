@@ -78,7 +78,11 @@
                     </div>
 
                     <p class="ml-12 text-gray-400 text-sm mt-1">{{ $ass->teacher->name }} <span class="text-xs">•</span> {{ $ass->created_at->format('M d') }}</p>
-                    <p class="ml-12 text-sm mt-2 font-semibold">{{ $ass->point }} points</p>
+                    @if ($acc->count() === 0 || $acc[0]->point === null)
+                        <p class="ml-12 text-sm mt-2 font-semibold">{{ $ass->point }} points</p>
+                    @else
+                        <p class="ml-12 text-sm mt-2 font-semibold">{{ $acc[0]->point }} / <span class="font-normal text-gray-400">{{ $ass->point }}</span></p>
+                    @endif
 
                     <hr class="my-5 border-green-400">
 
@@ -98,7 +102,13 @@
                 <div class="p-6 bg-white">
                     <div class="flex justify-between items-center">
                         <h1 class="text-2xl">Your Work</h1>
+                    @if ($acc->count() === 0)
                         <p class="text-green-600 text-sm my-3 font-semibold">Assigned</p>
+                    @elseif ($acc[0]->point === null)
+                        <p class="text-green-600 text-sm my-3 font-semibold">Turned in</p>
+                    @elseif ($acc[0]->point !== null)
+                        <p class="text-green-600 text-sm my-3 font-semibold">Graded</p>
+                    @endif
                     </div>
 
                     <div class="flex w-full items-center justify-center bg-grey-lighter" x-data="{ fileName: 'Select a file' }">

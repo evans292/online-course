@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\Subjectmatter;
 
 use App\Http\Controllers\Controller;
+use App\Models\Accumulation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
@@ -127,8 +128,10 @@ class StudyController extends Controller
         }
 
         $ass = Assignment::findOrFail($id);
+        // $acc = $ass->accumulations->where('student_id', '===', Auth::user()->students[0]->id);
+        $acc = Accumulation::where('assignment_id', $id)->where('student_id', Auth::user()->students[0]->id)->get();
 
-        return view('student.assignment.show', compact('ass'));
+        return view('student.assignment.show', compact('ass', 'acc'));
     }
 
     public function downloadAssignment($courseId, $subjectId, $assId)
