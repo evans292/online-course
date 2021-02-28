@@ -95,13 +95,17 @@
                         <p class="mt-5 text-sm text-justify">{{ Str::limit($data->instructions, 300) }}</p>
                         <div class="flex justify-end">
                             <div class="mx-5 border-l-2 pl-3">
-                                <p class="text-4xl">0</p>
-                                <p class="text-gray-400 text-sm"> Turned in</p>
+                                <p class="text-4xl">{{ $data->accumulations->count() }}</p>
+                                <p class="text-gray-400 text-sm">Turned in</p>
                             </div>
                             <div class="border-l-2 pl-3">
-                            <p class="text-4xl">{{ $data->schoolclass->students->count() }}</p>
+                            <p class="text-4xl">{{ $data->schoolclass->students->count() - $data->accumulations->count() }}</p>
                                <p class="text-gray-400 text-sm">Assigned</p>
                             </div>
+                            <div class="border-l-2 pl-3 mx-5">
+                                <p class="text-4xl">{{ $data->accumulations->where('point', '!==', null)->count() }}</p>
+                                   <p class="text-gray-400 text-sm">Graded</p>
+                                </div>
                         </div>
                         <hr class="my-2">     
                         <a href="{{ route('teacher.assignment.show', ['class' => Request::segment(3), 'assignment' => $data->id]) }}" class="text-green-600 font-semibold p-2 text-sm hover:bg-blue-50">View assignment</a>

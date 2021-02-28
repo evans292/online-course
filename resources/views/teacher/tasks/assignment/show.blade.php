@@ -1,13 +1,13 @@
 <x-app-layout>
     <x-slot name="title">
-        Assignment No. {{ $ass->id }}
+        Assignment No. {{ $assignment->id }}
     </x-slot> 
     <x-slot name="nav">
-        @include('layouts.navigation-teacher')
+        @include('layouts.navigation-teacher-ass')
     </x-slot> 
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Assignment No. {{ $ass->id }}
+            Assignment No. {{ $assignment->id }}
         </h2>
     </x-slot>
 
@@ -18,7 +18,7 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <i class="fas fa-clipboard-list text-white text-2xl mr-3 bg-green-400 p-2 rounded-lg"></i>
-                            <a class="text-xl text-green-700 font-semibold">{{ $ass->title }}</a>
+                            <a class="text-xl text-green-700 font-semibold">{{ $assignment->title }}</a>
                         </div>
                         <x-dropdown align="top" width="48" >
                             <x-slot name="trigger">
@@ -28,14 +28,14 @@
                             </x-slot>
         
                             <x-slot name="content">
-                                <x-dropdown-link href="{{ route('teacher.assignment.edit', ['class' => Request::segment(3), 'assignment' => $ass->id]) }}">
+                                <x-dropdown-link href="{{ route('teacher.assignment.edit', ['class' => Request::segment(3), 'assignment' => $assignment->id]) }}">
                                     <i class="fas fa-pencil-alt mr-2"></i>{{ __('Edit') }}
                                 </x-dropdown-link>
 
-                                <form id="{{ $ass->id }}" action="{{ route('teacher.assignment.destroy', ['assignment' => $ass->id]) }}" method="POST">
+                                <form id="{{ $assignment->id }}" action="{{ route('teacher.assignment.destroy', ['assignment' => $assignment->id]) }}" method="POST">
                                     @csrf
                                     @method('delete')
-                                    <x-dropdown-link href="#" onclick="deleteConfirm('{{ $ass->title }}', '{{ $ass->id }}')">                                          
+                                    <x-dropdown-link href="#" onclick="deleteConfirm('{{ $assignment->title }}', '{{ $assignment->id }}')">                                          
                                       <i class="fas fa-trash-alt mr-2"></i>{{ __('Delete') }}
                                     </x-dropdown-link>
                                 </form>
@@ -43,12 +43,12 @@
                         </x-dropdown>
                     </div>
 
-                    <p class="ml-12 text-gray-400 text-sm mt-1">{{ $ass->teacher->name }} <span class="text-xs">•</span> {{ $ass->created_at->format('M d') }}</p>
-                    <p class="ml-12 text-sm mt-2 font-semibold">{{ $ass->point }} points</p>
+                    <p class="ml-12 text-gray-400 text-sm mt-1">{{ $assignment->teacher->name }} <span class="text-xs">•</span> {{ $assignment->created_at->format('M d') }}</p>
+                    <p class="ml-12 text-sm mt-2 font-semibold">{{ $assignment->point }} points</p>
 
                     <hr class="my-5 border-green-400">
 
-                    <p>{{ $ass->instructions }}</p>
+                    <p>{{ $assignment->instructions }}</p>
 
                     <hr class="my-5 border">
 

@@ -25,4 +25,9 @@ class Subjectmatter extends Model
     {
         return $this->belongsTo(Teacher::class);
     }
+
+    public function accumulations()
+    {
+        return $this->hasMany(Accumulation::class);
+    }
 }

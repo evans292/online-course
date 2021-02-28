@@ -33,4 +33,9 @@ class Student extends Model
     {
         return $this->belongsTo(Department::class);
     }
+
+    public function accumulations()
+    {
+        return $this->hasMany(Accumulation::class);
+    }
 }

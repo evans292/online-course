@@ -25,6 +25,7 @@ class TaskController extends Controller
         }
 
         $datas = Assignment::where('schoolclass_id', $id)->latest()->paginate(5);
+        // dd($datas[0]->accumulations->where('point', '===', null));
         return view('teacher.tasks.index', compact('datas'));
     }
 }

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\{CourseController, DashboardController, DepartmentController, MappingController, SchoolclassController, StudentController, TeacherController, UserController};
 use App\Http\Controllers\Headmaster\DataController;
 use App\Http\Controllers\Students\StudyController;
+use App\Http\Controllers\Teachers\AccumulationController;
 use App\Http\Controllers\Teachers\TaskController;
 use App\Http\Controllers\Teachers\SubjectController;
 use App\Http\Controllers\Teachers\AssignmentController;
@@ -56,6 +57,9 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('assignment/{class}/create', [AssignmentController::class, 'create'])->name('assignment.create');
         Route::get('assignment/{class}/{assignment}/edit', [AssignmentController::class, 'edit'])->name('assignment.edit');
         Route::get('assignment/{class}/{assignment}', [AssignmentController::class, 'show'])->name('assignment.show');
+
+        Route::get('assignment/{class}/{assignment}/student-work', [AccumulationController::class, 'index'])->name('accumulation.index');
+        Route::get('assignment/{class}/{assignment}/student-work/{student}', [AccumulationController::class, 'show'])->name('accumulation.show');
 
         Route::resource('courses', SubjectController::class);
         Route::get('courses/{courses}/subjectmatters', [SubjectController::class, 'showSubject'])->name('subjectmatters');

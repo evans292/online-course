@@ -92,9 +92,9 @@ class AssignmentController extends Controller
             abort(403);
         }
 
-        $ass = Assignment::findOrFail($id);
+        $assignment = Assignment::findOrFail($id);
 
-        return view('teacher.tasks.assignment.show', compact('ass', 'idKelas'));
+        return view('teacher.tasks.assignment.show', compact('assignment', 'idKelas'));
     }
 
     /**
