@@ -2,6 +2,9 @@
     <x-slot name="title">
         Courses
     </x-slot>  
+    <x-slot name="nav">
+      @include('layouts.navigation')
+    </x-slot> 
     <x-slot name="style">
         <style>
             thead tr th:first-child { border-top-left-radius: 10px; border-bottom-left-radius: 10px;}

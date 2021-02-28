@@ -1,7 +1,10 @@
-<x-teacher-layout>
+<x-app-layout>
     <x-slot name="title">
         Courses
     </x-slot>  
+    <x-slot name="nav">
+        @include('layouts.navigation-teacher')
+    </x-slot> 
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Course List') }}
@@ -53,4 +56,4 @@
         </div>
         
     </div>
-</x-teacher-layout>
+</x-app-layout>

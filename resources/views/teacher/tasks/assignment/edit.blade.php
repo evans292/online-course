@@ -1,7 +1,10 @@
-<x-teacher-layout>
+<x-app-layout>
     <x-slot name="title">
         Edit assignment
     </x-slot>
+    <x-slot name="nav">
+        @include('layouts.navigation-teacher')
+    </x-slot> 
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Edit subject') }} - {{ $ass->title }}
@@ -89,4 +92,4 @@
         </script>
         @endif
     </x-slot>
-</x-teacher-layout>
+</x-app-layout>

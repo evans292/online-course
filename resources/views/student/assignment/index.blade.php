@@ -1,7 +1,10 @@
-<x-student-layout>
+<x-app-layout>
     <x-slot name="title">
         {{ __('Classwork') }}
     </x-slot>  
+    <x-slot name="nav">
+        @include('layouts.navigation-student')
+    </x-slot> 
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Classwork') }}
@@ -101,4 +104,4 @@
         </script>
         @endif
     </x-slot>
-</x-student-layout>
+</x-app-layout>

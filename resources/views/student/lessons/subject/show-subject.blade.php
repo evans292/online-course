@@ -1,7 +1,10 @@
-<x-student-layout>
+<x-app-layout>
     <x-slot name="title">
         {{ $subject->title }}
     </x-slot>  
+    <x-slot name="nav">
+        @include('layouts.navigation-student')
+    </x-slot> 
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ $subject->title }} 
@@ -39,4 +42,4 @@
             </div>
         </div>
     </div>
-</x-student-layout>
+</x-app-layout>
