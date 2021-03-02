@@ -50,7 +50,7 @@
                             <i class="fas fa-tachometer-alt mr-2"></i>{{ __('Admin Dashboard') }}
                         </x-dropdown-link>
                         @endcan
-                        @can('manage-users')
+                        @can('manage-courses')
                         <x-dropdown-link href="{{ route('teacher.dashboard') }}">
                             <i class="fas fa-tachometer-alt mr-2"></i>{{ __('Teacher Dashboard') }}
                         </x-dropdown-link>
