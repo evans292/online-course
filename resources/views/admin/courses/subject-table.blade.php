@@ -77,11 +77,7 @@
                               <td class="px-4 py-4">{!! Str::limit($data->details, 50)  !!}</td>
                               <td class="px-4 py-4">{{ $data->path }}</td>
                               <td class="px-4 py-4">{{ $data->link }}</td>
-                              @if ($data->teacher['name'] !== null)
-                                <td class="px-4 py-4">{{ $data->teacher['name'] }}</td>
-                              @else
-                              <td class="px-4 py-4">{{ $data->admin['name'] }}</td>
-                              @endif
+                              <td class="px-4 py-4">{{ $data->teacher->name }}</td>
                               <td class="px-4 py-4">{{ $data->created_at->diffForHumans() }}</td>
                               <td class="px-4 py-4">
                                 <form id="{{ $data->id }}" action="{{ route('teacher.courses.destroy', ['course' => $data->id]) }}" method="POST">

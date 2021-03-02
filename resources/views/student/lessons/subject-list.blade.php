@@ -23,7 +23,11 @@
                         @foreach ($subjectmatters as $subjectmatter)
                             <li class="rounded-t relative -mb-px block border p-4 border-grey flex justify-between">
                                 <a href="{{ route('student.courses.subject.details', ['course' => $subjectmatter->course_id, 'subject' => $subjectmatter->id]) }}" class="hover:text-green-400">{{ $subjectmatter->title }}</a>
-                                <p class="text-gray-300">by {{ $subjectmatter->teacher->name }}</p>
+                                @if ($subjectmatter->teacher['name'] !== null)
+                                <p class="text-gray-300">by {{ $subjectmatter->teacher['name'] }}</p>
+                                @else 
+                                <p class="text-gray-300">by {{ $subjectmatter->admin['name'] }}</p>
+                                @endif
                             </li>
                         @endforeach
                       </ul>

@@ -10,7 +10,11 @@
             {{ $subject->title }} 
         </h2>
         <p class="text-gray-400 mt-2">
-            by {{ $subject->teacher->name }} - <span class="text-xs text-gray-300">{{ $subject->created_at->diffForHumans() }}</span>
+            @if ($subject->teacher['name'] !== null)
+            by {{ $subject->teacher['name'] }} - <span class="text-xs text-gray-300">{{ $subject->created_at->diffForHumans() }}</span>
+            @else
+            by {{ $subject->admin['name'] }} - <span class="text-xs text-gray-300">{{ $subject->created_at->diffForHumans() }}</span>
+            @endif
         </p>
     </x-slot>
 

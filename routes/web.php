@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Admin\{CourseController, DashboardController, DepartmentController, MappingController, SchoolclassController, StudentController, TeacherController, UserController};
+use App\Http\Controllers\Admin\{AdminAccumulationController, AdminAssignmentController, AdminSubjectController, AdminTaskController, CourseController, DashboardController, DepartmentController, MappingController, SchoolclassController, StudentController, TeacherController, UserController};
 use App\Http\Controllers\Headmaster\DataController;
 use App\Http\Controllers\Students\StudyController;
 use App\Http\Controllers\Teachers\{AccumulationController, TaskController, SubjectController, AssignmentController, TeacherCourseController, TeacherDashboardController, TeacherDepartmentController, TeacherSchoolclassController, TeacherStudentController};
@@ -92,6 +92,23 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('course-teacher', [MappingController::class, 'showCourseTeacher'])->name('course-teacher');
         Route::get('course-teacher/{course}/edit', [MappingController::class, 'editCourseTeacher'])->name('course-teacher.edit');
         Route::patch('course-teacher/{course}', [MappingController::class, 'updateCourseTeacher'])->name('course-teacher.update');
+    
+        Route::resource('course', AdminSubjectController::class);
+        Route::get('course/{course}/subjectmatters', [AdminSubjectController::class, 'showSubject'])->name('subjectmatters');
+
+        Route::get('tasks/{class}', AdminTaskController::class)->name('tasks');
+        Route::get('assignment/{class}/create', [AdminAssignmentController::class, 'create'])->name('assignment.create');
+        Route::post('assignment', [AdminAssignmentController::class, 'store'])->name('assignment.store');
+        Route::get('assignment/{class}/{assignment}', [AdminAssignmentController::class, 'show'])->name('assignment.show');
+        Route::get('assignment/{class}/{assignment}/edit', [AdminAssignmentController::class, 'edit'])->name('assignment.edit');
+        Route::patch('assignment/{assignment}', [AdminAssignmentController::class, 'update'])->name('assignment.update');
+        
+        Route::delete('assignment/{assignment}', [AdminAssignmentController::class, 'destroy'])->name('assignment.destroy');
+
+        Route::get('assignment/{class}/{assignment}/student-work', [AdminAccumulationController::class, 'index'])->name('accumulation.index');
+        Route::get('assignment/{class}/{assignment}/student-work/{student}/{accumulation}', [AdminAccumulationController::class, 'show'])->name('accumulation.show');
+        Route::patch('assignment/{class}/{assignment}/student-work/{student}/point', [AdminAccumulationController::class, 'updatePoint'])->name('accumulation.update');
+        Route::get('assignment/{class}/{assignment}/student-work/{student}/{accumulation}/download', [AdminAccumulationController::class, 'download'])->name('accumulation.download');
     });
 
     Route::group(['middleware' => 'role:headmaster', 'prefix' => 'headmaster', 'as' => 'headmaster.'], function() {

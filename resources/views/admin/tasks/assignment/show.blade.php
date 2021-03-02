@@ -3,7 +3,7 @@
         Assignment No. {{ $assignment->id }}
     </x-slot> 
     <x-slot name="nav">
-        @include('layouts.navigation-teacher-ass')
+        @include('layouts.navigation-admin-ass')
     </x-slot> 
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -28,11 +28,11 @@
                             </x-slot>
         
                             <x-slot name="content">
-                                <x-dropdown-link href="{{ route('teacher.assignment.edit', ['class' => Request::segment(3), 'assignment' => $assignment->id]) }}">
+                                <x-dropdown-link href="{{ route('admin.assignment.edit', ['class' => Request::segment(3), 'assignment' => $assignment->id]) }}">
                                     <i class="fas fa-pencil-alt mr-2"></i>{{ __('Edit') }}
                                 </x-dropdown-link>
 
-                                <form id="{{ $assignment->id }}" action="{{ route('teacher.assignment.destroy', ['assignment' => $assignment->id]) }}" method="POST">
+                                <form id="{{ $assignment->id }}" action="{{ route('admin.assignment.destroy', ['assignment' => $assignment->id]) }}" method="POST">
                                     @csrf
                                     @method('delete')
                                     <x-dropdown-link href="#" onclick="deleteConfirm('{{ $assignment->title }}', '{{ $assignment->id }}')">                                          

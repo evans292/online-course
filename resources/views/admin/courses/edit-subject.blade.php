@@ -1,13 +1,13 @@
 <x-app-layout>
     <x-slot name="title">
-        Create subject
+        Edit subject 
     </x-slot>
     <x-slot name="nav">
-        @include('layouts.navigation')
+        @include('layouts.navigation)
     </x-slot> 
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Add new subject') }}
+            {{ __('Edit subject') }} - {{ $subject->title }}
         </h2>
     </x-slot>
 
@@ -15,34 +15,34 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200 flex justify-between">
-                    <form method="post" class="w-full ml-5" action="{{ route('teacher.courses.store') }}" novalidate enctype="multipart/form-data">
+                    <form method="post" class="w-full ml-5" action="{{ route('teacher.courses.update', ['course' => $subject->id]) }}" novalidate enctype="multipart/form-data">
                         @csrf
+                        @method('patch')
                         <div class="mb-4">
                             <x-label for="title" :value="__('Title')" />
-                            <x-input id="title" class="block mt-1 w-full" type="text" name="title" value="" required />
+                            <x-input id="title" class="block mt-1 w-full" type="text" name="title" value="{{ $subject->title }}" required />
                             <x-validation-message name="title"/>
                         </div>
 
                         <div class="mb-4">
                             <x-label for="details" :value="__('Details')" />
                             {{-- <x-input id="details" class="block mt-1 w-full" type="text" name="details" value="" required /> --}}
-                            <textarea name="details" id="details" cols="30" rows="10" class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"></textarea>
+                            <textarea name="details" id="details" cols="30" rows="10" class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">{{ $subject->details }}</textarea>
                             <x-validation-message name="details"/>
                         </div>
 
                         <div class="mb-4">
                             <x-label for="link" :value="__('Youtube Link')" />
-                            <x-input id="link" class="block mt-1 w-full" type="text" name="link" value="" required />
-                            {{-- <textarea name="link" id="link" cols="30" rows="10" class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"></textarea> --}}
+                            <x-input id="link" class="block mt-1 w-full" type="text" name="link" value="{{ $subject->link }}" required />
                             <x-validation-message name="link"/>
                         </div>
 
                         <div class="mb-4">
                             <x-label for="course" value="{{ __('Course') }}" />
                             <select name="course" id="course" class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm select2">
-                                <option value="" class="text-gray-400" selected>-- select course --</option>
+                                {{-- <option value="" class="text-gray-400" selected>-- select course --</option> --}}
                                 @foreach (Auth::user()->teachers[0]->courses as $course)
-                                    <option value="{{ $course->id }}">{{ $course->name }}</option>
+                                    <option value="{{ $course->id }}" {{ ($subject->course_id === $course->id) ? 'selected' : '' }}>{{ $course->name }}</option>
                                 @endforeach
                             </select>
                             <x-validation-message name="course"/>
@@ -56,7 +56,7 @@
 
                         <div class="flex items-center justify-end mt-4">            
                             <x-button class="ml-3">
-                                {{ __('Add') }}
+                                {{ __('Update') }}
                             </x-button>
                         </div>
                     </form>
@@ -69,7 +69,7 @@
         @if (session('success'))
         <script>
             Vue.use(VueToast);
-            Vue.$toast.success('Subject added!', {
+            Vue.$toast.success('Subject updated!', {
              duration: 1500,
              dismissible: true,
             })

@@ -15,7 +15,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200 flex justify-between">
-                    <form method="post" class="w-full ml-5" action="{{ route('teacher.courses.store') }}" novalidate enctype="multipart/form-data">
+                    <form method="post" class="w-full ml-5" action="{{ route('admin.course.store') }}" novalidate enctype="multipart/form-data">
                         @csrf
                         <div class="mb-4">
                             <x-label for="title" :value="__('Title')" />
@@ -41,7 +41,7 @@
                             <x-label for="course" value="{{ __('Course') }}" />
                             <select name="course" id="course" class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm select2">
                                 <option value="" class="text-gray-400" selected>-- select course --</option>
-                                @foreach (Auth::user()->teachers[0]->courses as $course)
+                                @foreach ($courses as $course)
                                     <option value="{{ $course->id }}">{{ $course->name }}</option>
                                 @endforeach
                             </select>

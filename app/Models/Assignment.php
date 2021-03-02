@@ -13,6 +13,7 @@ class Assignment extends Model
         'schoolclass_id',
         'subjectmatter_id',
         'teacher_id',
+        'admin_id',
         'title',
         'instructions',
         'attachment',
@@ -34,6 +35,11 @@ class Assignment extends Model
     public function teacher()
     {
         return $this->belongsTo(Teacher::class);
+    }
+
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class);
     }
 
     public function accumulations()

@@ -1,18 +1,23 @@
 <?php
 
-namespace App\Http\Controllers\Teachers;
+namespace App\Http\Controllers\Admin;
 
 use DateTime;
+use App\Models\Teacher;
+use App\Models\Schoolclass;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Models\Subjectmatter;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\SubjectMatterRequest;
-use App\Models\{Teacher, Schoolclass, Subjectmatter};
+use App\Models\Course;
 
-class SubjectController extends Controller
+class AdminSubjectController extends Controller
 {
+    //
     /**
      * Display a listing of the resource.
      *
@@ -21,13 +26,13 @@ class SubjectController extends Controller
     public function index()
     {
         //
-        if (Gate::denies('manage-courses')) {
+        if (Gate::denies('manage-users')) {
             abort(403);
         }
 
-        $classes = Teacher::find(Auth::user()->teachers[0]->id)->schoolclasses;
-        // dd($classes[2]->pivot->schoolclass_id);
-        return view('teacher.courses.index', compact('classes'));
+        $classes = Schoolclass::get();
+        
+        return view('admin.manage-course.courses.index', compact('classes'));
     }
 
     /**
@@ -38,10 +43,11 @@ class SubjectController extends Controller
     public function create()
     {
         //
-        if (Gate::denies('manage-courses')) {
+        if (Gate::denies('manage-users')) {
             abort(403);
         }
-        return view('teacher.courses.create-subject');
+        $courses = Course::get();
+        return view('admin.manage-course.courses.create-subject', compact('courses'));
     }
 
     /**
@@ -53,12 +59,12 @@ class SubjectController extends Controller
     public function store(SubjectMatterRequest $request)
     {
         //
-        if (Gate::denies('manage-courses')) {
+        if (Gate::denies('manage-users')) {
             abort(403);
         }
         $title_slug = Str::slug(request('title'));
         $datetime = new DateTime();
-
+        
         $attachment = $request->file('path');
         $attach = null;
 
@@ -69,13 +75,13 @@ class SubjectController extends Controller
 
         $subject = Subjectmatter::create([
             'course_id' => $request->course,
-            'teacher_id' => Auth::user()->teachers[0]->id,
+            'admin_id' => Auth::user()->admins[0]->id,
             'title' => $request->title,
             'details' => $request->details,
             'link' => 'https://www.youtube.com/embed/' . substr($request->link,32),
             'path' => 'public/' . $attach
         ]);
-        return redirect(route('teacher.courses.create'))->with('success', 'lol');
+        return redirect()->back()->with('success', 'lol');
     }
 
     /**
@@ -87,34 +93,22 @@ class SubjectController extends Controller
     public function show($idKelas)
     {
         //
-        if (Gate::denies('manage-courses')) {
+        if (Gate::denies('manage-users')) {
             abort(403);
         }
         // $courses =  Teacher::find(Auth::user()->teachers[0]->id)->courses;
         $class = Schoolclass::find($idKelas);
         $courses = Schoolclass::findOrFail($idKelas)->courses;
-        return view('teacher.courses.course-list', compact('courses', 'class', 'idKelas'));
+        return view('admin.manage-course.courses.course-list', compact('courses', 'class', 'idKelas'));
     }
 
     public function showSubject($id)
     {
-        if (Gate::denies('manage-courses')) {
+        if (Gate::denies('manage-users')) {
             abort(403);
         }
         $datas = Subjectmatter::where('course_id', $id)->paginate(10);
-        if ($datas->count() === 0) {
-            # code...
-            return view('teacher.courses.subject-table', compact('datas'));
-        } else {
-            for ($i=0; $i < $datas[0]->course->teachers->count(); $i++) { 
-                # code...
-                if ($datas[0]->course->teachers[$i]->id === Auth::user()->teachers[0]->id) {
-                    # code...
-                    return view('teacher.courses.subject-table', compact('datas'));
-                }
-            }
-        }
-        abort(403);
+        return view('admin.manage-course.courses.subject-table', compact('datas'));
     }
 
     /**
@@ -126,11 +120,12 @@ class SubjectController extends Controller
     public function edit($id)
     {
         //
-        if (Gate::denies('manage-courses')) {
+        if (Gate::denies('manage-users')) {
             abort(403);
         }
         $subject = Subjectmatter::findOrFail($id);
-        return view('teacher.courses.edit-subject', compact('subject'));
+        $courses = Course::get();
+        return view('admin.manage-course.courses.edit-subject', compact('subject', 'courses'));
     }
 
     /**
@@ -143,7 +138,7 @@ class SubjectController extends Controller
     public function update(SubjectMatterRequest $request, $id)
     {
         //
-        if (Gate::denies('manage-courses')) {
+        if (Gate::denies('manage-users')) {
             abort(403);
         }
         $title_slug = Str::slug(request('title'));
@@ -163,7 +158,7 @@ class SubjectController extends Controller
 
         $subject->update([
             'course_id' => $request->course,
-            'teacher_id' => Auth::user()->teachers[0]->id,
+            'admin_id' => Auth::user()->admins[0]->id,
             'title' => $request->title,
             'details' => $request->details,
             'link' => 'https://www.youtube.com/embed/' . substr($request->link,32),
@@ -182,7 +177,7 @@ class SubjectController extends Controller
     public function destroy($id)
     {
         //
-        if (Gate::denies('manage-courses')) {
+        if (Gate::denies('manage-users')) {
             abort(403);
         }
         $subject = Subjectmatter::findOrFail($id);

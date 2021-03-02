@@ -16,7 +16,8 @@ class CreateSubjectmattersTable extends Migration
         Schema::create('subjectmatters', function (Blueprint $table) {
             $table->id();
             $table->foreignId('course_id')->nullable()->constrained();
-            $table->foreignId('teacher_id')->constrained();
+            $table->foreignId('admin_id')->nullable()->constrained();
+            $table->foreignId('teacher_id')->nullable()->constrained();
             $table->string('title');
             $table->text('details');
             $table->string('path');

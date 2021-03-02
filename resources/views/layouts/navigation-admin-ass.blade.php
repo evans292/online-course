@@ -12,29 +12,15 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-                    @can('view-lessons')
-                    <x-nav-link :href="route('student.courses')" :active="request()->routeIs('student.courses')">
-                        {{ __('Courses') }}
-                    </x-nav-link>
-                    @endcan
-                    @can('manage-courses')
-                    <x-nav-link :href="route('teacher.courses.index')" :active="request()->routeIs('teacher.courses.index')">
-                        {{ __('Class List') }}
-                    </x-nav-link>
-                    @endcan
-                    @can('manage-users')
                     <x-nav-link :href="route('admin.course.index')" :active="request()->routeIs('admin.course.index')">
                         {{ __('Class List') }}
                     </x-nav-link>
-                    @endcan
-                    @can('view-data')
-                    <x-nav-link :href="route('headmaster.data.index')" :active="request()->routeIs('headmaster.data.index')">
-                        {{ __('Data') }}
+                    <x-nav-link :href="route('admin.assignment.show', ['class' => Request::segment(3), 'assignment' => $assignment->id])" :active="request()->routeIs('admin.assignment.show', ['class' => Request::segment(3), 'assignment' => $assignment->id])">
+                        {{ __('Instructions') }}
                     </x-nav-link>
-                    @endcan
+                    <x-nav-link :href="route('admin.accumulation.index', ['class' => Request::segment(3), 'assignment' => $assignment->id])" :active="request()->routeIs('admin.accumulation.index', ['class' => Request::segment(3), 'assignment' => $assignment->id])">
+                        {{ __('Student work') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -64,7 +50,7 @@
                             <i class="fas fa-tachometer-alt mr-2"></i>{{ __('Admin Dashboard') }}
                         </x-dropdown-link>
                         @endcan
-                        @can('manage-courses')
+                        @can('manage-users')
                         <x-dropdown-link href="{{ route('teacher.dashboard') }}">
                             <i class="fas fa-tachometer-alt mr-2"></i>{{ __('Teacher Dashboard') }}
                         </x-dropdown-link>
@@ -101,22 +87,17 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
-            @can('view-lessons')
-            <x-responsive-nav-link :href="route('student.courses')" :active="request()->routeIs('student.courses')">
-                {{ __('Courses') }}
-            </x-responsive-nav-link>
-            @endcan
-            @can('manage-courses')
-            <x-responsive-nav-link :href="route('teacher.courses.index')" :active="request()->routeIs('teacher.courses.index')">
+            <x-responsive-nav-link :href="route('admin.course.index')" :active="request()->routeIs('admin.course.index')">
                 {{ __('Class List') }}
             </x-responsive-nav-link>
+            @can('manage-users')
+            <x-responsive-nav-link :href="route('admin.course.show', ['course' => Request::segment(3)])" :active="request()->routeIs('admin.course.show', ['course' => Request::segment(3)])">
+                {{ __('Instructions') }}
+            </x-responsive-nav-link>
             @endcan
-            @can('view-data')
-            <x-responsive-nav-link :href="route('headmaster.data.index')" :active="request()->routeIs('headmaster.data.index')">
-                {{ __('Data') }}
+            @can('manage-users')
+            <x-responsive-nav-link :href="route('admin.tasks', ['class' => Request::segment(3)])" :active="request()->routeIs('admin.tasks', ['class' => Request::segment(3)])">
+                {{ __('Student work') }}
             </x-responsive-nav-link>
             @endcan
         </div>
@@ -142,7 +123,7 @@
                     {{ __('Admin Dashboard') }}
                 </x-responsive-nav-link>
                 @endcan
-                @can('manage-courses')
+                @can('manage-users')
                 <x-responsive-nav-link href="{{ route('teacher.dashboard') }}">
                     {{ __('Teacher Dashboard') }}
                 </x-responsive-nav-link>

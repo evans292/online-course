@@ -20,4 +20,9 @@ class Admin extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function subjectmatters()
+    {
+        return $this->hasMany(Subjectmatter::class);
+    }
 }

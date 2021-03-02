@@ -13,7 +13,8 @@ class Subjectmatter extends Model
         'title',
         'details',
         'path',
-        'link'
+        'link',
+        'admin_id'
     ];
 
     public function course()
@@ -24,6 +25,11 @@ class Subjectmatter extends Model
     public function teacher()
     {
         return $this->belongsTo(Teacher::class);
+    }
+
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class);
     }
 
     public function accumulations()

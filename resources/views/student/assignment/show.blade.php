@@ -74,8 +74,11 @@
                             <a class="text-xl text-green-700 font-semibold">{{ $ass->title }}</a>
                         </div>
                     </div>
-
-                    <p class="ml-12 text-gray-400 text-sm mt-1">{{ $ass->teacher->name }} <span class="text-xs">•</span> {{ $ass->created_at->format('M d') }}</p>
+                @if ($ass->teacher['name'] !== null)
+                    <p class="ml-12 text-gray-400 text-sm mt-1">{{ $ass->teacher['name'] }} <span class="text-xs">•</span> {{ $ass->created_at->format('M d') }}</p>
+                @else
+                    <p class="ml-12 text-gray-400 text-sm mt-1">{{ $ass->admin['name'] }} <span class="text-xs">•</span> {{ $ass->created_at->format('M d') }}</p>
+                @endif
                     {{-- tulisan point di bawah nama guru --}}
                     @if ($acc->count() === 0 || $acc[0]->point === null)
                         <p class="ml-12 text-sm mt-2 font-semibold">{{ $ass->point }} points</p>

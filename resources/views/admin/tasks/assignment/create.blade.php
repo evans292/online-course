@@ -3,7 +3,7 @@
         Create assignment
     </x-slot>
     <x-slot name="nav">
-        @include('layouts.navigation-teacher')
+        @include('layouts.navigation-admin')
     </x-slot> 
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -15,7 +15,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200 flex justify-between">
-                    <form method="post" class="w-full ml-5" action="{{ route('teacher.assignment.store') }}" novalidate enctype="multipart/form-data">
+                    <form method="post" class="w-full ml-5" action="{{ route('admin.assignment.store') }}" novalidate enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="classId" value="{{ Request::segment(3) }}">
 
@@ -46,7 +46,7 @@
                             <x-label for="subject" value="{{ __('Subject') }}" />
                             <select name="subject" id="subject" class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm select2">
                                 <option value="" class="text-gray-400" selected>-- select subject --</option>
-                                @foreach (Auth::user()->teachers[0]->subjectmatters as $subject)
+                                @foreach (Auth::user()->admins[0]->subjectmatters as $subject)
                                     <option value="{{ $subject->id }}">{{ $subject->title }}</option>
                                 @endforeach
                             </select>

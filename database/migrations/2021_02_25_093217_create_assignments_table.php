@@ -17,7 +17,8 @@ class CreateAssignmentsTable extends Migration
             $table->id();
             $table->foreignId('schoolclass_id')->constrained('schoolclasses');
             $table->foreignId('subjectmatter_id')->constrained();
-            $table->foreignId('teacher_id')->constrained();
+            $table->foreignId('teacher_id')->nullable()->constrained();
+            $table->foreignId('admin_id')->nullable()->constrained();
             $table->string('title');
             $table->text('instructions')->nullable();
             $table->string('attachment')->nullable();
