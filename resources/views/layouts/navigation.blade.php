@@ -59,6 +59,11 @@
                             <i class="fas fa-tachometer-alt mr-2"></i>{{ __('Admin Dashboard') }}
                         </x-dropdown-link>
                         @endcan
+                        @can('manage-courses')
+                        <x-dropdown-link href="{{ route('teacher.dashboard') }}">
+                            <i class="fas fa-tachometer-alt mr-2"></i>{{ __('Teacher Dashboard') }}
+                        </x-dropdown-link>
+                        @endcan
                         <x-dropdown-link href="{{ route('profile') }}">
                             <i class="fas fa-user mr-2"></i>{{ __('Profile') }}
                         </x-dropdown-link>
@@ -130,6 +135,11 @@
                 @can('manage-users')
                 <x-responsive-nav-link href="{{ route('admin.dashboard') }}">
                     {{ __('Admin Dashboard') }}
+                </x-responsive-nav-link>
+                @endcan
+                @can('manage-courses')
+                <x-responsive-nav-link href="{{ route('teacher.dashboard') }}">
+                    {{ __('Teacher Dashboard') }}
                 </x-responsive-nav-link>
                 @endcan
                 <x-responsive-nav-link href="{{ route('profile') }}">

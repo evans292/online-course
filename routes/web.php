@@ -5,10 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\{CourseController, DashboardController, DepartmentController, MappingController, SchoolclassController, StudentController, TeacherController, UserController};
 use App\Http\Controllers\Headmaster\DataController;
 use App\Http\Controllers\Students\StudyController;
-use App\Http\Controllers\Teachers\AccumulationController;
-use App\Http\Controllers\Teachers\TaskController;
-use App\Http\Controllers\Teachers\SubjectController;
-use App\Http\Controllers\Teachers\AssignmentController;
+use App\Http\Controllers\Teachers\{AccumulationController, TaskController, SubjectController, AssignmentController, TeacherCourseController, TeacherDashboardController, TeacherDepartmentController, TeacherSchoolclassController, TeacherStudentController};
 use App\Http\Controllers\User\ProfileController;
 
 /*
@@ -52,6 +49,12 @@ Route::group(['middleware' => 'auth'], function() {
     });
 
    Route::group(['middleware' => 'role:teacher', 'prefix' => 'teacher', 'as' => 'teacher.'], function() {
+        Route::get('dashboard', TeacherDashboardController::class)->name('dashboard');
+        Route::resource('students', TeacherStudentController::class);
+        Route::resource('departments', TeacherDepartmentController::class);
+        Route::resource('schoolclasses', TeacherSchoolclassController::class);
+        Route::resource('course', TeacherCourseController::class);
+
         Route::get('tasks/{class}', TaskController::class)->name('tasks');
         Route::resource('assignment', AssignmentController::class)->except([
             'create', 'edit', 'show'

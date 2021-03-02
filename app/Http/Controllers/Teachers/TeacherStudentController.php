@@ -1,20 +1,21 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Teachers;
 
 use DateTime;
+use App\Models\User;
 use App\Models\Student;
 use App\Models\Schoolclass;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
-class StudentController extends Controller
+class TeacherStudentController extends Controller
 {
-    /**
+    //
+     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -22,12 +23,12 @@ class StudentController extends Controller
     public function index()
     {
         //
-        if (Gate::denies('manage-users')) {
+        if (Gate::denies('manage-courses')) {
             abort(403);
         }
         
         $datas = Student::orderBy('name')->paginate(10);
-        return view('admin.users.student.index', compact('datas'));
+        return view('teacher.dashboard.student.index', compact('datas'));
     }
 
     /**
@@ -71,13 +72,13 @@ class StudentController extends Controller
     public function edit($id)
     {
         //
-        if (Gate::denies('manage-users')) {
+        if (Gate::denies('manage-courses')) {
             abort(403);
         }
         $student = Student::findOrFail($id);
         $genders = ['L' => 'Male', 'P' => 'Female'];
         $classes = Schoolclass::get();
-        return view('admin.users.student.edit', compact('student', 'genders', 'classes'));
+        return view('teacher.dashboard.student.edit', compact('student', 'genders', 'classes'));
     }
 
     /**
@@ -90,7 +91,7 @@ class StudentController extends Controller
     public function update(Request $request, $id)
     {
         //
-        if (Gate::denies('manage-users')) {
+        if (Gate::denies('manage-courses')) {
             abort(403);
         }
         $student = Student::findOrFail($id);
@@ -135,7 +136,7 @@ class StudentController extends Controller
     public function destroy($id)
     {
         //
-        if (Gate::denies('manage-users')) {
+        if (Gate::denies('manage-courses')) {
             abort(403);
         }
         $student = Student::findOrFail($id);
