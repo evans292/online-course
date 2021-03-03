@@ -70,6 +70,8 @@ Route::group(['middleware' => 'auth'], function() {
 
         Route::resource('courses', SubjectController::class);
         Route::get('courses/{courses}/subjectmatters', [SubjectController::class, 'showSubject'])->name('subjectmatters');
+        Route::get('courses/{course}/subjectmatters/{subject}', [SubjectController::class, 'showSubjectDetails'])->name('subjectmatters.details');
+        Route::get('courses/{course}/subjectmatters/{subject}/download', [SubjectController::class, 'download'])->name('subjectmatters.download');
    });
 
     Route::group(['middleware' => 'role:admin', 'prefix' => 'admin', 'as' => 'admin.'], function() {

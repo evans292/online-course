@@ -36,4 +36,9 @@ class Subjectmatter extends Model
     {
         return $this->hasMany(Accumulation::class);
     }
+
+    public function subjectcounts()
+    {
+        return $this->hasMany(Subjectcount::class);
+    }
 }

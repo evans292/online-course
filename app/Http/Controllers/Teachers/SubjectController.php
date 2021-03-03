@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Teachers;
 
 use DateTime;
+use App\Models\Course;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -189,5 +190,15 @@ class SubjectController extends Controller
         $subject->delete();
         Storage::disk('local')->delete($subject->path);
         return redirect()->back()->with('success', 'lol');
+    }
+
+    public function showSubjectDetails(Course $course, Subjectmatter $subject)
+    {
+        //
+        if (Gate::denies('manage-courses')) {
+            abort(403);
+        }
+        $datas = $subject->subjectcounts()->paginate(5);
+        return view('teacher.courses.show-subject', compact('subject', 'datas'));
     }
 }

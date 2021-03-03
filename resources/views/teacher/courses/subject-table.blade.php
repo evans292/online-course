@@ -73,9 +73,13 @@
                             @foreach ($datas as $data)
                             <tr class="hover:bg-gray-100 border-b border-gray-200 py-10">
                               <td class="px-4 py-4">{{ $loop->iteration }}</td>
-                              <td class="px-4 py-4">{{ $data->title }}</td>
+                              <td class="px-4 py-4"><a class="text-green-400 hover:text-green-600" href="{{ route('teacher.subjectmatters.details', ['course' => Request::segment(3), 'subject' => $data->id]) }}">{{ $data->title }}</a></td>
                               <td class="px-4 py-4">{!! Str::limit($data->details, 50)  !!}</td>
+                              @if ($data->path === 'public/')
+                              <td class="px-4 py-4 text-gray-400">NULL</td>
+                              @else
                               <td class="px-4 py-4">{{ $data->path }}</td>
+                              @endif
                               <td class="px-4 py-4">{{ $data->link }}</td>
                               @if ($data->teacher['name'] !== null)
                                 <td class="px-4 py-4">{{ $data->teacher['name'] }}</td>

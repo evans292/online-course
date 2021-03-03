@@ -12,6 +12,7 @@ use App\Models\Accumulation;
 use Illuminate\Http\Request;
 use App\Models\Subjectmatter;
 use App\Http\Controllers\Controller;
+use App\Models\Subjectcount;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
@@ -77,7 +78,22 @@ class StudyController extends Controller
         if (Gate::denies('view-lessons')) {
             abort(403);
         }
+        // dd(Auth::user()->students[0]->id);
+        // dd($subject->id);
+        $count = Subjectcount::where('student_id', Auth::user()->students[0]->id)
+        ->where('subjectmatter_id', $subject->id)
+        ->first();
 
+        if ($count !== null) {
+            $count->increment('views');
+        } else {
+            $count = Subjectcount::create([
+                'student_id' => Auth::user()->students[0]->id,
+                'subjectmatter_id' => $subject->id,
+                'views' => 1
+            ]);
+        }
+    
         $getClassId = Auth::user()->students[0]->schoolclass_id;
         $class = Schoolclass::findOrFail($getClassId)->courses;
         for ($i=0; $i < $class->count(); $i++) { 
