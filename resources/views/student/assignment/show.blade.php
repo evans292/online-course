@@ -33,9 +33,11 @@
 
                     <hr class="my-5 border">
 
+                    @if ($ass->attachment !== 'public/')
                     <div class="text-right">
                         <a href="{{ route('student.courses.subject.assignment.download', ['course' => Request::segment(3), 'subject' => Request::segment(5), 'assignment' => Request::segment(7)]) }}" class="inline-flex items-center px-4 py-2 bg-green-400 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"><i class="fas fa-download mr-1"></i>Download attachment</a>
                     </div>
+                    @endif
                 </div>
             </div>
         </div> 
@@ -91,10 +93,11 @@
                     <p class="text-justify">{{ $ass->instructions }}</p>
 
                     <hr class="my-5 border">
-
+                    @if ($ass->attachment !== 'public/')
                     <div class="text-right">
                         <a href="{{ route('student.courses.subject.assignment.download', ['course' => Request::segment(3), 'subject' => Request::segment(5), 'assignment' => Request::segment(7)]) }}" class="inline-flex items-center px-4 py-2 bg-green-400 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"><i class="fas fa-download mr-1"></i>Download attachment</a>
                     </div>
+                    @endif
                 </div>
             </div>
         </div>

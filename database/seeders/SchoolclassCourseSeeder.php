@@ -60,7 +60,7 @@ class SchoolclassCourseSeeder extends Seeder
             'teacher_id' => 1,
             'title' => 'Corel Draw',
             'details' => 'Ini adalah pelajaran tentang corel draw untuk kelas xi',
-            'path' => 'public/attachment/' . Str::slug('Corel Draw') . '.pdf',
+            'path' => 'public/',
             'link' => 'https://www.youtube.com/embed/b8oQqADRbTE',
         ]);
 
@@ -69,7 +69,7 @@ class SchoolclassCourseSeeder extends Seeder
             'teacher_id' => 1,
             'title' => 'Adobe Photoshop',
             'details' => 'Ini adalah pelajaran tentang adobe photoshop untuk kelas xi',
-            'path' => 'public/attachment/' . Str::slug('Adobe Photoshop'). '.pdf',
+            'path' => 'public/',
             'link' => 'https://www.youtube.com/embed/A9pWXs_2QD4E',
         ]);
 
@@ -78,7 +78,7 @@ class SchoolclassCourseSeeder extends Seeder
             'teacher_id' => 2,
             'title' => 'Algoritma dasar',
             'details' => 'Ini adalah pelajaran tentang algoritma dasar untuk kelas xi',
-            'path' => 'public/attachment/' . Str::slug('Algoritma dasar'). '.pdf',
+            'path' => 'public/',
             'link' => 'https://www.youtube.com/embed/5JuNp0o4YEE'
         ]);
 
@@ -87,7 +87,7 @@ class SchoolclassCourseSeeder extends Seeder
             'teacher_id' => 2,
             'title' => 'Analisa dan perhitungan listrik',
             'details' => 'Ini adalah pelajaran tentang kelistrikan untuk kelas xi',
-            'path' => 'public/attachment/' . Str::slug('Analisa dan perhitungan listrik'). '.pdf',
+            'path' => 'public/',
             'link' => 'https://www.youtube.com/embed/s9A2EfcoBQg'
         ]);
 
