@@ -15,13 +15,11 @@
 
   <x-slot name="script">
     @if (session('admin'))
-    <script>
-        Vue.use(VueToast);
-        Vue.$toast.success('Hello Admin!', {
-         duration: 1500,
-         dismissible: true,
-        })
-    </script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() { 
+                greet('Admin', 'bottom-right')
+            }, true); 
+        </script>
     @endif
 </x-slot>
 </x-admin-layout>

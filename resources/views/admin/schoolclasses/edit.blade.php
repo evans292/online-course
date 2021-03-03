@@ -60,11 +60,9 @@
     <x-slot name="script">
         @if (session('success'))
         <script>
-            Vue.use(VueToast);
-            Vue.$toast.success('Class updated!', {
-             duration: 1500,
-             dismissible: true,
-            })
+            document.addEventListener('DOMContentLoaded', function() { 
+                success('Class updated!')
+            }, true); 
         </script>
         @endif
     </x-slot>

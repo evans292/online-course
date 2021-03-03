@@ -36,11 +36,9 @@
     <x-slot name="script">
         @if (session('success'))
         <script>
-            Vue.use(VueToast);
-            Vue.$toast.success('Subject added!', {
-             duration: 1500,
-             dismissible: true,
-            })
+            document.addEventListener('DOMContentLoaded', function() { 
+                success('Course added!')
+            }, true); 
         </script>
         @endif
     </x-slot>

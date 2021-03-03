@@ -41,24 +41,11 @@
     </div>
 
     <x-slot name="script">
-        <script src="https://cdn.ckeditor.com/ckeditor5/25.0.0/classic/ckeditor.js"></script>
-        <script>
-            ClassicEditor
-                .create( document.querySelector( '#information' ), {
-                    removePlugins: [ 'Link' ],
-                    toolbar: [ 'heading','bold', 'italic', 'blockQuote' ]
-                } )
-                .catch( error => {
-                    console.error( error );
-                } );
-        </script>
         @if (session('success'))
         <script>
-            Vue.use(VueToast);
-            Vue.$toast.success('Course updated!', {
-             duration: 1500,
-             dismissible: true,
-            })
+            document.addEventListener('DOMContentLoaded', function() { 
+                success('Course updated!')
+            }, true); 
         </script>
         @endif
     </x-slot>

@@ -24,42 +24,21 @@
     <x-slot name="script">
         @if (session('student'))
         <script>
-            Vue.use(VueToast);
-            Vue.$toast.success('Hello Student!', {
-             duration: 1500,
-             dismissible: true,
-             position: 'top'
-            })
+            document.addEventListener('DOMContentLoaded', function() { 
+                greet('Student')
+            }, true); 
         </script>
-        @endif
-        @if (session('teacher'))
+        @elseif (session('teacher'))
         <script>
-            Vue.use(VueToast);
-            Vue.$toast.success('Hello Teacher!', {
-             duration: 1500,
-             dismissible: true,
-             position: 'top'
-            })
+            document.addEventListener('DOMContentLoaded', function() { 
+                greet('Teacher')
+            }, true); 
         </script>
-        @endif
-        @if (session('headmaster'))
+        @elseif (session('headmaster'))
         <script>
-            Vue.use(VueToast);
-            Vue.$toast.success('Hello Headmaster!', {
-             duration: 1500,
-             dismissible: true,
-             position: 'top'
-            })
-        </script>
-        @endif
-        @if (session('admin'))
-        <script>
-            Vue.use(VueToast);
-            Vue.$toast.success('Hello Admin!', {
-             duration: 1500,
-             dismissible: true,
-             position: 'top'
-            })
+            document.addEventListener('DOMContentLoaded', function() { 
+                greet('Headmaster')
+            }, true); 
         </script>
         @endif
     </x-slot>

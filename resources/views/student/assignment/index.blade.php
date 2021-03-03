@@ -92,16 +92,4 @@
             {{ $datas->links() }}
         </div>
     </div>
-
-    <x-slot name="script">
-        @if (session('success'))
-        <script>
-            Vue.use(VueToast);
-            Vue.$toast.success('Assignment deleted!', {
-             duration: 1500,
-             dismissible: true,
-            })
-        </script>
-        @endif
-    </x-slot>
 </x-app-layout>

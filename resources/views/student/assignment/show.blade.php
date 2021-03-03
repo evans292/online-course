@@ -162,21 +162,15 @@
     <x-slot name="script">
         @if (session('success'))
         <script>
-            Vue.use(VueToast);
-            Vue.$toast.success('Accumulation turned in!', {
-             duration: 1500,
-             dismissible: true,
-            })
+            document.addEventListener('DOMContentLoaded', function() { 
+                success('Accumulation turned in!')
+            }, true); 
         </script>
-        @endif
-
-        @if (session('destroy'))
+        @elseif (session('destroy'))
         <script>
-            Vue.use(VueToast);
-            Vue.$toast.success('Accumulation turned back!', {
-             duration: 1500,
-             dismissible: true,
-            })
+            document.addEventListener('DOMContentLoaded', function() { 
+                success('Accumulation turned back!')
+            }, true); 
         </script>
         @endif
     </x-slot>

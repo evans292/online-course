@@ -12,7 +12,7 @@ class Student extends Model
     protected $fillable = ['id', 
     'nis', 
     'user_id', 
-    'kelas_id', 
+    'schoolclass_id', 
     'name', 
     'birthdate', 
     'gender', 

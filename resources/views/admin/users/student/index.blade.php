@@ -113,13 +113,11 @@
 
     <x-slot name="script">
       @if (session('success'))
-      <script>
-          Vue.use(VueToast);
-          Vue.$toast.success('Student deleted!', {
-           duration: 1500,
-           dismissible: true,
-          })
-      </script>
-      @endif
+        <script>
+            document.addEventListener('DOMContentLoaded', function() { 
+                success('Student deleted!')
+            }, true); 
+        </script>
+        @endif
   </x-slot>
   </x-admin-layout>

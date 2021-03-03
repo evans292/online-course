@@ -111,7 +111,7 @@ class StudentController extends Controller
 
         $student->update([
             'nis' => $request->nis,
-            'schoolclass_id' => $request->class,        
+            'schoolclass_id' => $request->class,                
             'name' => $request->name,
             'birthdate' => $request->birthdate,
             'gender' => $request->gender,

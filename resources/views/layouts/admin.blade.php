@@ -22,7 +22,8 @@
       }
   </style>
   <script src="{{asset('js/app.js')}}" defer></script>
-
+     <!-- Init the plugin -->
+     {{ $script ?? ''}} 
     <title>{{ $title ?? config('app.name', 'Laravel') }}</title>
   </head>
   <body class="text-gray-800 antialiased">
@@ -49,8 +50,7 @@
      <!-- Lastly add this package -->
      <script src="https://cdn.jsdelivr.net/npm/vue-toast-notification"></script>
      <link href="https://cdn.jsdelivr.net/npm/vue-toast-notification/dist/theme-sugar.css" rel="stylesheet">
-     <!-- Init the plugin -->
-      {{ $script ?? ''}} 
+
     <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
     <script type="text/javascript">
       /* Sidebar - Side navigation menu on mobile/responsive mode */

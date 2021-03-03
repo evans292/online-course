@@ -79,11 +79,9 @@
     <x-slot name="script">
         @if (session('success'))
         <script>
-            Vue.use(VueToast);
-            Vue.$toast.success('Assignment added!', {
-             duration: 1500,
-             dismissible: true,
-            })
+            document.addEventListener('DOMContentLoaded', function() { 
+                success('Assignment added!')
+            }, true); 
         </script>
         @endif
     </x-slot>

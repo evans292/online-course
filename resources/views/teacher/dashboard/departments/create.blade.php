@@ -47,11 +47,9 @@
     <x-slot name="script">
         @if (session('success'))
         <script>
-            Vue.use(VueToast);
-            Vue.$toast.success('Department added!', {
-             duration: 1500,
-             dismissible: true,
-            })
+            document.addEventListener('DOMContentLoaded', function() { 
+                success('Department added!')
+            }, true); 
         </script>
         @endif
     </x-slot>

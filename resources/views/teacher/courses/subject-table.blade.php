@@ -121,13 +121,11 @@
 
     <x-slot name="script">
       @if (session('success'))
-      <script>
-          Vue.use(VueToast);
-          Vue.$toast.success('Subject deleted!', {
-           duration: 1500,
-           dismissible: true,
-          })
-      </script>
-      @endif
+        <script>
+            document.addEventListener('DOMContentLoaded', function() { 
+                success('Subject deleted!')
+            }, true); 
+        </script>
+        @endif
   </x-slot>
 </x-app-layout>

@@ -29,9 +29,7 @@
                         <div class="mb-4">
                             <x-label for="information" :value="__('Information')" />
                             {{-- <x-input id="details" class="block mt-1 w-full" type="text" name="details" value="" required /> --}}
-                            <textarea name="information" id="information" cols="30" rows="10" class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
-                                {{ old('information') }}
-                            </textarea>
+                            <textarea name="information" id="information" cols="30" rows="10" class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">{{ old('information') }}</textarea>
                             <x-validation-message name="information"/>
                         </div>
 
@@ -49,11 +47,9 @@
     <x-slot name="script">
         @if (session('success'))
         <script>
-            Vue.use(VueToast);
-            Vue.$toast.success('Department added!', {
-             duration: 1500,
-             dismissible: true,
-            })
+            document.addEventListener('DOMContentLoaded', function() { 
+                success('Department added!')
+            }, true); 
         </script>
         @endif
     </x-slot>
