@@ -201,4 +201,16 @@ class SubjectController extends Controller
         $datas = $subject->subjectcounts()->paginate(5);
         return view('teacher.courses.show-subject', compact('subject', 'datas'));
     }
+
+    public function download(Course $course, Subjectmatter $subject)
+    {
+        if (Gate::denies('manage-courses')) {
+            abort(403);
+        }
+        try {
+                return Storage::disk('local')->download($subject->path);
+            } catch (\Exception $e) {
+                abort(404, $e->getMessage());
+            }
+    }
 }

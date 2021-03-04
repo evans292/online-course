@@ -97,6 +97,8 @@ Route::group(['middleware' => 'auth'], function() {
     
         Route::resource('course', AdminSubjectController::class);
         Route::get('course/{course}/subjectmatters', [AdminSubjectController::class, 'showSubject'])->name('subjectmatters');
+        Route::get('courses/{course}/subjectmatters/{subject}', [AdminSubjectController::class, 'showSubjectDetails'])->name('subjectmatters.details');
+        Route::get('courses/{course}/subjectmatters/{subject}/download', [AdminSubjectController::class, 'download'])->name('subjectmatters.download');
 
         Route::get('tasks/{class}', AdminTaskController::class)->name('tasks');
         Route::get('assignment/{class}/create', [AdminAssignmentController::class, 'create'])->name('assignment.create');

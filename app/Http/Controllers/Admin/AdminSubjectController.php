@@ -185,4 +185,26 @@ class AdminSubjectController extends Controller
         Storage::disk('local')->delete($subject->path);
         return redirect()->back()->with('success', 'lol');
     }
+
+    public function showSubjectDetails(Course $course, Subjectmatter $subject)
+    {
+        //
+        if (Gate::denies('manage-users')) {
+            abort(403);
+        }
+        $datas = $subject->subjectcounts()->paginate(5);
+        return view('admin.manage-course.courses.show-subject', compact('subject', 'datas'));
+    }
+
+    public function download(Course $course, Subjectmatter $subject)
+    {
+        if (Gate::denies('manage-users')) {
+            abort(403);
+        }
+        try {
+                return Storage::disk('local')->download($subject->path);
+            } catch (\Exception $e) {
+                abort(404, $e->getMessage());
+            }
+    }
 }
