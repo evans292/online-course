@@ -18,14 +18,22 @@
         </p>
     </x-slot>
 
+  @if ($datas->count() === 0)
+    <div class="py-4">
+      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+          <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+              <div class="p-2 bg-white border-b border-gray-200">
+                <div class="flex justify-between">
+                  <h5 class="text-gray-400 p-5">No one views yet!</h5>
+                </div>
+              </div>
+          </div>
+      </div>
+  </div>
+    @else
     <div class="py-4">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-              @if ($datas->count() === 0)
-              <div class="flex justify-between">
-                <h5 class="text-gray-400 p-5">No one views yet!</h5>
-              </div>
-              @else
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="bg-white pb-4 px-4 rounded-md w-full">
                         <div class="flex justify-between w-full pt-6 ">
@@ -61,22 +69,30 @@
                         </table>
                       </div>
                       </div>
-                  @endif
                 </div>
             </div>
         {{ $datas->links() }}
         </div>
     </div>
+    @endif
 
     @if ($subject->path !== 'public/')
+    @if ($downloads->count() === 0)
     <div class="py-4">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
           <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-            @if ($downloads->count() === 0)
-            <div class="flex justify-between">
-              <h5 class="text-gray-400 p-5">No one downloads yet!</h5>
-            </div>
-            @else
+              <div class="p-2 bg-white border-b border-gray-200">
+                <div class="flex justify-between">
+                  <h5 class="text-gray-400 p-5">No one downloads yet!</h5>
+                </div>
+              </div>
+          </div>
+      </div>
+  </div>
+    @else
+    <div class="py-4">
+      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+          <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
               <div class="p-6 bg-white border-b border-gray-200">
                   <div class="bg-white pb-4 px-4 rounded-md w-full">
                       <div class="flex justify-between w-full pt-6 ">
@@ -112,12 +128,12 @@
                       </table>
                     </div>
                     </div>
-                @endif
               </div>
           </div>
       {{ $downloads->links() }}
       </div>
   </div>
+  @endif
   @endif
 
     <div class="py-4">

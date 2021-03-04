@@ -49,7 +49,7 @@
                         @else
                         <div class="mb-4">
                             <x-label for="class" value="{{ __('Class') }}" />
-                            <select name="class" id="class" class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
+                            <select name="class" id="class" class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm select2">
                                 <option value="" class="text-gray-400" selected>-- select class --</option>
                                 @foreach ($classes as $class)
                                     <option value="{{ $class->id }}" {{ ($data->schoolclass_id === $class->id) ? 'selected' : '' }}>{{ $class->name }}</option>
@@ -74,7 +74,7 @@
                         
                         <div class="mb-4">
                             <x-label for="gender" value="{{ __('Gender') }}" />
-                            <select name="gender" id="gender" class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
+                            <select name="gender" id="gender" class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm select2">
                                 <option value="" class="text-gray-400" selected>-- select gender --</option>
                                 @foreach ($genders as $key => $gender)
                                     <option value="{{ $key }}" {{ ($data->gender === $key) ? 'selected' : '' }}>{{ $gender }}</option>
