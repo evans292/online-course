@@ -12,6 +12,7 @@ use App\Models\Accumulation;
 use Illuminate\Http\Request;
 use App\Models\Subjectmatter;
 use App\Http\Controllers\Controller;
+use App\Models\Downloadsubjectcount;
 use App\Models\Subjectcount;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -110,6 +111,20 @@ class StudyController extends Controller
     {
         if (Gate::denies('view-lessons')) {
             abort(403);
+        }
+
+        $count = Downloadsubjectcount::where('student_id', Auth::user()->students[0]->id)
+        ->where('subjectmatter_id', $subject->id)
+        ->first();
+
+        if ($count !== null) {
+            $count->increment('downloads');
+        } else {
+            $count = Downloadsubjectcount::create([
+                'student_id' => Auth::user()->students[0]->id,
+                'subjectmatter_id' => $subject->id,
+                'downloads' => 1
+            ]);
         }
 
         $getClassId = Auth::user()->students[0]->schoolclass_id;

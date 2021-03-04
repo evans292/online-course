@@ -199,7 +199,9 @@ class SubjectController extends Controller
             abort(403);
         }
         $datas = $subject->subjectcounts()->paginate(5);
-        return view('teacher.courses.show-subject', compact('subject', 'datas'));
+        $downloads = $subject->downloadsubjectcounts()->paginate(5);
+
+        return view('teacher.courses.show-subject', compact('subject', 'datas', 'downloads'));
     }
 
     public function download(Course $course, Subjectmatter $subject)

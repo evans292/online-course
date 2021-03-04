@@ -43,4 +43,9 @@ class Student extends Model
     {
         return $this->hasMany(Subjectcount::class);
     }
+
+    public function downloadsubjectcounts()
+    {
+        return $this->hasMany(Downloadsubjectcount::class);
+    }
 }
