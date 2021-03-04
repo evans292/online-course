@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Headmaster;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Subjectmatter;
+use App\Models\Teacher;
 use Illuminate\Support\Facades\Gate;
 
 class DataController extends Controller
@@ -17,11 +18,9 @@ class DataController extends Controller
     public function index()
     {
         //
-        if (Gate::denies('view-data')) {
-            abort(403);
-        }
         $subjects = Subjectmatter::paginate(5);
-        return view('headmaster.data.index', compact('subjects'));
+        $teachers = Teacher::paginate(5);
+        return view('headmaster.data.index', compact('subjects', 'teachers'));
     }
 
     /**

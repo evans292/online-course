@@ -30,11 +30,11 @@
                         {{ __('Class List') }}
                     </x-nav-link>
                     @endcan
-                    @can('view-data')
+                    @canany(['view-data', 'manage-users', 'manage-courses'])
                     <x-nav-link :href="route('headmaster.data.index')" :active="request()->routeIs('headmaster.data.index')">
-                        {{ __('Data') }}
+                        {{ __('All Subject Count Data') }}
                     </x-nav-link>
-                    @endcan
+                    @endcanany
                 </div>
             </div>
 

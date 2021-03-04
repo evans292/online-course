@@ -115,7 +115,7 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('assignment/{class}/{assignment}/student-work/{student}/{accumulation}/download', [AdminAccumulationController::class, 'download'])->name('accumulation.download');
     });
 
-    Route::group(['middleware' => 'role:headmaster', 'prefix' => 'headmaster', 'as' => 'headmaster.'], function() {
+    Route::group(['prefix' => 'headmaster', 'as' => 'headmaster.'], function() {
         Route::resource('data', DataController::class);
     });
 });
