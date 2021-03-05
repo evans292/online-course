@@ -21,7 +21,6 @@ class CreateQuizzesTable extends Migration
             $table->foreignId('admin_id')->nullable()->constrained();
             $table->string('title');
             $table->text('instructions')->nullable();
-            $table->string('attachment')->nullable();
             $table->integer('point')->nullable();
             $table->date('due');
             $table->timestamps();

@@ -19,7 +19,6 @@ class Assignment extends Model
         'attachment',
         'point',
         'due',
-        'status',
     ];
 
     public function subjectmatter()

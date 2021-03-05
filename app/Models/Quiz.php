@@ -8,6 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Quiz extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'schoolclass_id',
+        'subjectmatter_id',
+        'teacher_id',
+        'admin_id',
+        'title',
+        'instructions',
+        'point',
+        'due',
+    ];
+
     public function subjectmatter()
     {
         return $this->belongsTo(Subjectmatter::class);
@@ -28,8 +39,8 @@ class Quiz extends Model
         return $this->belongsTo(Admin::class);
     }
 
-    public function quizquestions()
+    public function questions()
     {
-        return $this->hasMany(Quizquestion::class);
+        return $this->hasMany(Question::class);
     }
 }

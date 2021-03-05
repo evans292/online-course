@@ -26,7 +26,7 @@
                         <x-dropdown-link href="{{ route('admin.assignment.create', ['class' => Request::segment(3)]) }}">
                             <i class="fas fa-clipboard-list mr-2"></i>{{ __('Assignment') }}
                         </x-dropdown-link>
-                        <x-dropdown-link href="#">
+                        <x-dropdown-link href="{{ route('admin.quiz.create', ['class' => Request::segment(3)]) }}">
                             <i class="fas fa-clipboard-list mr-2"></i>{{ __('Quiz Assignment') }}
                         </x-dropdown-link>
                     </x-slot>
