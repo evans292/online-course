@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Quiz;
 use App\Models\Assignment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -22,8 +23,9 @@ class AdminTaskController extends Controller
             abort(403);
         }
 
-        $datas = Assignment::where('schoolclass_id', $id)->latest()->paginate(5);
+        $assignment = Assignment::where('schoolclass_id', $id)->latest()->paginate(5);
+        $quiz = Quiz::where('schoolclass_id', $id)->latest()->paginate(5);
         // dd($datas[0]->accumulations->where('point', '===', null));
-        return view('admin.tasks.index', compact('datas'));
+        return view('admin.tasks.index', compact('assignment', 'quiz'));
     }
 }

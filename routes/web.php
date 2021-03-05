@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\{AdminAccumulationController, AdminAssignmentController, AdminQuizController, AdminSubjectController, AdminTaskController, CourseController, DashboardController, DepartmentController, MappingController, SchoolclassController, StudentController, TeacherController, UserController};
 use App\Http\Controllers\Headmaster\DataController;
 use App\Http\Controllers\Students\StudyController;
-use App\Http\Controllers\Teachers\{AccumulationController, TaskController, SubjectController, AssignmentController, TeacherCourseController, TeacherDashboardController, TeacherDepartmentController, TeacherSchoolclassController, TeacherStudentController};
+use App\Http\Controllers\Teachers\{AccumulationController, TaskController, SubjectController, AssignmentController, QuizController, TeacherCourseController, TeacherDashboardController, TeacherDepartmentController, TeacherSchoolclassController, TeacherStudentController};
 use App\Http\Controllers\User\ProfileController;
 
 /*
@@ -62,6 +62,13 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('assignment/{class}/create', [AssignmentController::class, 'create'])->name('assignment.create');
         Route::get('assignment/{class}/{assignment}/edit', [AssignmentController::class, 'edit'])->name('assignment.edit');
         Route::get('assignment/{class}/{assignment}', [AssignmentController::class, 'show'])->name('assignment.show');
+        
+        Route::get('quiz/{class}/create', [QuizController::class, 'create'])->name('quiz.create');
+        Route::post('quiz', [QuizController::class, 'store'])->name('quiz.store');
+        Route::get('quiz/{class}/{quiz}', [QuizController::class, 'show'])->name('quiz.show');
+        Route::get('quiz/{class}/{quiz}/edit', [QuizController::class, 'edit'])->name('quiz.edit');
+        Route::patch('quiz/{quiz}', [QuizController::class, 'update'])->name('quiz.update');
+        Route::delete('quiz/{quiz}', [QuizController::class, 'destroy'])->name('quiz.destroy');
 
         Route::get('assignment/{class}/{assignment}/student-work', [AccumulationController::class, 'index'])->name('accumulation.index');
         Route::get('assignment/{class}/{assignment}/student-work/{student}/{accumulation}', [AccumulationController::class, 'show'])->name('accumulation.show');
@@ -107,11 +114,14 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('assignment/{class}/{assignment}', [AdminAssignmentController::class, 'show'])->name('assignment.show');
         Route::get('assignment/{class}/{assignment}/edit', [AdminAssignmentController::class, 'edit'])->name('assignment.edit');
         Route::patch('assignment/{assignment}', [AdminAssignmentController::class, 'update'])->name('assignment.update');
-        
+        Route::delete('assignment/{assignment}', [AdminAssignmentController::class, 'destroy'])->name('assignment.destroy');
+
         Route::get('quiz/{class}/create', [AdminQuizController::class, 'create'])->name('quiz.create');
         Route::post('quiz', [AdminQuizController::class, 'store'])->name('quiz.store');
-
-        Route::delete('assignment/{assignment}', [AdminAssignmentController::class, 'destroy'])->name('assignment.destroy');
+        Route::get('quiz/{class}/{quiz}', [AdminQuizController::class, 'show'])->name('quiz.show');
+        Route::get('quiz/{class}/{quiz}/edit', [AdminQuizController::class, 'edit'])->name('quiz.edit');
+        Route::patch('quiz/{quiz}', [AdminQuizController::class, 'update'])->name('quiz.update');
+        Route::delete('quiz/{quiz}', [AdminQuizController::class, 'destroy'])->name('quiz.destroy');
 
         Route::get('assignment/{class}/{assignment}/student-work', [AdminAccumulationController::class, 'index'])->name('accumulation.index');
         Route::get('assignment/{class}/{assignment}/student-work/{student}/{accumulation}', [AdminAccumulationController::class, 'show'])->name('accumulation.show');

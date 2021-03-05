@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Quiz extends Model
 {
     use HasFactory;
+    protected $dates = ['due'];
     protected $fillable = [
         'schoolclass_id',
         'subjectmatter_id',

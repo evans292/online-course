@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers\Teachers;
 
-use Carbon\Carbon;
+use App\Models\Quiz;
 use App\Models\Assignment;
-use App\Models\Schoolclass;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
@@ -24,8 +23,9 @@ class TaskController extends Controller
             abort(403);
         }
 
-        $datas = Assignment::where('schoolclass_id', $id)->latest()->paginate(5);
+        $assignment = Assignment::where('schoolclass_id', $id)->latest()->paginate(5);
+        $quiz = Quiz::where('schoolclass_id', $id)->latest()->paginate(5);
         // dd($datas[0]->accumulations->where('point', '===', null));
-        return view('teacher.tasks.index', compact('datas'));
+        return view('teacher.tasks.index', compact('assignment', 'quiz'));
     }
 }

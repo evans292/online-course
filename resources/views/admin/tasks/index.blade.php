@@ -33,10 +33,9 @@
                 </x-dropdown>
             </div>
 
-            @if ($datas->count() === 0)
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <h1 class="text-xl text-green-700 font-bold">Assign work to your class here</h1>
+                    <h1 class="text-xl text-green-700 font-bold">Assign work or quiz to your class here</h1>
                     <div class="mt-2">
                         <p class="text-sm font-semibold"><i class="far fa-clipboard text-gray-500 text-xl my-2 mr-3"></i> Create assignments and questions</p>
                         <p class="text-sm font-semibold"><i class="far fa-list-alt text-gray-500 text-xl my-2 mr-2"></i> Use topics to organize classwork into modules or units</p>
@@ -44,8 +43,11 @@
                     </div>
                 </div>
             </div>
-            @else
-            @foreach ($datas as $data)
+
+            @if ($assignment->count() > 0)
+            <h1 class="text-lg text-green-700 font-bold mt-5">Assignment</h1>
+            <hr>
+            @foreach ($assignment as $data)
             <div x-data="{ expanded: false }">
             <div class="hover:bg-white overflow-hidden hover:shadow-lg sm:rounded-lg mb-2" x-bind:class="expanded ? 'shadow-lg' : ''">
                     <div class="p-4 hover:bg-white cursor-pointer relative overflow-hidden transition-all max-h-32 ease-in duration-200" x-ref="container" x-bind:class="expanded ? 'bg-white' : ''"  x-bind:style="expanded ? 'max-height: ' + $refs.container.scrollHeight + 'px' : ''" x-on:click.self="expanded = !expanded">
@@ -108,14 +110,90 @@
                                 </div>
                         </div>
                         <hr class="my-2">     
-                        <a href="{{ route('admin.assignment.show', ['class' => Request::segment(3), 'assignment' => $data->id]) }}" class="text-green-600 font-semibold p-2 text-sm hover:bg-blue-50">View assignment</a>
+                        <a href="{{ route('admin.assignment.show', ['class' => Request::segment(3), 'assignment' => $data->id]) }}" class="text-green-600 font-semibold text-sm hover:bg-blue-50">View assignment</a>
                     </div>
                 </div>
             </div> 
             @endforeach
+            {{ $assignment->links() }}
             @endif
 
-            {{ $datas->links() }}
+
+            @if ($quiz->count() > 0)
+            <h1 class="text-lg text-green-700 font-bold mt-5">Quiz</h1>
+            <hr>
+            @foreach ($quiz as $data)
+            <div x-data="{ expanded: false }">
+            <div class="hover:bg-white overflow-hidden hover:shadow-lg sm:rounded-lg mb-2" x-bind:class="expanded ? 'shadow-lg' : ''">
+                    <div class="p-4 hover:bg-white cursor-pointer relative overflow-hidden transition-all max-h-32 ease-in duration-200" x-ref="container" x-bind:class="expanded ? 'bg-white' : ''"  x-bind:style="expanded ? 'max-height: ' + $refs.container.scrollHeight + 'px' : ''" x-on:click.self="expanded = !expanded">
+                        <div class="flex justify-between" x-on:click.self="expanded = !expanded">
+                            <div>
+                                <i class="fas fa-clipboard-list text-white text-2xl my-2 mr-3 bg-green-400 p-2 rounded-lg"></i>
+                                <a class="font-semibold">{{ $data->title }}</a>
+                            </div>
+                            <div class="flex self-center mt-3">
+                                <span class="self-center text-xs text-gray-400 mr-2">Posted {{ $data->created_at->format('M d') }}</span>
+                                <x-dropdown align="top" width="48" >
+                                    <x-slot name="trigger">
+                                        <button class="mt-1 hover:bg-gray-50 p-1 rounded-full focus:outline-none">
+                                            <img src="{{ asset('image/dots.svg') }}" alt="Kiwi standing on oval" class="h-6 w-6">
+                                        </button>
+                                    </x-slot>
+                
+                                    <x-slot name="content">
+                                        <x-dropdown-link href="{{ route('admin.quiz.edit', ['class' => Request::segment(3), 'quiz' => $data->id]) }}">
+                                            <i class="fas fa-pencil-alt mr-2"></i>{{ __('Edit') }}
+                                        </x-dropdown-link>
+
+                                        <form id="{{ $data->id }}" action="{{ route('admin.quiz.destroy', ['quiz' => $data->id]) }}" method="POST">
+                                            @csrf
+                                            @method('delete')
+                                            <x-dropdown-link href="#" onclick="deleteConfirm('{{ $data->title }}', '{{ $data->id }}')">                                          
+                                              <i class="fas fa-trash-alt mr-2"></i>{{ __('Delete') }}
+                                            </x-dropdown-link>
+                                        </form>
+                                    </x-slot>
+                                </x-dropdown>
+                            </div>
+                        </div>   
+                        <hr class="my-2">     
+                        <p class="text-xs text-gray-400">
+                            Due 
+                            @if (Carbon\Carbon::now()->format('Y-m-d') === $data->due->format('Y-m-d'))
+                                Today
+                            @elseif (Carbon\Carbon::now()->subDay()->format('Y-m-d') === $data->due->format('Y-m-d'))  
+                                Yesterday
+                            @elseif (Carbon\Carbon::now()->addDay()->format('Y-m-d') === $data->due->format('Y-m-d'))  
+                                Tomorrow
+                            @else
+                                {{ $data->due->diffForHumans() }}
+                            @endif
+                        </p> 
+                        <p class="mt-5 text-sm text-justify">{{ Str::limit($data->instructions, 300) }}</p>
+                        {{-- <div class="flex justify-end">
+                            <div class="mx-5 border-l-2 pl-3">
+                                <p class="text-4xl">{{ $data->accumulations->count() - $data->accumulations->where('point', '!==', null)->count() }}</p>
+                                <p class="text-gray-400 text-sm">Turned in</p>
+                            </div>
+                            <div class="border-l-2 pl-3">
+                            <p class="text-4xl">{{ $data->schoolclass->students->count() - $data->accumulations->count() }}</p>
+                               <p class="text-gray-400 text-sm">Assigned</p>
+                            </div>
+                            <div class="border-l-2 pl-3 mx-5">
+                                <p class="text-4xl">{{ $data->accumulations->where('point', '!==', null)->count() }}</p>
+                                   <p class="text-gray-400 text-sm">Graded</p>
+                                </div>
+                        </div> --}}
+                        <hr class="my-2">     
+                        <a href="{{ route('admin.quiz.show', ['class' => Request::segment(3), 'quiz' => $data->id]) }}" class="text-green-600 font-semibold text-sm hover:bg-blue-50">View quiz</a>
+                    </div>
+                </div>
+            </div> 
+            @endforeach
+
+            {{ $quiz->links() }}
+            @endif
+
         </div>
     </div>
 
@@ -123,7 +201,7 @@
         @if (session('success'))
         <script>
             document.addEventListener('DOMContentLoaded', function() { 
-                success('Assignment deleted!')
+                success('Quiz deleted!')
             }, true); 
         </script>
         @endif
