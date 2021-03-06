@@ -15,7 +15,7 @@ class CreateSchoolclassesTable extends Migration
     {
         Schema::create('schoolclasses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('teacher_id')->nullable()->constrained('teachers');
+            $table->foreignId('teacher_id')->nullable()->constrained('teachers')->onDelete('cascade');
             $table->string('name');
             $table->text('information');
             $table->timestamps();

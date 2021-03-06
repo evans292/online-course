@@ -15,7 +15,7 @@ class CreateDepartmentsTable extends Migration
     {
         Schema::create('departments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('teacher_id')->nullable()->constrained('teachers');
+            $table->foreignId('teacher_id')->nullable()->constrained('teachers')->onDelete('cascade');
             $table->string('name');
             $table->text('information');
             $table->timestamps();

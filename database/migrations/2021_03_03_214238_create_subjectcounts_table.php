@@ -15,8 +15,8 @@ class CreateSubjectcountsTable extends Migration
     {
         Schema::create('subjectcounts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('student_id')->constrained();
-            $table->foreignId('subjectmatter_id')->constrained('subjectmatters');
+            $table->foreignId('student_id')->constrained()->onDelete('cascade');
+            $table->foreignId('subjectmatter_id')->constrained('subjectmatters')->onDelete('cascade');
             $table->integer('views');
             $table->timestamps();
         });

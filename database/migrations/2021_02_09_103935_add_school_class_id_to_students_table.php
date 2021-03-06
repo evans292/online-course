@@ -15,7 +15,7 @@ class AddSchoolClassIdToStudentsTable extends Migration
     {
         Schema::table('students', function (Blueprint $table) {
             //
-            $table->foreignId('schoolclass_id')->nullable()->after('nis')->constrained('schoolclasses');
+            $table->foreignId('schoolclass_id')->nullable()->after('nis')->constrained('schoolclasses')->onDelete('cascade');
         });
     }
 

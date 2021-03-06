@@ -15,8 +15,8 @@ class CreateDownloadsubjectcountsTable extends Migration
     {
         Schema::create('downloadsubjectcounts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('student_id')->constrained();
-            $table->foreignId('subjectmatter_id')->constrained('subjectmatters');
+            $table->foreignId('student_id')->constrained()->onDelete('cascade');
+            $table->foreignId('subjectmatter_id')->constrained('subjectmatters')->onDelete('cascade');
             $table->integer('downloads');
             $table->timestamps();
         });

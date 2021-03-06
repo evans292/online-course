@@ -15,7 +15,7 @@ class AddDepartmentIdToSchoolclassesTable extends Migration
     {
         Schema::table('schoolclasses', function (Blueprint $table) {
             //
-            $table->foreignId('department_id')->nullable()->after('teacher_id')->constrained('departments');
+            $table->foreignId('department_id')->nullable()->after('teacher_id')->constrained('departments')->onDelete('cascade');
         });
     }
 

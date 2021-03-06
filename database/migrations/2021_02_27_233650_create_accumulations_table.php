@@ -15,9 +15,9 @@ class CreateAccumulationsTable extends Migration
     {
         Schema::create('accumulations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('student_id')->constrained('students');
-            $table->foreignId('assignment_id')->constrained('assignments');
-            $table->foreignId('subjectmatter_id')->constrained('subjectmatters');
+            $table->foreignId('student_id')->constrained('students')->onDelete('cascade');
+            $table->foreignId('assignment_id')->constrained('assignments')->onDelete('cascade');
+            $table->foreignId('subjectmatter_id')->constrained('subjectmatters')->onDelete('cascade');
             $table->string('attachment');
             $table->integer('point')->nullable();
             $table->timestamps();

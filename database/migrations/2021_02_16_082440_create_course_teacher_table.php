@@ -14,8 +14,8 @@ class CreateCourseTeacherTable extends Migration
     public function up()
     {
         Schema::create('course_teacher', function (Blueprint $table) {
-            $table->foreignId('course_id')->constrained('courses');
-            $table->foreignId('teacher_id')->constrained('teachers');
+            $table->foreignId('course_id')->constrained('courses')->onDelete('cascade');
+            $table->foreignId('teacher_id')->constrained('teachers')->onDelete('cascade');
             $table->primary(['course_id', 'teacher_id']);
         });
     }
