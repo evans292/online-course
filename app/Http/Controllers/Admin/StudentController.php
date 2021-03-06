@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Storage;
 
 class StudentController extends Controller
 {
+    public function __construct() {
+        $this->middleware('role:admin');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -22,9 +25,7 @@ class StudentController extends Controller
     public function index()
     {
         //
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
+        
         
         $datas = Student::orderBy('name')->paginate(10);
         return view('admin.users.student.index', compact('datas'));
@@ -71,9 +72,7 @@ class StudentController extends Controller
     public function edit($id)
     {
         //
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
+        
         $student = Student::findOrFail($id);
         $genders = ['L' => 'Male', 'P' => 'Female'];
         $classes = Schoolclass::get();
@@ -90,9 +89,7 @@ class StudentController extends Controller
     public function update(Request $request, $id)
     {
         //
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
+        
         $student = Student::findOrFail($id);
         $user = User::findOrFail($student->user_id);
 
@@ -135,9 +132,7 @@ class StudentController extends Controller
     public function destroy($id)
     {
         //
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
+        
         $student = Student::findOrFail($id);
         $user = User::findOrFail($student->user_id);
 

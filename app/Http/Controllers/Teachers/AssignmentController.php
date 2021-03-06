@@ -14,6 +14,9 @@ use App\Http\Requests\AssignmentRequest;
 
 class AssignmentController extends Controller
 {
+    public function __construct() {
+        $this->middleware('role:teacher');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -22,9 +25,7 @@ class AssignmentController extends Controller
     public function index()
     {
         //
-        if (Gate::denies('manage-courses')) {
-            abort(403);
-        }
+        
 
         dd("index");
     }
@@ -37,9 +38,7 @@ class AssignmentController extends Controller
     public function create()
     {
         //
-        if (Gate::denies('manage-courses')) {
-            abort(403);
-        }
+        
 
         return view('teacher.tasks.assignment.create');
     }
@@ -53,9 +52,7 @@ class AssignmentController extends Controller
     public function store(AssignmentRequest $request)
     {
         //
-        if (Gate::denies('manage-courses')) {
-            abort(403);
-        }
+        
         
         $title_slug = Str::slug(request('title'));
         $datetime = new DateTime();
@@ -88,9 +85,7 @@ class AssignmentController extends Controller
     public function show($idKelas, $id)
     {
         //
-        if (Gate::denies('manage-courses')) {
-            abort(403);
-        }
+        
 
         $assignment = Assignment::findOrFail($id);
 
@@ -105,9 +100,7 @@ class AssignmentController extends Controller
      */
     public function edit($classId, $id)
     {
-        if (Gate::denies('manage-courses')) {
-            abort(403);
-        }
+       
 
         $status = ['Open', 'Close'];
         $point = [null => 'Ungraded', '100' => '100', '10' => '10'];
@@ -126,9 +119,7 @@ class AssignmentController extends Controller
     public function update(AssignmentRequest $request, $id)
     {
         //
-        if (Gate::denies('manage-courses')) {
-            abort(403);
-        }
+        
         $title_slug = Str::slug(request('title'));
         $datetime = new DateTime();
 
@@ -167,9 +158,7 @@ class AssignmentController extends Controller
     public function destroy($id)
     {
         //
-        if (Gate::denies('manage-courses')) {
-            abort(403);
-        }
+        
         $ass = Assignment::findOrFail($id);
         $ass->delete();
         Storage::disk('local')->delete($ass->attachment);

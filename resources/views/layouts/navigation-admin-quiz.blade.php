@@ -18,9 +18,9 @@
                     <x-nav-link :href="route('admin.quiz.show', ['class' => Request::segment(3), 'quiz' => $quiz->id])" :active="request()->routeIs('admin.quiz.show', ['class' => Request::segment(3), 'quiz' => $quiz->id])">
                         {{ __('Instructions') }}
                     </x-nav-link>
-                    {{-- <x-nav-link :href="route('admin.accumulation.index', ['class' => Request::segment(3), 'quiz' => $quiz->id])" :active="request()->routeIs('admin.accumulation.index', ['class' => Request::segment(3), 'quiz' => $quiz->id])">
-                        {{ __('Student work') }}
-                    </x-nav-link> --}}
+                    <x-nav-link :href="route('admin.question.index', ['class' => Request::segment(3), 'quiz' => $quiz->id])" :active="request()->routeIs('admin.question.index', ['class' => Request::segment(3), 'quiz' => $quiz->id])">
+                        {{ __('Question') }}
+                    </x-nav-link>
                 </div>
             </div>
 

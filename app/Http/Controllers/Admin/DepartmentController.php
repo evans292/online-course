@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Gate;
 
 class DepartmentController extends Controller
 {
+    public function __construct() {
+        $this->middleware('role:admin');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,9 +21,6 @@ class DepartmentController extends Controller
     public function index()
     {
         //
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
         
         $datas = Department::orderBy('name')->paginate(10);
         return view('admin.departments.index', compact('datas'));
@@ -34,9 +34,7 @@ class DepartmentController extends Controller
     public function create()
     {
         //
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
+
 
         $teachers = Teacher::get();
         return view('admin.departments.create', compact('teachers'));
@@ -51,9 +49,6 @@ class DepartmentController extends Controller
     public function store(Request $request)
     {
         //
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
 
         $this->validate($request, [
             'name' => 'required',
@@ -89,9 +84,6 @@ class DepartmentController extends Controller
     public function edit($id)
     {
         //
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
 
         $department = Department::findOrFail($id);
         $teachers = Teacher::get();
@@ -108,9 +100,6 @@ class DepartmentController extends Controller
     public function update(Request $request, $id)
     {
         //
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
 
         $this->validate($request, [
             'name' => 'required',
@@ -135,10 +124,6 @@ class DepartmentController extends Controller
      */
     public function destroy($id)
     {
-        //
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
         $department = Department::findOrFail($id);
         $department->delete();
 

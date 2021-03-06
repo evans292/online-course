@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Admin\{AdminAccumulationController, AdminAssignmentController, AdminQuizController, AdminSubjectController, AdminTaskController, CourseController, DashboardController, DepartmentController, MappingController, SchoolclassController, StudentController, TeacherController, UserController};
+use App\Http\Controllers\Admin\{AdminAccumulationController, AdminAssignmentController, AdminQuestionController, AdminQuizController, AdminSubjectController, AdminTaskController, CourseController, DashboardController, DepartmentController, MappingController, SchoolclassController, StudentController, TeacherController, UserController};
 use App\Http\Controllers\Headmaster\DataController;
 use App\Http\Controllers\Students\StudyController;
 use App\Http\Controllers\Teachers\{AccumulationController, TaskController, SubjectController, AssignmentController, QuizController, TeacherCourseController, TeacherDashboardController, TeacherDepartmentController, TeacherSchoolclassController, TeacherStudentController};
@@ -122,6 +122,8 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('quiz/{class}/{quiz}/edit', [AdminQuizController::class, 'edit'])->name('quiz.edit');
         Route::patch('quiz/{quiz}', [AdminQuizController::class, 'update'])->name('quiz.update');
         Route::delete('quiz/{quiz}', [AdminQuizController::class, 'destroy'])->name('quiz.destroy');
+
+        Route::resource('quiz/{class}/{quiz}/question', AdminQuestionController::class);
 
         Route::get('assignment/{class}/{assignment}/student-work', [AdminAccumulationController::class, 'index'])->name('accumulation.index');
         Route::get('assignment/{class}/{assignment}/student-work/{student}/{accumulation}', [AdminAccumulationController::class, 'show'])->name('accumulation.show');

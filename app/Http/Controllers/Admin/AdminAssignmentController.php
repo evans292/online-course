@@ -15,12 +15,14 @@ use App\Http\Requests\AssignmentRequest;
 class AdminAssignmentController extends Controller
 {
     //
+    public function __construct() {
+        $this->middleware('role:admin');
+    }
+
     public function create()
     {
         //
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
+        
 
         $subjects = Subjectmatter::get();
         return view('admin.tasks.assignment.create', compact('subjects'));
@@ -29,9 +31,7 @@ class AdminAssignmentController extends Controller
     public function store(AssignmentRequest $request)
     {
         //
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
+       
         
         $title_slug = Str::slug(request('title'));
         $datetime = new DateTime();
@@ -58,9 +58,7 @@ class AdminAssignmentController extends Controller
     public function show($idKelas, $id)
     {
         //
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
+        
 
         $assignment = Assignment::findOrFail($id);
 
@@ -69,9 +67,7 @@ class AdminAssignmentController extends Controller
 
     public function edit($classId, $id)
     {
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
+        
 
         $point = [null => 'Ungraded', '100' => '100', '10' => '10'];
 
@@ -82,9 +78,7 @@ class AdminAssignmentController extends Controller
     public function update(AssignmentRequest $request, $id)
     {
         //
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
+        
         $title_slug = Str::slug(request('title'));
         $datetime = new DateTime();
 
@@ -117,9 +111,7 @@ class AdminAssignmentController extends Controller
     public function destroy($id)
     {
         //
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
+        
         
         $ass = Assignment::findOrFail($id);
         $ass->delete();

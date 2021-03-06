@@ -14,13 +14,14 @@ use App\Http\Requests\AssignmentRequest;
 class AdminQuizController extends Controller
 {
     //
+    public function __construct() {
+        $this->middleware('role:admin');
+    }
 
     public function create()
     {
         //
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
+       
 
         $subjects = Subjectmatter::get();
         return view('admin.tasks.quiz.create', compact('subjects'));
@@ -29,9 +30,7 @@ class AdminQuizController extends Controller
     public function store(AssignmentRequest $request)
     {
         //
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
+        
         $quiz = Quiz::create([
             'schoolclass_id' => $request->classId,
             'subjectmatter_id' => $request->subject,
@@ -47,9 +46,7 @@ class AdminQuizController extends Controller
     public function show($idKelas, $id)
     {
         //
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
+        
 
         $quiz = Quiz::findOrFail($id);
 
@@ -58,9 +55,7 @@ class AdminQuizController extends Controller
 
     public function edit($classId, $id)
     {
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
+        
 
         $point = [null => 'Ungraded', '100' => '100', '10' => '10'];
 
@@ -71,9 +66,7 @@ class AdminQuizController extends Controller
     public function update(AssignmentRequest $request, $id)
     {
         //
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
+        
 
         $quiz = Quiz::findOrFail($id);
 
@@ -93,9 +86,7 @@ class AdminQuizController extends Controller
     public function destroy($id)
     {
         //
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
+        
         
         $quiz = Quiz::findOrFail($id);
         $quiz->delete();

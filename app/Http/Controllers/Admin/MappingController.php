@@ -12,11 +12,13 @@ use Illuminate\Support\Facades\Gate;
 class MappingController extends Controller
 {
     //
+    public function __construct() {
+        $this->middleware('role:admin');
+    }
+
     public function showClassroomTeacher()
     {
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
+       
 
         $datas = Schoolclass::orderBy('name')->paginate(10);
         return view('admin.mapping.classroom-teacher.index', compact('datas'));
@@ -24,9 +26,7 @@ class MappingController extends Controller
 
     public function editClassroomTeacher($id)
     {
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
+        
 
         $class = Schoolclass::findOrFail($id);
         $teachers = Teacher::get();
@@ -35,9 +35,7 @@ class MappingController extends Controller
 
     public function updateClassroomTeacher(Request $request, $id)
     {
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
+       
 
         $class = Schoolclass::findOrFail($id);
         $class->teachers()->sync($request->teacher);
@@ -46,9 +44,7 @@ class MappingController extends Controller
 
     public function showClassroomCourse()
     {
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
+        
 
         $datas = Schoolclass::orderBy('name')->paginate(10);
         return view('admin.mapping.classroom-course.index', compact('datas'));
@@ -56,9 +52,7 @@ class MappingController extends Controller
 
     public function editClassroomCourse($id)
     {
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
+      
 
         $class = Schoolclass::findOrFail($id);
         $courses = Course::get();
@@ -67,9 +61,7 @@ class MappingController extends Controller
 
     public function updateClassroomCourse(Request $request, $id)
     {
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
+        
 
         $class = Schoolclass::findOrFail($id);
         $class->courses()->sync($request->course);
@@ -78,9 +70,7 @@ class MappingController extends Controller
 
     public function showCourseTeacher()
     {
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
+        
 
         $datas = Course::orderBy('name')->paginate(10);
         return view('admin.mapping.course-teacher.index', compact('datas'));
@@ -88,9 +78,7 @@ class MappingController extends Controller
 
     public function editCourseTeacher($id)
     {
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
+        
 
         $course = Course::findOrFail($id);
         $teachers = Teacher::get();
@@ -99,9 +87,7 @@ class MappingController extends Controller
 
     public function updateCourseTeacher(Request $request, $id)
     {
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
+        
 
         $course = Course::findOrFail($id);
         $course->teachers()->sync($request->teacher);

@@ -1,32 +1,32 @@
 <?php
 
-namespace App\Http\Controllers\Teachers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Course;
+use App\Models\Quiz;
+use App\Models\Question;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
 
-class TeacherCourseController extends Controller
+class AdminQuestionController extends Controller
 {
-    //
     public function __construct() {
-        $this->middleware('role:teacher');
+        $this->middleware('role:admin');
     }
-     /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-       
-        
-        $datas = Course::orderBy('name')->paginate(10);
-        return view('teacher.dashboard.courses.index', compact('datas'));
+        $questions = Question::where('quiz_id', $request->segment(4))->paginate(5);
+        $quiz = Quiz::findOrFail($request->segment(4));
+
+        return view('admin.tasks.quiz.question.index', compact('questions', 'quiz'));
     }
-    
+
     /**
      * Show the form for creating a new resource.
      *
@@ -35,8 +35,6 @@ class TeacherCourseController extends Controller
     public function create()
     {
         //
-       
-        return view('teacher.dashboard.courses.create');
     }
 
     /**
@@ -48,19 +46,6 @@ class TeacherCourseController extends Controller
     public function store(Request $request)
     {
         //
-      
-
-        $this->validate($request, [
-            'name' => 'required',
-            'information' => 'required'
-        ]);
-
-        Course::create([
-            'name' => $request->name,
-            'information' => $request->information
-        ]);
-
-        return redirect()->back()->with('success', 'lol');
     }
 
     /**
@@ -83,10 +68,6 @@ class TeacherCourseController extends Controller
     public function edit($id)
     {
         //
-    
-
-        $course = Course::findOrFail($id);
-        return view('teacher.dashboard.courses.edit', compact('course'));
     }
 
     /**
@@ -98,19 +79,7 @@ class TeacherCourseController extends Controller
      */
     public function update(Request $request, $id)
     {
-    
-
-        $this->validate($request, [
-            'name' => 'required',
-            'information' => 'required'
-        ]);
-        $course = Course::findOrFail($id);
-        $course->update([
-            'name' => $request->name,
-            'information' => $request->information
-        ]);
-
-        return redirect()->back()->with('success', 'lol');
+        //
     }
 
     /**
@@ -122,9 +91,5 @@ class TeacherCourseController extends Controller
     public function destroy($id)
     {
         //
-  
-        $course = Course::findOrFail($id);
-        $course->delete();
-        return redirect()->back()->with('success', 'lol');
     }
 }

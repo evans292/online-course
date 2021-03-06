@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Gate;
 
 class TeacherSchoolclassController extends Controller
 {
+    public function __construct() {
+        $this->middleware('role:teacher');
+    }
     //
     /**
      * Display a listing of the resource.
@@ -20,9 +23,7 @@ class TeacherSchoolclassController extends Controller
     public function index()
     {
         //
-        if (Gate::denies('manage-courses')) {
-            abort(403);
-        }
+
         
         $datas = Schoolclass::orderBy('name')->paginate(10);
         return view('teacher.dashboard.schoolclasses.index', compact('datas'));
@@ -36,9 +37,7 @@ class TeacherSchoolclassController extends Controller
     public function create()
     {
         //
-        if (Gate::denies('manage-courses')) {
-            abort(403);
-        }
+
         $teachers = Teacher::get();
         $departments = Department::get();
         return view('teacher.dashboard.schoolclasses.create', compact('teachers', 'departments'));
@@ -53,9 +52,7 @@ class TeacherSchoolclassController extends Controller
     public function store(Request $request)
     {
         //
-        if (Gate::denies('manage-courses')) {
-            abort(403);
-        }
+    
 
         $this->validate($request, [
             'name' => 'required',
@@ -92,9 +89,7 @@ class TeacherSchoolclassController extends Controller
     public function edit($id)
     {
         //
-        if (Gate::denies('manage-courses')) {
-            abort(403);
-        }
+
 
         $class = Schoolclass::findOrFail($id);
         $teachers = Teacher::get();
@@ -112,9 +107,7 @@ class TeacherSchoolclassController extends Controller
     public function update(Request $request, $id)
     {
         //
-        if (Gate::denies('manage-courses')) {
-            abort(403);
-        }
+
 
         $this->validate($request, [
             'name' => 'required',
@@ -141,9 +134,7 @@ class TeacherSchoolclassController extends Controller
     public function destroy($id)
     {
         //
-        if (Gate::denies('manage-courses')) {
-            abort(403);
-        }
+
         $class = Schoolclass::findOrFail($id);
         $class->delete();
 

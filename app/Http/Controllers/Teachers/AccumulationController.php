@@ -12,11 +12,12 @@ use Illuminate\Support\Facades\Storage;
 class AccumulationController extends Controller
 {
     //
+    public function __construct() {
+        $this->middleware('role:teacher');
+    }
     public function index($idkelas, $idAss)
     {
-        if (Gate::denies('manage-courses')) {
-            abort(403);
-        }
+        
         
         $assignment = Assignment::findOrFail($idAss);
         $ass = Accumulation::where('assignment_id', $idAss)->orderBy('created_at', 'desc')->paginate(5);
@@ -40,9 +41,7 @@ class AccumulationController extends Controller
     public function download($classId, $assId, $studentId, $idAcc)
     {
         //
-        if (Gate::denies('manage-courses')) {
-            abort(403);
-        }
+       
 
         $data = Accumulation::where('student_id', $studentId)->where('id', $idAcc)->get();
         try {

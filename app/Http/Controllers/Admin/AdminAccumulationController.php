@@ -12,11 +12,13 @@ use Illuminate\Support\Facades\Storage;
 class AdminAccumulationController extends Controller
 {
     //
+    public function __construct() {
+        $this->middleware('role:admin');
+    }
+
     public function index($idkelas, $idAss)
     {
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
+
         
         $assignment = Assignment::findOrFail($idAss);
         $ass = Accumulation::where('assignment_id', $idAss)->orderBy('created_at', 'desc')->paginate(5);
@@ -26,9 +28,7 @@ class AdminAccumulationController extends Controller
 
     public function show($idkelas, $idAss, $idStudent, $idAcc)
     {
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
+       
 
         $assignment = Assignment::findOrFail($idAss);
         $ass = Accumulation::where('assignment_id', $idAss)->orderBy('created_at', 'desc')->paginate(5);
@@ -40,9 +40,7 @@ class AdminAccumulationController extends Controller
     public function download($classId, $assId, $studentId, $idAcc)
     {
         //
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
+        
 
         $data = Accumulation::where('student_id', $studentId)->where('id', $idAcc)->get();
         try {

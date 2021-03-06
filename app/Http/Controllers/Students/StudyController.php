@@ -21,12 +21,14 @@ use Illuminate\Support\Facades\Storage;
 class StudyController extends Controller
 {
     //
+    public function __construct() {
+        $this->middleware('role:student');
+    }
+
     public function index()
     {
         //
-        if (Gate::denies('view-lessons')) {
-            abort(403);
-        }
+       
 
         // ambil id kelas punya siswa yang sedang login
         $getClassId = Auth::user()->students[0]->schoolclass_id;
@@ -76,9 +78,7 @@ class StudyController extends Controller
     public function showSubjectDetails(Course $course, Subjectmatter $subject)
     {
         //
-        if (Gate::denies('view-lessons')) {
-            abort(403);
-        }
+        
         // dd(Auth::user()->students[0]->id);
         // dd($subject->id);
         $count = Subjectcount::where('student_id', Auth::user()->students[0]->id)
@@ -109,9 +109,7 @@ class StudyController extends Controller
 
     public function download(Course $course, Subjectmatter $subject)
     {
-        if (Gate::denies('view-lessons')) {
-            abort(403);
-        }
+        
 
         $count = Downloadsubjectcount::where('student_id', Auth::user()->students[0]->id)
         ->where('subjectmatter_id', $subject->id)
@@ -145,9 +143,7 @@ class StudyController extends Controller
 
     public function showAssignment(Request $request)
     {
-        if (Gate::denies('view-lessons')) {
-            abort(403);
-        }
+       
 
         $datas = Assignment::where('subjectmatter_id', $request->segment(5))->latest()->paginate(5);
         return view('student.assignment.index', compact('datas'));
@@ -170,9 +166,7 @@ class StudyController extends Controller
     public function downloadAssignment($courseId, $subjectId, $assId)
     {
         //
-        if (Gate::denies('view-lessons')) {
-            abort(403);
-        }
+        
 
         $ass = Assignment::findOrFail($assId);
         try {
@@ -184,9 +178,7 @@ class StudyController extends Controller
 
     public function storeAccumulation(Request $request, $courseId, $subjectId, $assignmentId)
     {
-        if (Gate::denies('view-lessons')) {
-            abort(403);
-        }
+        
         
         $title_slug = Str::slug(Auth::user()->students[0]->name);
         $datetime = new DateTime();
@@ -213,9 +205,7 @@ class StudyController extends Controller
 
     public function deleteAccumulation($courseId, $subjectId, $assignmentId, $attachmentId)
     {
-        if (Gate::denies('view-lessons')) {
-            abort(403);
-        }
+        
         $acc = Accumulation::findOrFail($attachmentId);
 
         $acc->delete();

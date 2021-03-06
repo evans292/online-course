@@ -17,6 +17,9 @@ use App\Models\Course;
 
 class AdminSubjectController extends Controller
 {
+    public function __construct() {
+        $this->middleware('role:admin');
+    }
     //
     /**
      * Display a listing of the resource.
@@ -26,9 +29,7 @@ class AdminSubjectController extends Controller
     public function index()
     {
         //
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
+       
 
         $classes = Schoolclass::get();
         
@@ -43,9 +44,7 @@ class AdminSubjectController extends Controller
     public function create()
     {
         //
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
+        
         $courses = Course::get();
         return view('admin.manage-course.courses.create-subject', compact('courses'));
     }
@@ -59,9 +58,7 @@ class AdminSubjectController extends Controller
     public function store(SubjectMatterRequest $request)
     {
         //
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
+        
         $title_slug = Str::slug(request('title'));
         $datetime = new DateTime();
         
@@ -93,9 +90,7 @@ class AdminSubjectController extends Controller
     public function show($idKelas)
     {
         //
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
+        
         // $courses =  Teacher::find(Auth::user()->teachers[0]->id)->courses;
         $class = Schoolclass::find($idKelas);
         $courses = Schoolclass::findOrFail($idKelas)->courses;
@@ -104,9 +99,7 @@ class AdminSubjectController extends Controller
 
     public function showSubject($id)
     {
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
+        
         $datas = Subjectmatter::where('course_id', $id)->paginate(10);
         return view('admin.manage-course.courses.subject-table', compact('datas'));
     }
@@ -120,9 +113,7 @@ class AdminSubjectController extends Controller
     public function edit($id)
     {
         //
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
+        
         $subject = Subjectmatter::findOrFail($id);
         $courses = Course::get();
         return view('admin.manage-course.courses.edit-subject', compact('subject', 'courses'));
@@ -138,9 +129,7 @@ class AdminSubjectController extends Controller
     public function update(SubjectMatterRequest $request, $id)
     {
         //
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
+       
         $title_slug = Str::slug(request('title'));
         $datetime = new DateTime();
 
@@ -177,9 +166,7 @@ class AdminSubjectController extends Controller
     public function destroy($id)
     {
         //
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
+        
         $subject = Subjectmatter::findOrFail($id);
         $subject->delete();
         Storage::disk('local')->delete($subject->path);
@@ -189,9 +176,7 @@ class AdminSubjectController extends Controller
     public function showSubjectDetails(Course $course, Subjectmatter $subject)
     {
         //
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
+        
         $datas = $subject->subjectcounts()->paginate(5);
         $downloads = $subject->downloadsubjectcounts()->paginate(5);
         return view('admin.manage-course.courses.show-subject', compact('subject', 'datas', 'downloads'));
@@ -199,9 +184,7 @@ class AdminSubjectController extends Controller
 
     public function download(Course $course, Subjectmatter $subject)
     {
-        if (Gate::denies('manage-users')) {
-            abort(403);
-        }
+        
         try {
                 return Storage::disk('local')->download($subject->path);
             } catch (\Exception $e) {

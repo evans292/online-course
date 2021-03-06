@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Gate;
 class TeacherDepartmentController extends Controller
 {
     //
+    public function __construct() {
+        $this->middleware('role:teacher');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -19,9 +22,7 @@ class TeacherDepartmentController extends Controller
     public function index()
     {
         //
-        if (Gate::denies('manage-courses')) {
-            abort(403);
-        }
+       
         
         $datas = Department::orderBy('name')->paginate(10);
         return view('teacher.dashboard.departments.index', compact('datas'));
@@ -35,9 +36,7 @@ class TeacherDepartmentController extends Controller
     public function create()
     {
         //
-        if (Gate::denies('manage-courses')) {
-            abort(403);
-        }
+   
 
         $teachers = Teacher::get();
         return view('teacher.dashboard.departments.create', compact('teachers'));
@@ -52,9 +51,7 @@ class TeacherDepartmentController extends Controller
     public function store(Request $request)
     {
         //
-        if (Gate::denies('manage-courses')) {
-            abort(403);
-        }
+  
 
         $this->validate($request, [
             'name' => 'required',
@@ -90,9 +87,7 @@ class TeacherDepartmentController extends Controller
     public function edit($id)
     {
         //
-        if (Gate::denies('manage-courses')) {
-            abort(403);
-        }
+  
 
         $department = Department::findOrFail($id);
         $teachers = Teacher::get();
@@ -109,9 +104,7 @@ class TeacherDepartmentController extends Controller
     public function update(Request $request, $id)
     {
         //
-        if (Gate::denies('manage-courses')) {
-            abort(403);
-        }
+
 
         $this->validate($request, [
             'name' => 'required',
@@ -136,10 +129,7 @@ class TeacherDepartmentController extends Controller
      */
     public function destroy($id)
     {
-        //
-        if (Gate::denies('manage-courses')) {
-            abort(403);
-        }
+
         $department = Department::findOrFail($id);
         $department->delete();
 
