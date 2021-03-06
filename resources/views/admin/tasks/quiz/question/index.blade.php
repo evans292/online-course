@@ -61,12 +61,12 @@
                               <td class="px-4 py-4"><a class="text-green-400 hover:text-green-600" href="{{ route('admin.question.show', ['class' => Request::segment(3), 'quiz' => $data->quiz_id, 'question' => $data->id]) }}">{!! Str::limit($data->question, 50)  !!}</a></td>
                               <td class="px-4 py-4">{{ $data->created_at->diffForHumans() }}</td>
                               <td class="px-4 py-4">
-                                <form id="{{ $data->id }}" action="{{ route('admin.quiz.destroy', ['quiz' => $data->quiz_id]) }}" method="POST">
+                                <form id="{{ $data->id }}" action="{{ route('admin.question.destroy', ['class' => Request::segment(3), 'quiz' => $data->quiz_id, 'question' => $data->id]) }}" method="POST">
                                   @csrf
                                   @method('delete')
                                 </form>
-                                <a href="#" onclick="deleteConfirm('{{ $data->title }}', '{{ $data->id }}')"><i class="fas fa-trash-alt text-red-400 mr-1"></i></a>
-                                <a href="{{ route('admin.quiz.edit', ['class' => Request::segment(3), 'quiz' => $data->quiz_id]) }}"><i class="fas fa-pencil-alt text-yellow-400"></i></a>
+                                <a href="#" onclick="deleteConfirm('{{ $data->question }}', '{{ $data->id }}')"><i class="fas fa-trash-alt text-red-400 mr-1"></i></a>
+                                <a href="{{ route('admin.question.edit', ['class' => Request::segment(3), 'quiz' => $data->quiz_id, 'question' => $data->id]) }}"><i class="fas fa-pencil-alt text-yellow-400"></i></a>
                               </td>
                             </tr>
                             @endforeach
@@ -100,7 +100,7 @@
       @if (session('success'))
         <script>
             document.addEventListener('DOMContentLoaded', function() { 
-                success('Subject deleted!')
+                success('Question deleted!')
             }, true); 
         </script>
         @endif

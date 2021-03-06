@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Quiz;
+use App\Models\Option;
 use App\Models\Question;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -32,9 +33,11 @@ class AdminQuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request, $classId, $quizId)
     {
         //
+        $quiz = Quiz::findOrFail($request->segment(4));
+        return view('admin.tasks.quiz.question.create', compact('quiz'));
     }
 
     /**
@@ -43,9 +46,38 @@ class AdminQuestionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $classId, $quizId)
     {
         //
+        $request->validate([
+            'question' => 'required',
+        ]);
+        
+        $optionArray = $request->input('option');
+        $correctOptions = $request->input('correct');
+            
+        $question = new Question();
+        $question->quiz_id = $quizId;
+        $question->question = $request->question;
+        $question->save();
+
+        $questionToAdd = Question::latest()->first();
+        $questionID = $questionToAdd->id;
+
+        foreach ($optionArray as $index => $opt) {
+            $option = new Option();
+            $option->question_id = $questionID;
+            $option->option = $opt;
+            foreach ($correctOptions as $correctOption) {
+                if($correctOption == $index+1) {
+                    $option->correct = 1;
+                }
+            }
+
+            $option->save();
+        }
+
+        return redirect()->back()->with('success', 'lol');
     }
 
     /**
@@ -54,9 +86,13 @@ class AdminQuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $classId, $quizId, $questionId)
     {
         //
+        $question = Question::findorFail($questionId);
+        $quiz = Quiz::findOrFail($request->segment(4));
+    
+        return view('admin.tasks.quiz.question.show', compact('question', 'quiz'));
     }
 
     /**
@@ -65,9 +101,13 @@ class AdminQuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $classId, $quizId, $questionId)
     {
         //
+        $question = Question::findorFail($questionId);
+        $quiz = Quiz::findOrFail($request->segment(4));
+    
+        return view('admin.tasks.quiz.question.edit', compact('question', 'quiz'));
     }
 
     /**
@@ -77,9 +117,14 @@ class AdminQuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $classId, $quizId, $questionId)
     {
         //
+        $question = Question::findOrFail($questionId);
+        $question->question = $request->question;
+        $question->save();
+
+        return redirect()->back()->with('success', 'lol');
     }
 
     /**
@@ -88,8 +133,12 @@ class AdminQuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($classId, $quizId, $questionId)
     {
         //
+        $question = Question::findOrFail($questionId);
+        $question->delete();
+
+        return redirect()->back()->with('success', 'lol');
     }
 }

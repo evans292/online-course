@@ -91,6 +91,6 @@ class AdminQuizController extends Controller
         $quiz = Quiz::findOrFail($id);
         $quiz->delete();
         Storage::disk('local')->delete($quiz->attachment);
-        return redirect()->back()->with('success', 'lol');
+        return redirect()->route('admin.courses.index')->with('success', 'lol');
     }
 }
