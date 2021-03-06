@@ -22,6 +22,11 @@
                         {{ __('Assignment') }}
                     </x-nav-link>
                     @endcan
+                    @can('view-lessons')
+                    <x-nav-link :href="route('student.courses.subject.quiz', ['course' => Request::segment(3), 'subject' => Request::segment(5)])" :active="request()->routeIs('student.courses.subject.quiz')">
+                        {{ __('Quiz') }}
+                    </x-nav-link>
+                    @endcan
                 </div>
             </div>
 
@@ -91,6 +96,11 @@
             @can('view-lessons')
             <x-responsive-nav-link :href="route('student.courses.subject.assignment', ['course' => Request::segment(3), 'subject' => Request::segment(5)])" :active="request()->routeIs('student.courses.subject.assignment')">
                 {{ __('Assignment') }}
+            </x-responsive-nav-link>
+            @endcan
+            @can('view-lessons')
+            <x-responsive-nav-link :href="route('student.courses.subject.quiz', ['course' => Request::segment(3), 'subject' => Request::segment(5)])" :active="request()->routeIs('student.courses.subject.quiz')">
+                {{ __('Quiz') }}
             </x-responsive-nav-link>
             @endcan
         </div>

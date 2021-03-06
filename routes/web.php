@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Admin\{AdminAccumulationController, AdminAssignmentController, AdminQuestionController, AdminQuizController, AdminSubjectController, AdminTaskController, CourseController, DashboardController, DepartmentController, MappingController, SchoolclassController, StudentController, TeacherController, UserController};
+use App\Http\Controllers\Admin\{AdminAccumulationController, AdminAssignmentController, AdminQuestionController, AdminQuizController, AdminSubjectController, AdminTaskController, CourseController, DashboardController, DepartmentController, MappingController, ResultsController, SchoolclassController, StudentController, TeacherController, UserController};
 use App\Http\Controllers\Headmaster\DataController;
 use App\Http\Controllers\Students\StudyController;
 use App\Http\Controllers\Teachers\{AccumulationController, TaskController, SubjectController, AssignmentController, QuizController, TeacherCourseController, TeacherDashboardController, TeacherDepartmentController, TeacherSchoolclassController, TeacherStudentController};
@@ -30,6 +30,8 @@ Route::get('/dashboard', function () {
 require __DIR__.'/auth.php';
 
 Route::group(['middleware' => 'auth'], function() {
+    Route::resource('results', ResultsController::class);
+
     Route::group(['prefix' => 'profile'], function () {
         Route::get('/', [ProfileController::class, 'edit'])->name('profile');
         Route::patch('/{userid}/{profileid}', [ProfileController::class, 'update'])->name('profile.update');
@@ -46,6 +48,10 @@ Route::group(['middleware' => 'auth'], function() {
         Route::post('courses/{course}/subject/{subject}/assignment/{assignment}', [StudyController::class, 'storeAccumulation'])->name('courses.subject.assignment.store');
         Route::delete('courses/{course}/subject/{subject}/assignment/{assignment}/{attachment}', [StudyController::class, 'deleteAccumulation'])->name('courses.subject.assignment.destroy');
         Route::get('courses/{course}/subject/{subject}/assignment/{assignment}/download', [StudyController::class, 'downloadAssignment'])->name('courses.subject.assignment.download');
+
+        Route::get('courses/{course}/subject/{subject}/quiz', [StudyController::class, 'showQuiz'])->name('courses.subject.quiz');
+        Route::get('courses/{course}/subject/{subject}/quiz/{quiz}', [StudyController::class, 'showQuizDetails'])->name('courses.subject.quiz.details');
+        Route::get('courses/{course}/subject/{subject}/quiz/{quiz}/start', [StudyController::class, 'startQuiz'])->name('courses.subject.quiz.details.start');
     });
 
    Route::group(['middleware' => 'role:teacher', 'prefix' => 'teacher', 'as' => 'teacher.'], function() {
@@ -129,8 +135,6 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('assignment/{class}/{assignment}/student-work/{student}/{accumulation}', [AdminAccumulationController::class, 'show'])->name('accumulation.show');
         Route::patch('assignment/{class}/{assignment}/student-work/{student}/point', [AdminAccumulationController::class, 'updatePoint'])->name('accumulation.update');
         Route::get('assignment/{class}/{assignment}/student-work/{student}/{accumulation}/download', [AdminAccumulationController::class, 'download'])->name('accumulation.download');
-
-
     });
 
     Route::group(['prefix' => 'headmaster', 'as' => 'headmaster.'], function() {

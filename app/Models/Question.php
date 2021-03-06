@@ -18,4 +18,13 @@ class Question extends Model
     {
         return $this->hasMany(Option::class);
     }
+    
+    public function correctOptionsCount() {
+        return $this->options()->where('correct', 1 )->count();
+    }
+
+    public function correctOptions() {
+       return  $this->options()->where('correct', 1)->get();
+    }
+
 }

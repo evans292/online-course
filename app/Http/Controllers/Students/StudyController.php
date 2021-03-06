@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 use App\Models\Subjectmatter;
 use App\Http\Controllers\Controller;
 use App\Models\Downloadsubjectcount;
+use App\Models\Quiz;
+use App\Models\Result;
 use App\Models\Subjectcount;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -152,9 +154,7 @@ class StudyController extends Controller
     public function showAssignmentDetails($courseId, $subjectId, $id)
     {
         //
-        if (Gate::denies('view-lessons')) {
-            abort(403);
-        }
+
 
         $ass = Assignment::findOrFail($id);
         // $acc = $ass->accumulations->where('student_id', '===', Auth::user()->students[0]->id);
@@ -211,5 +211,33 @@ class StudyController extends Controller
         $acc->delete();
         Storage::disk('local')->delete($acc->attachment);
         return redirect()->back()->with('destroy', 'lol');
+    }
+
+    public function showQuiz(Request $request)
+    {
+        $datas = Quiz::where('subjectmatter_id', $request->segment(5))->latest()->paginate(5);
+        return view('student.quiz.index', compact('datas'));
+    }
+
+    public function showQuizDetails($courseId, $subjectId, $id)
+    {
+        //
+        $quiz = Quiz::findOrFail($id);
+        // $acc = $ass->accumulations->where('student_id', '===', Auth::user()->students[0]->id);
+        // $acc = Accumulation::where('assignment_id', $id)->where('student_id', Auth::user()->students[0]->id)->get();
+        $done = Result::where('quiz_id', $id)->where('student_id', Auth::user()->students[0]->id)->first();
+        return view('student.quiz.show', compact('quiz', 'done'));
+    }
+
+    public function startQuiz($courseId, $subjectId, $id)
+    {
+        $done = Result::where('quiz_id', $id)->where('student_id', Auth::user()->students[0]->id)->first();
+        if ($done === null) {
+            # code...
+            $quiz = Quiz::findOrFail($id);
+            return view('student.quiz.start', compact('quiz'));
+        } else {
+            abort(403, 'kamu udah pernah ngerjain yah? nakal');
+        }
     }
 }
