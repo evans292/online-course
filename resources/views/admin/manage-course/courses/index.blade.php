@@ -85,4 +85,12 @@
             </div>
         </div>
     </div>
+
+    @if (session('success'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() { 
+                success('Quiz deleted!')
+            }, true); 
+        </script>
+        @endif
 </x-app-layout>
