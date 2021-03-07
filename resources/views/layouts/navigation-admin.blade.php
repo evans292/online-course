@@ -21,10 +21,10 @@
                     <x-nav-link :href="route('admin.tasks', ['class' => Request::segment(3)])" :active="request()->routeIs('admin.tasks')">
                         {{ __('Classwork') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('admin.peoples', ['class' => Request::segment(3)])" :active="request()->routeIs('teacher.peoples')">
+                    <x-nav-link :href="route('admin.peoples', ['class' => Request::segment(3)])" :active="request()->routeIs('admin.peoples')">
                         {{ __('People') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('admin.grades', ['class' => Request::segment(3)])" :active="request()->routeIs('dashboard')">
+                    <x-nav-link :href="route('admin.grades', ['class' => Request::segment(3)])" :active="request()->routeIs('admin.grades')">
                         {{ __('Quiz Grades') }}
                     </x-nav-link>
                 </div>
@@ -96,26 +96,18 @@
             <x-responsive-nav-link :href="route('admin.course.index')" :active="request()->routeIs('admin.course.index')">
                 {{ __('Class List') }}
             </x-responsive-nav-link>
-            @can('manage-courses')
             <x-responsive-nav-link :href="route('admin.course.show', ['course' => Request::segment(3)])" :active="request()->routeIs('admin.course.show', ['course' => Request::segment(3)])">
                 {{ __('Stream') }}
             </x-responsive-nav-link>
-            @endcan
-            @can('manage-courses')
             <x-responsive-nav-link :href="route('teacher.tasks', ['class' => Request::segment(3)])" :active="request()->routeIs('teacher.tasks', ['class' => Request::segment(3)])">
                 {{ __('Classwork') }}
             </x-responsive-nav-link>
-            @endcan
-            @can('manage-courses')
-            <x-responsive-nav-link :href="route('admin.peoples', ['class' => Request::segment(3)])" :active="request()->routeIs('teacher.peoples')">
+            <x-responsive-nav-link :href="route('admin.peoples', ['class' => Request::segment(3)])" :active="request()->routeIs('admin.peoples')">
                 {{ __('People') }}
             </x-responsive-nav-link>
-            @endcan
-            @can('manage-courses')
-            <x-responsive-nav-link :href="route('admin.grades', ['class' => Request::segment(3)])" :active="request()->routeIs('teacher.tasks')">
+            <x-responsive-nav-link :href="route('admin.grades', ['class' => Request::segment(3)])" :active="request()->routeIs('admin.grades')">
                 {{ __('Quiz Grades') }}
             </x-responsive-nav-link>
-            @endcan
         </div>
 
         <!-- Responsive Settings Options -->

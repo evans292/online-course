@@ -86,6 +86,8 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('assignment/{class}/{assignment}/student-work/{student}/{accumulation}/download', [AccumulationController::class, 'download'])->name('accumulation.download');
         
         Route::get('quiz-grades/{class}', TeacherGradeController::class)->name('grades');
+        Route::get('quiz-grades/{class}/pdf', [GradeController::class, 'pdf'])->name('grades.pdf');
+
         Route::get('peoples/{class}', [ClassPeopleController::class, 'teacher'])->name('peoples');
 
         Route::resource('quiz/{class}/{quiz}/question', QuestionController::class);
@@ -123,7 +125,8 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('courses/{course}/subjectmatters/{subject}/download', [AdminSubjectController::class, 'download'])->name('subjectmatters.download');
 
         Route::get('tasks/{class}', AdminTaskController::class)->name('tasks');
-        Route::get('quiz-grades/{class}', GradeController::class)->name('grades');
+        Route::get('quiz-grades/{class}', [GradeController::class, 'show'])->name('grades');
+        Route::get('quiz-grades/{class}/pdf', [GradeController::class, 'pdf'])->name('grades.pdf');
 
         Route::get('assignment/{class}/create', [AdminAssignmentController::class, 'create'])->name('assignment.create');
         Route::post('assignment', [AdminAssignmentController::class, 'store'])->name('assignment.store');
