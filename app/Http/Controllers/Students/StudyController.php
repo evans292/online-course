@@ -111,8 +111,6 @@ class StudyController extends Controller
 
     public function download(Course $course, Subjectmatter $subject)
     {
-        
-
         $count = Downloadsubjectcount::where('student_id', Auth::user()->students[0]->id)
         ->where('subjectmatter_id', $subject->id)
         ->first();
@@ -229,13 +227,17 @@ class StudyController extends Controller
         return view('student.quiz.show', compact('quiz', 'done'));
     }
 
-    public function startQuiz($courseId, $subjectId, $id)
+    public function startQuiz(Request $request, $courseId, $subjectId, $id)
     {
         $done = Result::where('quiz_id', $id)->where('student_id', Auth::user()->students[0]->id)->first();
         if ($done === null) {
-            # code...
-            $quiz = Quiz::findOrFail($id);
-            return view('student.quiz.start', compact('quiz'));
+            $request->session()->put('tes','mulai');
+            if($request->session()->has('tes')){
+                $quiz = Quiz::findOrFail($id);
+                return view('student.quiz.start', compact('quiz'));
+            } else {
+                echo 'Tidak ada data dalam session.';
+            }
         } else {
             abort(403, 'kamu udah pernah ngerjain yah? nakal');
         }

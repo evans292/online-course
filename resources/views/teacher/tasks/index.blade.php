@@ -169,20 +169,16 @@
                         @endif
                     </p> 
                     <p class="mt-5 text-sm text-justify">{{ Str::limit($data->instructions, 300) }}</p>
-                    {{-- <div class="flex justify-end">
+                    <div class="flex justify-end">
                         <div class="mx-5 border-l-2 pl-3">
-                            <p class="text-4xl">{{ $data->accumulations->count() - $data->accumulations->where('point', '!==', null)->count() }}</p>
-                            <p class="text-gray-400 text-sm">Turned in</p>
-                        </div>
-                        <div class="border-l-2 pl-3">
-                        <p class="text-4xl">{{ $data->schoolclass->students->count() - $data->accumulations->count() }}</p>
+                        <p class="text-4xl">{{ $data->schoolclass->students->count() - $data->results->count() }}</p>
                            <p class="text-gray-400 text-sm">Assigned</p>
                         </div>
                         <div class="border-l-2 pl-3 mx-5">
-                            <p class="text-4xl">{{ $data->accumulations->where('point', '!==', null)->count() }}</p>
+                            <p class="text-4xl">{{ $data->results->count() }}</p>
                                <p class="text-gray-400 text-sm">Graded</p>
-                            </div>
-                    </div> --}}
+                        </div>
+                    </div>
                     <hr class="my-2">     
                     <a href="{{ route('teacher.quiz.show', ['class' => Request::segment(3), 'quiz' => $data->id]) }}" class="text-green-600 font-semibold text-sm hover:bg-blue-50">View quiz</a>
                 </div>

@@ -21,11 +21,11 @@
                     <x-nav-link :href="route('admin.tasks', ['class' => Request::segment(3)])" :active="request()->routeIs('admin.tasks')">
                         {{ __('Classwork') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    <x-nav-link :href="route('admin.peoples', ['class' => Request::segment(3)])" :active="request()->routeIs('teacher.peoples')">
                         {{ __('People') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Grades') }}
+                    <x-nav-link :href="route('admin.grades', ['class' => Request::segment(3)])" :active="request()->routeIs('dashboard')">
+                        {{ __('Quiz Grades') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -107,13 +107,13 @@
             </x-responsive-nav-link>
             @endcan
             @can('manage-courses')
-            <x-responsive-nav-link :href="route('admin.course.index')" :active="request()->routeIs('admin.course.index')">
+            <x-responsive-nav-link :href="route('admin.peoples', ['class' => Request::segment(3)])" :active="request()->routeIs('teacher.peoples')">
                 {{ __('People') }}
             </x-responsive-nav-link>
             @endcan
             @can('manage-courses')
-            <x-responsive-nav-link :href="route('teacher.tasks', ['class' => Request::segment(3)])" :active="request()->routeIs('teacher.tasks')">
-                {{ __('Grades') }}
+            <x-responsive-nav-link :href="route('admin.grades', ['class' => Request::segment(3)])" :active="request()->routeIs('teacher.tasks')">
+                {{ __('Quiz Grades') }}
             </x-responsive-nav-link>
             @endcan
         </div>

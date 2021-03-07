@@ -23,16 +23,6 @@
         </div>
 
         <div class="flex">
-            <div class="w-2/4 sm:px-6 lg:px-8 mb-5">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg ">
-                    <div class="p-6 border-b border-gray-200 h-40">
-                       <h1>Upcoming</h1>
-                       <p class="text-gray-400 text-sm my-3">No work due soon</p>
-                       <a href="" class="text-green-400 float-right mt-4">View all</a>
-                    </div>
-                </div>
-            </div>
-
             <div class="w-full sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     {{-- <div class="p-6 bg-white border-b border-gray-200"> --}}

@@ -2,10 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Admin\{AdminAccumulationController, AdminAssignmentController, AdminQuestionController, AdminQuizController, AdminSubjectController, AdminTaskController, CourseController, DashboardController, DepartmentController, MappingController, ResultsController, SchoolclassController, StudentController, TeacherController, UserController};
+use App\Http\Controllers\Admin\{AdminAccumulationController, AdminAssignmentController, AdminQuestionController, AdminQuizController, AdminSubjectController, AdminTaskController, CourseController, DashboardController, DepartmentController, GradeController, MappingController, ResultsController, SchoolclassController, StudentController, TeacherController, UserController};
+use App\Http\Controllers\ClassPeopleController;
 use App\Http\Controllers\Headmaster\DataController;
 use App\Http\Controllers\Students\StudyController;
-use App\Http\Controllers\Teachers\{AccumulationController, TaskController, SubjectController, AssignmentController, QuizController, TeacherCourseController, TeacherDashboardController, TeacherDepartmentController, TeacherSchoolclassController, TeacherStudentController};
+use App\Http\Controllers\Teachers\{AccumulationController, TaskController, SubjectController, AssignmentController, QuestionController, QuizController, TeacherCourseController, TeacherDashboardController, TeacherDepartmentController, TeacherGradeController, TeacherSchoolclassController, TeacherStudentController};
 use App\Http\Controllers\User\ProfileController;
 
 /*
@@ -30,7 +31,10 @@ Route::get('/dashboard', function () {
 require __DIR__.'/auth.php';
 
 Route::group(['middleware' => 'auth'], function() {
-    Route::resource('results', ResultsController::class);
+    Route::resource('results', ResultsController::class)->except([
+       'show'
+    ]);
+    Route::get('results/{result}/{student}', [ResultsController::class, 'show'])->name('results.show');
 
     Route::group(['prefix' => 'profile'], function () {
         Route::get('/', [ProfileController::class, 'edit'])->name('profile');
@@ -80,6 +84,11 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('assignment/{class}/{assignment}/student-work/{student}/{accumulation}', [AccumulationController::class, 'show'])->name('accumulation.show');
         Route::patch('assignment/{class}/{assignment}/student-work/{student}/point', [AccumulationController::class, 'updatePoint'])->name('accumulation.update');
         Route::get('assignment/{class}/{assignment}/student-work/{student}/{accumulation}/download', [AccumulationController::class, 'download'])->name('accumulation.download');
+        
+        Route::get('quiz-grades/{class}', TeacherGradeController::class)->name('grades');
+        Route::get('peoples/{class}', [ClassPeopleController::class, 'teacher'])->name('peoples');
+
+        Route::resource('quiz/{class}/{quiz}/question', QuestionController::class);
 
         Route::resource('courses', SubjectController::class);
         Route::get('courses/{courses}/subjectmatters', [SubjectController::class, 'showSubject'])->name('subjectmatters');
@@ -114,6 +123,7 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('courses/{course}/subjectmatters/{subject}/download', [AdminSubjectController::class, 'download'])->name('subjectmatters.download');
 
         Route::get('tasks/{class}', AdminTaskController::class)->name('tasks');
+        Route::get('quiz-grades/{class}', GradeController::class)->name('grades');
 
         Route::get('assignment/{class}/create', [AdminAssignmentController::class, 'create'])->name('assignment.create');
         Route::post('assignment', [AdminAssignmentController::class, 'store'])->name('assignment.store');
@@ -130,6 +140,7 @@ Route::group(['middleware' => 'auth'], function() {
         Route::delete('quiz/{quiz}', [AdminQuizController::class, 'destroy'])->name('quiz.destroy');
 
         Route::resource('quiz/{class}/{quiz}/question', AdminQuestionController::class);
+        Route::get('peoples/{class}', [ClassPeopleController::class, 'admin'])->name('peoples');
 
         Route::get('assignment/{class}/{assignment}/student-work', [AdminAccumulationController::class, 'index'])->name('accumulation.index');
         Route::get('assignment/{class}/{assignment}/student-work/{student}/{accumulation}', [AdminAccumulationController::class, 'show'])->name('accumulation.show');

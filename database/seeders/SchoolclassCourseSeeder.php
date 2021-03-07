@@ -66,7 +66,7 @@ class SchoolclassCourseSeeder extends Seeder
 
         Subjectmatter::create([
             'course_id' => $course1->id,
-            'teacher_id' => 1,
+            'admin_id' => 1,
             'title' => 'Adobe Photoshop',
             'details' => 'Ini adalah pelajaran tentang adobe photoshop untuk kelas xi',
             'path' => 'public/',

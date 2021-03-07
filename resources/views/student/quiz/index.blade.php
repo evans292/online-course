@@ -49,7 +49,7 @@
                             </p> 
                             <p class="mt-5 text-sm text-justify text-gray-400">{{ Str::limit($data->instructions, 300) }}</p>
                             <hr class="my-3">     
-                            <a href="{{ route('student.courses.subject.assignment.details', ['course' => Request::segment(3), 'subject' => Request::segment(3), 'assignment' => $data->id]) }}" class="text-green-600 font-semibold p-1 text-sm hover:bg-blue-50">View assignment</a>
+                            <a href="{{ route('student.courses.subject.quiz.details', ['course' => Request::segment(3), 'subject' => Request::segment(5), 'quiz' => $data->id]) }}" class="text-green-600 font-semibold p-1 text-sm hover:bg-blue-50">View quiz</a>
                         </div>
                     </div>
                 </div> 

@@ -15,10 +15,11 @@ class CreateResultsTable extends Migration
     {
         Schema::create('results', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('student_id')->nullable()->constrained();
-            $table->foreignId('quiz_id')->nullable()->constrained();
+            $table->foreignId('student_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('quiz_id')->nullable()->constrained()->onDelete('cascade');
             $table->integer('correct_answer')->nullable()->default(0);
             $table->integer('questions_count')->nullable();
+            $table->integer('grade')->nullable();
             $table->timestamps();
         });
     }

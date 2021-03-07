@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Quiz;
-use App\Models\Assignment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Result;
+use App\Models\Schoolclass;
 use Illuminate\Support\Facades\Gate;
 
-class AdminTaskController extends Controller
+class GradeController extends Controller
 {
     /**
      * Handle the incoming request.
@@ -23,10 +21,7 @@ class AdminTaskController extends Controller
         if (Gate::denies('manage-users')) {
             abort(403);
         }
-
-        $assignment = Assignment::where('schoolclass_id', $id)->latest()->paginate(5);
-        $quiz = Quiz::where('schoolclass_id', $id)->latest()->paginate(5);
-        // dd($datas[0]->accumulations->where('point', '===', null));
-        return view('admin.tasks.index', compact('assignment', 'quiz'));
+        $class = Schoolclass::findOrFail($id);
+        return view('admin.tasks.quiz-grade', compact('class'));
     }
 }

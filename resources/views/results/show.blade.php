@@ -34,7 +34,7 @@
             </tr>
             <tr class="rounded-lg text-sm font-medium text-gray-700 text-left border bg-white" style="font-size: 0.9674rem">
               <th class="px-4 py-2 border-r">Score</th>
-              <td class="px-4 py-4">{{round(($result->correct_answer / $result->questions_count) * 100)}} / {{ $result->quiz->point }}</td>
+              <td class="px-4 py-4">{{ $result->grade }} / {{ $result->quiz->point }}</td>
             </tr>
         </table>
         <table class="table-auto border-collapse w-full mt-5">
