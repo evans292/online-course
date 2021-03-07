@@ -116,7 +116,8 @@ class StudyController extends Controller
         ->first();
 
         if ($count !== null) {
-            $count->increment('downloads');
+            $count->downloads += 1;
+            $count->save();
         } else {
             $count = Downloadsubjectcount::create([
                 'student_id' => Auth::user()->students[0]->id,
